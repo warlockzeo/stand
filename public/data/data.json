@@ -1,0 +1,56 @@
+[
+    {
+        "id": "1",
+        "fotos": ["01.jpg"],
+        "marca": "wolksvagen",
+        "modelo": "gol",
+        "ano": "98",
+        "kms": "2022",
+        "preco": "1000"
+    },
+    {
+        "id": "2",
+        "fotos": ["02.jpg"],
+        "marca": "wolksvagen",
+        "modelo": "gol",
+        "ano": "98",
+        "kms": "2022",
+        "preco": "1000"
+    },
+    {
+        "id": "3",
+        "fotos": ["01.jpg"],
+        "marca": "wolksvagen",
+        "modelo": "gol",
+        "ano": "98",
+        "kms": "2022",
+        "preco": "1000"
+    },
+    {
+        "id": "4",
+        "fotos": ["03.jpg"],
+        "marca": "wolksvagen",
+        "modelo": "gol",
+        "ano": "98",
+        "kms": "2022",
+        "preco": "1000"
+    },
+    {
+        "id": "5",
+        "fotos": ["01.jpg"],
+        "marca": "wolksvagen",
+        "modelo": "gol",
+        "ano": "98",
+        "kms": "2022",
+        "preco": "1000"
+    },
+    {
+        "id": "6",
+        "fotos": ["01.jpg"],
+        "marca": "wolksvagen",
+        "modelo": "gol",
+        "ano": "98",
+        "kms": "2022",
+        "preco": "1000"
+    }
+]

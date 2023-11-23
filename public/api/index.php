@@ -25,7 +25,6 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-
 } else if ($_GET['tabela'] === 'upload') {
     include("ClassUpload.php");
 

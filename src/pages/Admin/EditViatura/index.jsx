@@ -14,6 +14,8 @@ import { addCar, updateCar } from '../../../features/cars/carsSlice';
 import Field from '../Field';
 import { Wrap } from './styles';
 
+const SERVER_URL = `${process.env.REACT_APP_URLBASEAPI ?? '/api'}`;
+
 const EditViatura = () => {
   const navigate = useNavigate();
 
@@ -155,10 +157,14 @@ const EditViatura = () => {
     },
   ];
 
-  const onSubmit = handleSubmit((car) => {
+  const onSubmit = handleSubmit(async (car) => {
     if (id) {
       dispatch(updateCar({ id: id, car: car }));
     } else {
+      const response = await fetch(`${SERVER_URL}/cars`, {
+        headers: { Accept: 'application/json' },
+      }).then((res) => res.json());
+
       dispatch(addCar({ ...car, fotos: [] }));
     }
     navigate('/admin');
@@ -180,7 +186,7 @@ const EditViatura = () => {
   }, [cars, id]);
 
   return (
-    <Wrap>
+    <Wrap className='container'>
       <Tabs
         defaultActiveKey='dados'
         id='uncontrolled-tab-example'

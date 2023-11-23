@@ -61,7 +61,16 @@ const Admin = () => {
           </table>
         </>
       ) : (
-        <h1>Nenhuma viatura registrada.</h1>
+        <>
+          <h1>Nenhuma viatura registrada.</h1>
+
+          <Link to={`/admin/viaturas/new`}>
+            <button className='btn btn-primary'>
+              Registrar sua primeira viatura{' '}
+              <FontAwesomeIcon icon='fa-solid fa-plus' />
+            </button>
+          </Link>
+        </>
       )}
     </Wrap>
   );

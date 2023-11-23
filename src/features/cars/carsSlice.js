@@ -3,12 +3,17 @@ import * as apiClient from '../../utils/apiClient';
 
 export const initialState = {
   isLoading: false,
+  car: {},
   cars: [],
   error: null,
 };
 
 export const getAllCars = createAsyncThunk('api/getAllCars', async () => {
   return await apiClient.getAllCars();
+});
+
+export const getCar = createAsyncThunk('api/getCar', async () => {
+  return await apiClient.getCar();
 });
 
 export const carsSlice = createSlice({
@@ -50,6 +55,17 @@ export const carsSlice = createSlice({
         state.cars = payload;
       })
       .addCase(getAllCars.rejected, (state, { error }) => {
+        state.isLoading = true;
+        state.error = error.message;
+      })
+      .addCase(getCar.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCar.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.car = payload;
+      })
+      .addCase(getCar.rejected, (state, { error }) => {
         state.isLoading = true;
         state.error = error.message;
       });

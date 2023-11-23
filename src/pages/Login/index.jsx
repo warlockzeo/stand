@@ -19,20 +19,22 @@ const Wrap = Styled.div`
 
 const schema = Yup.object().shape({
   login: Yup.string().required('Precisa informar um login'),
-  senha: Yup.string().required('Precisa informar uma Senha'),
+  password: Yup.string().required('Precisa informar uma password'),
 });
 
 const Login = () => {
   const [loginErrorMessage, setLoginErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit = async ({ login, senha }) => {
+  const onSubmit = async ({ login, password }) => {
     setIsLoading(true);
-    await submitLogin({ login, senha }).then((resp) => {
+    await submitLogin({ login, password }).then((resp) => {
       setLoginErrorMessage(resp);
 
-      if (resp.message) {
+      if (resp?.error) {
         setIsLoading(false);
+      } else {
+        window.location.href = '/login';
       }
     });
   };
@@ -46,7 +48,9 @@ const Login = () => {
       <Logo size='big' />
       {isLoading ? (
         <Loader />
-      ) : !isLogged ? (
+      ) : isLogged ? (
+        <Navigate to='/admin' />
+      ) : (
         <Form onSubmit={onSubmit} schema={schema}>
           <Row>
             <Col md={6}>
@@ -65,9 +69,9 @@ const Login = () => {
               <Input
                 className='form-control'
                 type='password'
-                name='senha'
-                id='senha'
-                placeholder='Senha'
+                name='password'
+                id='password'
+                placeholder='password'
                 onChange={onChangeField}
                 onFocus={onChangeField}
               />
@@ -82,11 +86,10 @@ const Login = () => {
             Login
           </Button>
         </Form>
-      ) : (
-        <Navigate to={{ pathname: '/admin' }} />
       )}
-      {loginErrorMessage.message && (
-        <Alert variant='danger'>{loginErrorMessage.message}</Alert>
+
+      {loginErrorMessage?.error && (
+        <Alert variant='danger'>{loginErrorMessage?.error}</Alert>
       )}
     </Wrap>
   );

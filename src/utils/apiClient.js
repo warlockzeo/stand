@@ -1,21 +1,17 @@
-export const getAllCars = async () => {
-  //const response = await fetch('api/cars');
+const SERVER_URL = `${process.env.REACT_APP_URLBASEAPI ?? '/api'}`;
 
-  const response = await fetch('/data/data.json', {
+export const getAllCars = async () => {
+  const response = await fetch(`${SERVER_URL}/cars`, {
     headers: { Accept: 'application/json' },
   }).then((res) => res.json());
 
   return response;
 };
 
-export const getOneCar = async (id) => {
-  //const response = await fetch('api/cars');
-
-  const response = await fetch('/data/data.json', {
+export const getCar = async (id) => {
+  const response = await fetch(`${SERVER_URL}/cars/${id}`, {
     headers: { Accept: 'application/json' },
-  })
-    .then((res) => res.json())
-    .then((res) => res.filter((carro) => carro.id === id)[0]);
+  }).then((res) => res.json());
 
   return response;
 };

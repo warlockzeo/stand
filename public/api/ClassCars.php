@@ -3,9 +3,13 @@ include("ClassConexao.php");
 
 class ClassCars extends ClassConexao
 {
-    public function listCars()
+    public function get($id = null)
     {
-        $BFetch = $this->conectDB()->prepare("SELECT * FROM cars");
+        if ($id) {
+            $BFetch = $this->conectDB()->prepare("SELECT * FROM cars WHERE id = $id");
+        } else {
+            $BFetch = $this->conectDB()->prepare("SELECT * FROM cars");
+        }
         $BFetch->execute();
 
         $Fetch = $BFetch->fetch(PDO::FETCH_ASSOC);
@@ -13,39 +17,14 @@ class ClassCars extends ClassConexao
         header("Access-Control-Allow-Origin:*");
         header("Content-type: application/json");
 
-        echo json_encode($Fetch ? $Fetch : []);
-    }
-
-    public function showCar($id)
-    {
-        $BFetch = $this->conectDB()->prepare("SELECT * FROM cars WHERE id = $id");
-        $BFetch->execute();
-
-        $j = [];
-        $i = 0;
-
-        while ($Fetch = $BFetch->fetch(PDO::FETCH_ASSOC)) {
-            $j[$i] = [
-                "id" => $Fetch['id'],
-                "nome" => $Fetch['nome'],
-                "endereco" => $Fetch['endereco'],
-                "fone" => $Fetch['fone'],
-                "cpf" => $Fetch['cpf'],
-                "rg" => $Fetch['rg'],
-                "saldo" => $Fetch['saldo'],
-                "dataSaldo" => $Fetch['dataSaldo'],
-                "complemento" => $Fetch['complemento']
-            ];
-            $i++;
+        if ($id) {
+            echo json_encode($Fetch ? $Fetch : "");
+        } else {
+            echo json_encode($Fetch ? $Fetch : []);
         }
-
-        header("Access-Control-Allow-Origin:*");
-        header("Content-type: application/json");
-
-        echo json_encode($j);
     }
 
-    public function deleteCar($id)
+    public function delete($id)
     {
         $BFetch = $this->conectDB()->prepare("DELETE FROM cars WHERE id = $id");
         $BFetch->execute();
@@ -56,7 +35,7 @@ class ClassCars extends ClassConexao
         echo '{"resp":"ok"}';
     }
 
-    public function addCar()
+    public function post()
     {
         $json = file_get_contents('php://input');
         $obj = json_decode($json, TRUE);
@@ -79,7 +58,7 @@ class ClassCars extends ClassConexao
         echo '{"resp":"ok", "sql":"' . $sql . '"}';
     }
 
-    public function updateCar($id)
+    public function update($id)
     {
         $json = file_get_contents('php://input');
         $obj = json_decode($json, TRUE);
@@ -105,3 +84,5 @@ class ClassCars extends ClassConexao
         echo '{"resp":"ok", "sql":"' . $sql . '"}';
     }
 }
+
+

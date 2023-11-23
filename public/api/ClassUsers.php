@@ -3,8 +3,6 @@ include("ClassConexao.php");
 
 class ClassUsers extends ClassConexao
 {
-
-    #exibir Users com Json
     public function login()
     {
         header("Access-Control-Allow-Origin:*");

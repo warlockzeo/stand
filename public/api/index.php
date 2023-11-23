@@ -1,33 +1,40 @@
 <?php
-if ($_GET['tabela'] == 'cars') {
+$method = isset($_SERVER["REQUEST_METHOD"]) ? $_SERVER["REQUEST_METHOD"] : "";
+
+if ($_GET['tabela'] === 'cars') {
     include("ClassCars.php");
 
     $cars = new ClassCars();
 
-    if (isset($_GET['option'])) {
-        if ($_GET['option'] == 'add') {
-            $cars->addCar();
-        } elseif ($_GET['option'] == 'delete') {
-            $cars->deleteCar($_GET['id']);
-        } elseif ($_GET['option'] == 'update') {
-            $cars->updateCar($_GET['id']);
-        }
-    } else {
-        if (isset($_GET['id'])) {
-            $cars->showCar($_GET['id']);
-        } else {
-            $cars->listCars();
-        }
+    switch ($method) {
+        case "GET":
+            $cars->get(isset($_GET['id']) ? $_GET['id'] : "");
+            break;
+        case "POST":
+            $cars->post();
+            break;
+        case "PUT":
+            if (isset($_GET['id'])) {
+                $cars->update($_GET['id']);
+            }
+            break;
+        case 'DELETE':
+            if (isset($_GET['id'])) {
+                $cars->delete($_GET['id']);
+            }
+            break;
     }
-} else if ($_GET['tabela'] == 'upload') {
+
+
+} else if ($_GET['tabela'] === 'upload') {
     include("ClassUpload.php");
 
     $upload = new ClassUpload();
 
-    if ($_GET['option'] == 'uploadImage') {
+    if ($_GET['option'] === 'uploadImage') {
         $upload->uploadImage();
     }
-} else if ($_GET['tabela'] == 'users') {
+} else if ($_GET['tabela'] === 'users') {
     include("ClassUsers.php");
 
     $users = new ClassUsers();

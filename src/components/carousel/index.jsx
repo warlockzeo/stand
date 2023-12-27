@@ -8,20 +8,23 @@ const Banner = ({ data }) => {
     <BannerCarousel>
       {Array.isArray(data) ? (
         <Carousel fade>
-          {data?.map((carro, index) => (
-            <Carousel.Item key={index}>
-              <div
-                className='carousel-foto'
-                style={{
-                  backgroundImage: `url(${carro.fotos[0]})`,
-                }}
-              ></div>
+          {data?.map((carro, index) => {
+            if (Array.isArray(carro.fotos))
+              return (
+                <Carousel.Item key={index}>
+                  <div
+                    className='carousel-foto'
+                    style={{
+                      backgroundImage: `url(${carro.fotos[0]})`,
+                    }}
+                  ></div>
 
-              <Carousel.Caption>
-                <h3>{carro.marca}</h3>
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))}
+                  <Carousel.Caption>
+                    <h3>{carro.marca}</h3>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              );
+          })}
         </Carousel>
       ) : (
         <Carousel fade>

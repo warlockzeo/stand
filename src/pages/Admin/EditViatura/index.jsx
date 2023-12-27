@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import { useNavigate } from 'react-router-dom';
 
 import { Uploader } from 'uploader'; // Installed by "react-uploader".
 import { UploadButton } from 'react-uploader';
 
-import { useDispatch, useSelector } from 'react-redux';
 import { addCar, updateCar } from '../../../features/cars/carsSlice';
 
 import Field from '../Field';
@@ -34,7 +33,7 @@ const EditViatura = () => {
   const [fotos, setFotos] = useState(car?.fotos);
 
   const [selectedImage, setSelectedImage] = useState([]);
-  console.log(selectedImage);
+  //console.log(selectedImage);
 
   const {
     register,
@@ -159,15 +158,17 @@ const EditViatura = () => {
 
   const onSubmit = handleSubmit(async (car) => {
     if (id) {
-      dispatch(updateCar({ id: id, car: car }));
+      dispatch(updateCar({ id: id, car: car })).then(() => navigate('/admin'));
     } else {
-      const response = await fetch(`${SERVER_URL}/cars`, {
+      await fetch(`${SERVER_URL}/cars`, {
         headers: { Accept: 'application/json' },
-      }).then((res) => res.json());
-
-      dispatch(addCar({ ...car, fotos: [] }));
+      })
+        .then(() => {
+          dispatch(addCar({ ...car, fotos: [] }));
+          navigate('/admin');
+        })
+        .catch();
     }
-    navigate('/admin');
   });
 
   const onSubmitFotos = (fotos) => {
@@ -183,7 +184,7 @@ const EditViatura = () => {
     if (cars) {
       setCar(cars.filter((car) => car.id === id)[0]);
     }
-  }, [cars, id]);
+  }, [cars, id, dispatch]);
 
   return (
     <Wrap className='container'>

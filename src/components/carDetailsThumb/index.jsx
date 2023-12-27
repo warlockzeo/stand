@@ -12,7 +12,7 @@ const CarDetailsThumb = ({ car }) => {
       <div
         className='foto'
         style={{
-          backgroundImage: `url(${fotos[0]})`,
+          backgroundImage: `url(${fotos?.[0]})`,
         }}
       ></div>
       <span>Marca: {marca}</span>

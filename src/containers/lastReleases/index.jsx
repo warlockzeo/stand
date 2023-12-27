@@ -9,7 +9,7 @@ const LastReleases = ({ data }) => {
       {data &&
         Array.isArray(data) &&
         data.map((car) => <CarDetailsThumb key={car.id} car={car} />)}
-      <div>PAGINAÇÃO</div>
+      <div className='paginacao'>PAGINAÇÃO</div>
     </LastReleasesStyles>
   );
 };

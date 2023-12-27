@@ -7,4 +7,9 @@ export const LastReleasesStyles = styled.div`
   width: 100%;
   flex-wrap: wrap;
   justify-content: space-evenly;
+
+  .paginacao {
+    width: 100%;
+    text-align: center;
+  }
 `;

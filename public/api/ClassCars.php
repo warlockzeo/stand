@@ -1,4 +1,9 @@
 <?php
+header("Access-Control-Allow-Origin:*");
+header("Content-type: application/json");
+header("Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS");
+
+
 include("ClassConexao.php");
 
 class ClassCars extends ClassConexao
@@ -18,9 +23,9 @@ class ClassCars extends ClassConexao
         header("Content-type: application/json");
 
         if ($id) {
-            echo json_encode($Fetch ? $Fetch : "");
+            echo json_encode($Fetch ?? "");
         } else {
-            echo json_encode($Fetch ? $Fetch : []);
+            echo json_encode($Fetch ?? []);
         }
     }
 

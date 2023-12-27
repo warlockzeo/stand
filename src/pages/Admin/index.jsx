@@ -5,42 +5,44 @@ import { Wrap } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getAllCars, removeCar } from '../../features/cars/carsSlice';
 import noImage from '../../features/no-image.png';
+import { Loader } from '../../components';
 
 const Admin = () => {
   const dispatch = useDispatch();
-  const carsState = useSelector((state) => state.cars);
-  const cars = carsState?.cars || [];
+  const { cars, isLoading } = useSelector((state) => state.cars);
+  //  const cars = carsState?.cars || [];
 
-  const handleDelete = (id) => dispatch(removeCar({ id }));
+  const handleDelete = (id) =>
+    dispatch(removeCar({ id })).then(() => dispatch(getAllCars()));
 
   useEffect(() => {
-    if (cars.length === 0) {
-      dispatch(getAllCars());
-    }
-  }, [cars.length, dispatch]);
+    dispatch(getAllCars());
+  }, [dispatch]);
 
   return (
-    <Wrap className='container'>
-      {cars && cars.length ? (
-        <>
-          <table>
-            <thead>
-              <tr>
-                <th colSpan={5}>
-                  <h1>Minhas viaturas</h1>
-                </th>
-                <th>
-                  <Link to={`/admin/viaturas/new`}>
-                    <FontAwesomeIcon icon='fa-solid fa-plus' />
-                  </Link>
-                </th>
-              </tr>
-            </thead>
+    <Wrap className='container' isLoading={isLoading}>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th colSpan={5}>
+                <h1>Minhas viaturas</h1>
+              </th>
+              <th>
+                <Link to={`/admin/viaturas/new`}>
+                  <FontAwesomeIcon icon='fa-solid fa-plus' />
+                </Link>
+              </th>
+            </tr>
+          </thead>
+          {cars?.length ? (
             <tbody>
               {cars?.map((carro) => (
                 <tr key={carro.id}>
                   <td>
-                    <img src={carro.fotos[0] ?? noImage} alt='' />
+                    <img src={carro?.fotos?.[0] ?? noImage} alt='' />
                   </td>
                   <td>{carro.marca}</td>
                   <td>{carro.modelo}</td>
@@ -58,19 +60,22 @@ const Admin = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
-        </>
-      ) : (
-        <>
-          <h1>Nenhuma viatura registrada.</h1>
-
-          <Link to={`/admin/viaturas/new`}>
-            <button className='btn btn-primary'>
-              Registrar sua primeira viatura{' '}
-              <FontAwesomeIcon icon='fa-solid fa-plus' />
-            </button>
-          </Link>
-        </>
+          ) : (
+            <tbody>
+              <tr>
+                <td colSpan={5}>
+                  <h1>Nenhuma viatura registrada.</h1>
+                  <Link to={`/admin/viaturas/new`}>
+                    <button className='btn btn-primary'>
+                      Registrar sua primeira viatura{' '}
+                      <FontAwesomeIcon icon='fa-solid fa-plus' />
+                    </button>
+                  </Link>
+                </td>
+              </tr>
+            </tbody>
+          )}
+        </table>
       )}
     </Wrap>
   );

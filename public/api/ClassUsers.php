@@ -1,5 +1,7 @@
 <?php
-include("ClassConexao.php");
+header("Access-Control-Allow-Origin:*");
+header("Content-type: application/json");
+header("Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS");
 
 class ClassUsers extends ClassConexao
 {
@@ -10,7 +12,7 @@ class ClassUsers extends ClassConexao
 
         $json = file_get_contents('php://input');
         $obj = json_decode($json, true);
-        $login = isset($obj['login']) ? $obj['login'] : "";
+        $login = isset($obj['login']) ?? "";
 
         if ($login) {
             $password = $obj['password'];

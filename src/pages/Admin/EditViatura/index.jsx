@@ -158,16 +158,13 @@ const EditViatura = () => {
 
   const onSubmit = handleSubmit(async (car) => {
     if (id) {
-      dispatch(updateCar({ id: id, car: car })).then(() => navigate('/admin'));
+      dispatch(updateCar({ id: id, car: car }))
+        .then(() => navigate('/admin'))
+        .catch((error) => console.error(error));
     } else {
-      await fetch(`${SERVER_URL}/cars`, {
-        headers: { Accept: 'application/json' },
-      })
-        .then(() => {
-          dispatch(addCar({ ...car, fotos: [] }));
-          navigate('/admin');
-        })
-        .catch();
+      dispatch(addCar({ ...car, fotos: [] }))
+        .then(() => navigate('/admin'))
+        .catch((error) => console.error(error));
     }
   });
 

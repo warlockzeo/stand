@@ -10,10 +10,8 @@ import { Loader } from '../../components';
 const Admin = () => {
   const dispatch = useDispatch();
   const { cars, isLoading } = useSelector((state) => state.cars);
-  //  const cars = carsState?.cars || [];
 
-  const handleDelete = (id) =>
-    dispatch(removeCar({ id })).then(() => dispatch(getAllCars()));
+  const handleDelete = (id) => dispatch(removeCar({ id }));
 
   useEffect(() => {
     dispatch(getAllCars());
@@ -37,31 +35,30 @@ const Admin = () => {
               </th>
             </tr>
           </thead>
-          {cars?.length ? (
-            <tbody>
-              {cars?.map((carro) => (
-                <tr key={carro.id}>
+          <tbody>
+            {cars?.length ? (
+              cars?.map((car) => (
+                <tr key={car.id}>
                   <td>
-                    <img src={carro?.fotos?.[0] ?? noImage} alt='' />
+                    {car.id}
+                    <img src={car?.fotos?.[0] ?? noImage} alt='' />
                   </td>
-                  <td>{carro.marca}</td>
-                  <td>{carro.modelo}</td>
-                  <td>{carro.ano}</td>
-                  <td>{carro.kms}</td>
+                  <td>{car.marca}</td>
+                  <td>{car.modelo}</td>
+                  <td>{car.ano}</td>
+                  <td>{car.kms}</td>
                   <td>
-                    <Link to={`/admin/viaturas/${carro.id}`}>
+                    <Link to={`/admin/viaturas/${car.id}`}>
                       <FontAwesomeIcon icon='fa-solid fa-gear' />
                     </Link>
                     <FontAwesomeIcon
                       icon='fa-solid fa-trash'
-                      onClick={() => handleDelete(carro.id)}
+                      onClick={() => handleDelete(car.id)}
                     />
                   </td>
                 </tr>
-              ))}
-            </tbody>
-          ) : (
-            <tbody>
+              ))
+            ) : (
               <tr>
                 <td colSpan={5}>
                   <h1>Nenhuma viatura registrada.</h1>
@@ -73,8 +70,8 @@ const Admin = () => {
                   </Link>
                 </td>
               </tr>
-            </tbody>
-          )}
+            )}
+          </tbody>
         </table>
       )}
     </Wrap>

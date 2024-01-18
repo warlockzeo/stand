@@ -11,5 +11,17 @@ export const LastReleasesStyles = styled.div`
   .paginacao {
     width: 100%;
     text-align: center;
+
+    .btn,
+    .btn-actual {
+      border: none;
+      background-color: transparent;
+      color: blue;
+    }
+
+    .btn-actual {
+      color: red;
+      font-weight: bold;
+    }
   }
 `;

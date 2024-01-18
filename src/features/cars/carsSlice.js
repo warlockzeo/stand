@@ -17,17 +17,17 @@ export const getAllCars = createAsyncThunk(
   }
 );
 
-export const getCar = createAsyncThunk(
-  `${SERVER_URL}/getCar`,
-  async (payload) => {
-    return await apiClient.getCar(payload);
-  }
-);
-
 export const addCar = createAsyncThunk(
   `${SERVER_URL}/addCar`,
   async (payload) => {
     return await apiClient.addCar(payload);
+  }
+);
+
+export const updateCar = createAsyncThunk(
+  `${SERVER_URL}/updateCar`,
+  async (payload) => {
+    return await apiClient.updateCar(payload);
   }
 );
 
@@ -43,13 +43,11 @@ export const carsSlice = createSlice({
   name: 'cars',
   initialState,
   reducers: {
-    updateCar: (state, { payload }) => {
-      const { id, car: newCar } = payload;
+    getCar: (state, { payload }) => {
+      const { id } = payload;
       return {
         ...state,
-        cars: [
-          ...state.cars.map((car) => (car.id === id ? { ...newCar } : car)),
-        ],
+        car: { ...state.cars.filter((xcar) => xcar.id === id) },
       };
     },
   },
@@ -66,31 +64,49 @@ export const carsSlice = createSlice({
         state.isLoading = true;
         state.error = error.message;
       })
-      .addCase(getCar.pending, (state) => {
+      .addCase(addCar.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getCar.fulfilled, (state, { payload }) => {
+      .addCase(addCar.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.car = payload;
+        state.cars = [...state.cars, payload];
       })
-      .addCase(getCar.rejected, (state, { error }) => {
+      .addCase(addCar.rejected, (state, { error }) => {
+        state.isLoading = true;
+        state.error = error.message;
+      })
+      .addCase(updateCar.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCar.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.cars = [
+          ...state.cars.map((car) => {
+            return car.id === payload.id ? payload : car;
+          }),
+          payload,
+        ];
+      })
+      .addCase(updateCar.rejected, (state, { error }) => {
+        state.isLoading = true;
+        state.error = error.message;
+      })
+      .addCase(removeCar.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeCar.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.cars = state.cars.filter(
+          (carro) => carro.id !== String(payload.id)
+        );
+      })
+      .addCase(removeCar.rejected, (state, { error }) => {
         state.isLoading = true;
         state.error = error.message;
       });
-    // .addCase(removeCar.pending, (state) => {
-    //   state.isLoading = true;
-    // })
-    // .addCase(removeCar.fulfilled, (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.cars = state.cars.filter((carro) => carro.id !== payload.id);
-    // })
-    // .addCase(removeCar.rejected, (state, { error }) => {
-    //   state.isLoading = true;
-    //   state.error = error.message;
-    // });
   },
 });
 
-export const { updateCar } = carsSlice.actions;
+export const { getCar } = carsSlice.actions;
 
 export default carsSlice.reducer;

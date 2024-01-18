@@ -10,14 +10,6 @@ export const getAllCars = async () => {
   return response;
 };
 
-export const getCar = async (id) => {
-  const response = await fetch(`${SERVER_URL}/cars/${id}`, {
-    headers: { Accept: 'application/json' },
-  }).then((res) => res.json());
-
-  return response;
-};
-
 export const addCar = async (data) => {
   return await axios({
     method: 'post',
@@ -40,6 +32,21 @@ export const removeCar = async (id) => {
     url: `${SERVER_URL}/cars/${id}`,
     data: JSON.stringify({
       body: '',
+    }),
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const updateCar = async (data) => {
+  return await axios({
+    method: 'patch',
+    responseType: 'json',
+    url: `${SERVER_URL}/cars/${data.id}`,
+    data: JSON.stringify({
+      body: data.car,
     }),
   })
     .then((response) => response)

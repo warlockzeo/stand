@@ -2,13 +2,25 @@ import React, { useState } from 'react';
 import { SearchBarStyled } from './styles';
 import { useFormatCurrency } from '../../hooks/useFormatCurrency';
 
-const SearchBar = ({ onChange }) => {
+const SearchBar = ({ list, onChange }) => {
   const [price, setPrice] = useState(0);
+
+  const marcas = list
+    .map((car) => car.marca)
+    .filter(function (elem, pos, self) {
+      return self.indexOf(elem) === pos;
+    });
+
+  const modelos = list
+    .map((car) => car.modelo)
+    .filter(function (elem, pos, self) {
+      return self.indexOf(elem) === pos;
+    });
 
   const onDropRange = (e) => {
     const val = e.currentTarget.value;
     setPrice(val);
-    onChange({ price: val });
+    onChange('preco', val);
   };
 
   return (
@@ -18,15 +30,29 @@ const SearchBar = ({ onChange }) => {
         className='form-control'
         name='brand'
         id='brand'
-        onChange={(e) => onChange({ brand: e.curre.value })}
-      ></select>
+        onChange={(e) => onChange('marca', e.currentTarget.value)}
+      >
+        <option value=''>Todos</option>
+        {marcas.map((marca) => (
+          <option key={marca} value={marca}>
+            {marca}
+          </option>
+        ))}
+      </select>
       Modelo:
       <select
         className='form-control'
         name='model'
         id='model'
-        onChange={(e) => onChange({ model: e.curre.value })}
-      ></select>
+        onChange={(e) => onChange('modelo', e.currentTarget.value)}
+      >
+        <option value=''>Todos</option>
+        {modelos.map((modelo) => (
+          <option key={modelo} value={modelo}>
+            {modelo}
+          </option>
+        ))}
+      </select>
       Preço:
       <input
         type='range'
@@ -34,7 +60,7 @@ const SearchBar = ({ onChange }) => {
         name='price'
         id='price'
         aria-describedby='helpId'
-        min='1000'
+        min='0'
         max='200000'
         step='500'
         onChange={onDropRange}

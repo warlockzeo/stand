@@ -1,7 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin:*");
-header("Content-type: application/json");
-header("Access-Control-Allow-Methods: POST, PUT, GET, DELETE, OPTIONS");
+include("ClassConexao.php");
 
 class ClassUsers extends ClassConexao
 {
@@ -12,12 +10,13 @@ class ClassUsers extends ClassConexao
 
         $json = file_get_contents('php://input');
         $obj = json_decode($json, true);
-        $login = isset($obj['login']) ?? "";
+        $login = isset($obj['login']) ? $obj['login'] : "";
 
         if ($login) {
             $password = $obj['password'];
 
-            $BFetch = $this->conectDB()->prepare("SELECT name FROM users WHERE login = '$login' AND password = '$password'");
+            $sql = "SELECT name FROM users WHERE login = '$login' AND password = '$password'";
+            $BFetch = $this->conectDB()->prepare($sql);
             $BFetch->execute();
             $num = $BFetch->rowCount();
 
@@ -26,7 +25,7 @@ class ClassUsers extends ClassConexao
                 echo json_encode($Fetch);
             } else {
                 http_response_code(401);
-                echo json_encode(["error" => "user or password do not match"]);
+                echo json_encode(["error" => "user or password do not match - SQL: $sql"]);
             }
         } else {
             echo json_encode(["error" => "need a login"]);

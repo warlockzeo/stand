@@ -10,13 +10,12 @@
 	# Mensagem de erro personalizada.
 	ErrorDocument 403 "Desculpe! Acesso nao permitido"
 
-	# RewriteRule ^api/?$ /api/index.php [NC]
-	RewriteRule ^api/users/?$ /api/ClassUsers.php [NC]
-	RewriteRule ^api/cars/?$ /api/ClassCars.php [NC]
+	RewriteRule ^api/login/?$ /api/index.php?tabela=users [NC]
+	RewriteRule ^api/cars/?$ api/index.php?tabela=cars [NC]
 	RewriteRule ^api/cars/([0-9-]+)?$ /api/index.php?tabela=cars&id=$1 [NC]
+	RewriteRule ^api/fotos/?$ /api/index.php?tabela=fotos [NC]
+	RewriteRule ^api/fotos/([0-9-]+)?$ /api/index.php?tabela=fotos&id=$1 [NC]
 	
-	# RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/?$ /index.html [NC]
-	# RewriteRule ^([a-z0-9-]+)/?$ /index.html [NC]
 	
 </IfModule>
 

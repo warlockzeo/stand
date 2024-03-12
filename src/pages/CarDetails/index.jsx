@@ -7,17 +7,21 @@ import { Footer, Banner } from '../../components';
 
 import { CarDetailsStyled, Container, Destaq } from './styles';
 import { getAllCars } from '../../features/cars/carsSlice';
+import { getAllFotos } from '../../features/fotos/fotosSlice';
 // import { useFormatCurrency } from '../../hooks/useFormatCurrency';
 
 const CarDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const carros = useSelector((state) => state.cars.cars);
+  const fotos = useSelector((state) => state.fotos.fotos);
+  console.log(fotos);
 
   const [carro, setCarro] = useState(null);
 
   useEffect(() => {
     dispatch(getAllCars());
+    dispatch(getAllFotos(id));
   }, [dispatch]);
 
   useEffect(() => {
@@ -30,7 +34,7 @@ const CarDetails = () => {
     <CarDetailsStyled>
       {carro ? (
         <>
-          <Banner data={carro} />
+          <Banner images={fotos} />
           <Destaq>
             <div>
               <h1>

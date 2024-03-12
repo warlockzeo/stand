@@ -9,11 +9,9 @@ class ClassCars extends ClassConexao
 {
     public function get($id = null)
     {
-        if ($id) {
-            $BFetch = $this->conectDB()->prepare("SELECT * FROM cars WHERE id = $id");
-        } else {
-            $BFetch = $this->conectDB()->prepare("SELECT * FROM cars");
-        }
+        $BFetch = $id ? $this->conectDB()->prepare("SELECT fotos.fileName, cars.* FROM cars LEFT OUTER JOIN  fotos ON fotos.carId = cars.id AND fotos.banner=1 WHERE id = $id") :
+            $this->conectDB()->prepare("SELECT fotos.fileName, cars.* FROM cars LEFT OUTER JOIN  fotos ON fotos.carId = cars.id AND fotos.banner=1");
+
         $BFetch->execute();
 
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);

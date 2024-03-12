@@ -55,8 +55,8 @@ export const updateCar = async (data) => {
     });
 };
 
-export const getAllFotos = async () => {
-  const response = await fetch(`${SERVER_URL}/fotos`, {
+export const getAllFotos = async (data) => {
+  const response = await fetch(`${SERVER_URL}/fotos/${data}`, {
     headers: { Accept: 'application/json' },
   }).then((res) => res.json());
 

@@ -11,8 +11,9 @@ export const initialState = {
 
 export const getAllFotos = createAsyncThunk(
   `${SERVER_URL}/getAllFotos`,
-  async () => {
-    return await apiClient.getAllFotos();
+  async (payload) => {
+    console.log('aqui', payload);
+    return await apiClient.getAllFotos(payload);
   }
 );
 

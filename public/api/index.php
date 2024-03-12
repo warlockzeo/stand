@@ -29,20 +29,15 @@ if ($_GET['tabela'] === 'cars') {
     }
 
 } else if ($_GET['tabela'] === 'fotos') {
-    // include("ClassUpload.php");
-
-    // $upload = new ClassUpload();
-
-    // if ($_GET['option'] === 'uploadImage') {
-    //     $upload->uploadImage();
-    // }
-
     include("ClassFotos.php");
 
     $fotos = new ClassFotos();
+
     switch ($method) {
         case "GET":
-            $fotos->get();
+            if (isset($_GET['carId'])) {
+                $fotos->get($_GET['carId']);
+            }
             break;
         case "POST":
             $fotos->post();

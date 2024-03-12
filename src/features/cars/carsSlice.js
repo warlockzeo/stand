@@ -33,8 +33,7 @@ export const updateCar = createAsyncThunk(
 export const removeCar = createAsyncThunk(
   `${SERVER_URL}/removeCar`,
   async (payload) => {
-    const { id } = payload;
-    return await apiClient.removeCar(id);
+    return await apiClient.removeCar(payload.id);
   }
 );
 

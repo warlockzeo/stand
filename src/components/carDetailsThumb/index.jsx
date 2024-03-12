@@ -1,8 +1,8 @@
 import React from 'react';
-import { useFormatCurrency } from '../../hooks/useFormatCurrency';
-import { Wrap } from './styles';
 import { useNavigate } from 'react-router-dom';
+import { useFormatCurrency } from '../../hooks/useFormatCurrency';
 import { SERVER_URL } from '../../utils/constants';
+import { Wrap } from './styles';
 
 const CarDetailsThumb = ({ car }) => {
   const navigate = useNavigate();

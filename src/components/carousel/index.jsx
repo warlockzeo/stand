@@ -1,46 +1,30 @@
 import React from 'react';
-
 import Carousel from 'react-bootstrap/Carousel';
+
+import { SERVER_URL } from '../../utils/constants';
 import { BannerCarousel } from './styles';
 
-const Banner = ({ data }) => {
+const Banner = ({ images }) => {
   return (
     <BannerCarousel>
-      {Array.isArray(data) ? (
-        <Carousel fade>
-          {data?.map((carro, index) => {
-            if (Array.isArray(carro.fotos))
-              return (
-                <Carousel.Item key={index}>
-                  <div
-                    className='carousel-foto'
-                    style={{
-                      backgroundImage: `url(${carro.fotos[0]})`,
-                    }}
-                  ></div>
-
-                  <Carousel.Caption>
-                    <h3>{carro.marca}</h3>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              );
-          })}
-        </Carousel>
-      ) : (
-        <Carousel fade>
-          {data?.fotos?.map((foto, index) => (
+      <Carousel fade>
+        {images?.map((car, index) => {
+          return (
             <Carousel.Item key={index}>
-              {console.log(foto)}
               <div
                 className='carousel-foto'
                 style={{
-                  backgroundImage: `url("../${foto}")`,
+                  backgroundImage: `url("${SERVER_URL}/imagens/${car.fileName}")`,
                 }}
               ></div>
+
+              <Carousel.Caption>
+                <h3>{car.marca}</h3>
+              </Carousel.Caption>
             </Carousel.Item>
-          ))}
-        </Carousel>
-      )}
+          );
+        })}
+      </Carousel>
     </BannerCarousel>
   );
 };

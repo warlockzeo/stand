@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { Loader, Banner, SearchBar, About, Footer } from '../../components';
 import LastReleases from '../../containers/lastReleases';
+import { getAllCars } from '../../features/cars/carsSlice';
 
 import { HomeStyled } from './styles';
-
-import { getAllCars } from '../../features/cars/carsSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ const Home = () => {
 
   return (
     <HomeStyled>
-      <Banner data={cars} />
+      <Banner images={cars.filter((car) => car.fileName !== null)} />
       <SearchBar list={cars} onChange={handleChangeFilter} />
       {isLoading ? <Loader /> : <LastReleases data={carsFiltered} />}
       <About />

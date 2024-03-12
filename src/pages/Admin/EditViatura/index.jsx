@@ -9,11 +9,10 @@ import { Uploader } from 'uploader'; // Installed by "react-uploader".
 import { UploadButton } from 'react-uploader';
 
 import { addCar, updateCar } from '../../../features/cars/carsSlice';
+import { addFoto } from '../../../features/fotos/fotosSlice';
 
 import Field from '../Field';
 import { Wrap } from './styles';
-
-const SERVER_URL = `${process.env.REACT_APP_URLBASEAPI ?? '/api'}`;
 
 const EditViatura = () => {
   const navigate = useNavigate();
@@ -30,10 +29,7 @@ const EditViatura = () => {
   const cars = useSelector((state) => state.cars.cars);
 
   const [car, setCar] = useState(null);
-  const [fotos, setFotos] = useState(car?.fotos);
-
-  const [selectedImage, setSelectedImage] = useState([]);
-  //console.log(selectedImage);
+  const [fotos, setFotos] = useState(car?.fotos || []);
 
   const {
     register,
@@ -168,13 +164,17 @@ const EditViatura = () => {
     }
   });
 
-  const onSubmitFotos = (fotos) => {
+  const onSubmitFotos = () => {
     if (id) {
-      dispatch(updateCar({ id: id, fotos: fotos }));
+      dispatch(
+        addFoto({ id: id, fotos: fotos.map((file) => file.originalFile.file) })
+      )
+        // .then(() => navigate('/admin'))
+        .catch((error) => console.error(error));
     } else {
       dispatch(addCar(fotos));
+      // navigate('/admin');
     }
-    navigate('/admin');
   };
 
   useEffect(() => {
@@ -248,7 +248,9 @@ const EditViatura = () => {
               <UploadButton
                 uploader={uploader}
                 options={options}
-                onComplete={(files) => setSelectedImage(files)}
+                onComplete={(files) =>
+                  setFotos((prev) => [...prev, ...files.map((file) => file)])
+                }
               >
                 {({ onClick }) => (
                   <button onClick={onClick}>Selecione uma foto...</button>
@@ -259,8 +261,8 @@ const EditViatura = () => {
           <div className='form-group'>
             {fotos?.map((foto, i) => (
               <img
-                src={`/${foto}`}
-                className='foto col-sm-12 col-md-6'
+                src={foto.fileUrl}
+                className='foto col-sm-12 col-md-4 col-lg-3'
                 key={i}
                 alt={i}
               />
@@ -279,7 +281,7 @@ const EditViatura = () => {
               className='btn btn-success'
               onClick={onSubmitFotos}
             >
-              Guardar
+              Guardar Fotos
             </button>
           </div>
         </Tab>

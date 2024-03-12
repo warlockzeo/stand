@@ -1,5 +1,6 @@
 import axios from 'axios';
-const SERVER_URL = `${process.env.REACT_APP_URLBASEAPI ?? '/api'}`;
+
+import { SERVER_URL } from './constants';
 
 const login = async (data) => {
   const LOGIN_ENDPOINT = `${SERVER_URL}/login`;

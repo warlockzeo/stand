@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as apiClient from '../../utils/apiClient';
+import { SERVER_URL } from '../../utils/constants';
 
 export const initialState = {
   isLoading: false,
@@ -7,8 +8,6 @@ export const initialState = {
   cars: [],
   error: null,
 };
-
-const SERVER_URL = `${process.env.REACT_APP_URLBASEAPI ?? '/api'}`;
 
 export const getAllCars = createAsyncThunk(
   `${SERVER_URL}/getAllCars`,

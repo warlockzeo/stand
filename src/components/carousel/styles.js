@@ -10,7 +10,7 @@ export const BannerCarousel = styled.div`
   }
 
   .carousel-foto {
-    height: 50vh;
+    height: ${(props) => (props.expandeble ? '80vh' : '50vh')};
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

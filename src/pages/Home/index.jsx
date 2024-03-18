@@ -52,7 +52,10 @@ const Home = () => {
 
   return (
     <HomeStyled>
-      <Banner images={cars.filter((car) => car.fileName !== null)} />
+      <Banner
+        images={cars.filter((car) => car.fileName !== null)}
+        expandeble={true}
+      />
       <SearchBar list={cars} onChange={handleChangeFilter} />
       {isLoading ? <Loader /> : <LastReleases data={carsFiltered} />}
       <About />

@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
 import { SERVER_URL } from '../../utils/constants';
 import { BannerCarousel } from './styles';
 
-const Banner = ({ images }) => {
+const Banner = ({ images, expandeble = false }) => {
+  const [expand, setExpand] = useState(expandeble);
   return (
     <>
       {Array.isArray(images) ? (
-        <BannerCarousel>
+        <BannerCarousel expandeble={expand}>
           <Carousel fade>
             {images?.map((car, index) => {
               return (
-                <Carousel.Item key={index}>
+                <Carousel.Item key={index} onClick={() => setExpand(!expand)}>
                   <div
                     className='carousel-foto'
                     style={{

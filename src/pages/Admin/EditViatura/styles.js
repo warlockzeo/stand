@@ -73,4 +73,36 @@ export const Wrap = styled.div`
   .tab-content {
     width: 100%;
   }
+
+  .foto {
+    position: relative;
+    height: 200px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-position: center center;
+    background-size: cover;
+    border: #ccc 2px solid;
+  }
+
+  .delete-icon {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    margin: 0;
+    padding: 5px;
+    z-index: 999;
+    background-color: #fff;
+    border-radius: 45px;
+    color: red;
+
+    &:hover {
+      color: #ccc;
+    }
+  }
+
+  .selected {
+    border: red solid 2px;
+  }
 `;

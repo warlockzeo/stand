@@ -17,6 +17,11 @@
   width: 100%;
 }
 
-.text-right{
+.text-right {
   text-align: right;
 }
+
+.hand-pointer {
+  cursor: pointer;
+}
+

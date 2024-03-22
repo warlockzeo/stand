@@ -82,9 +82,18 @@ export const removeFoto = async (id) => {
     method: 'delete',
     responseType: 'json',
     url: `${SERVER_URL}/fotos/${id}`,
-    data: JSON.stringify({
-      body: '',
-    }),
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const selectFoto = async (id) => {
+  return await axios({
+    method: 'patch',
+    responseType: 'json',
+    url: `${SERVER_URL}/fotos/${id}`,
   })
     .then((response) => response.data)
     .catch((err) => {

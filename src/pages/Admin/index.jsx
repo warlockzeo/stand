@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Wrap } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getAllCars, removeCar } from '../../features/cars/carsSlice';
-import noImage from '../../features/no-image.png';
+import Image from '../../components/Image';
 import { Loader } from '../../components';
 
 const Admin = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cars, isLoading } = useSelector((state) => state.cars);
 
   const handleDelete = (id) => dispatch(removeCar({ id }));
 
+  const handleClick = (carId) => {
+    navigate(`/admin/viaturas/${carId}`);
+  };
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
@@ -39,18 +43,37 @@ const Admin = () => {
             {cars?.length ? (
               cars?.map((car) => (
                 <tr key={car.id}>
-                  <td>
-                    {car.id}
-                    <img src={car?.fotos?.[0] ?? noImage} alt='' />
+                  <td
+                    className='hand-pointer'
+                    onClick={() => handleClick(car.id)}
+                  >
+                    <Image src={car?.fileName} alt='' />
                   </td>
-                  <td>{car.marca}</td>
-                  <td>{car.modelo}</td>
-                  <td>{car.ano}</td>
-                  <td>{car.kms}</td>
-                  <td>
-                    <Link to={`/admin/viaturas/${car.id}`}>
-                      <FontAwesomeIcon icon='fa-solid fa-gear' />
-                    </Link>
+                  <td
+                    className='hand-pointer'
+                    onClick={() => handleClick(car.id)}
+                  >
+                    {car.marca}
+                  </td>
+                  <td
+                    className='hand-pointer'
+                    onClick={() => handleClick(car.id)}
+                  >
+                    {car.modelo}
+                  </td>
+                  <td
+                    className='hand-pointer'
+                    onClick={() => handleClick(car.id)}
+                  >
+                    {car.ano}
+                  </td>
+                  <td
+                    className='hand-pointer'
+                    onClick={() => handleClick(car.id)}
+                  >
+                    {car.kms}
+                  </td>
+                  <td className='hand-pointer'>
                     <FontAwesomeIcon
                       icon='fa-solid fa-trash'
                       onClick={() => handleDelete(car.id)}

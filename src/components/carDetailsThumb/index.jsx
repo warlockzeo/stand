@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormatCurrency } from '../../hooks/useFormatCurrency';
 import { SERVER_URL } from '../../utils/constants';
+import noImage from '../../features/no-image.png';
 import { Wrap } from './styles';
 
 const CarDetailsThumb = ({ car }) => {
@@ -13,7 +14,9 @@ const CarDetailsThumb = ({ car }) => {
       <div
         className='foto'
         style={{
-          backgroundImage: `url("${SERVER_URL}/imagens/${fileName ?? ''}")`,
+          backgroundImage: `url(${
+            fileName ? `${SERVER_URL}'/imagens/'${fileName}` : noImage
+          })`,
         }}
       ></div>
 

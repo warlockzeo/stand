@@ -9,14 +9,19 @@ import { Uploader } from 'uploader'; // Installed by "react-uploader".
 import { UploadButton } from 'react-uploader';
 
 import { addCar, updateCar } from '../../../features/cars/carsSlice';
-import { addFoto } from '../../../features/fotos/fotosSlice';
+import {
+  addFoto,
+  removeFoto,
+  getAllFotos,
+  selectFoto,
+} from '../../../features/fotos/fotosSlice';
 
 import Field from '../Field';
 import { Wrap } from './styles';
+import { SERVER_URL } from '../../../utils/constants';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EditViatura = () => {
-  const navigate = useNavigate();
-
   // Initialize once (at the start of your app).
   const uploader = Uploader({
     apiKey: 'free', // Get production API keys from Bytescale
@@ -25,11 +30,15 @@ const EditViatura = () => {
   const options = { multi: true };
 
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cars = useSelector((state) => state.cars.cars);
+  const carFotos = useSelector((state) => state.fotos.fotos);
 
   const [car, setCar] = useState(null);
-  const [fotos, setFotos] = useState(car?.fotos || []);
+  const [fotos, setFotos] = useState(carFotos || []);
+  const [newFotos, setNewFotos] = useState([]);
+  const [banner, setBanner] = useState(null);
 
   const {
     register,
@@ -167,14 +176,26 @@ const EditViatura = () => {
   const onSubmitFotos = () => {
     if (id) {
       dispatch(
-        addFoto({ id: id, fotos: fotos.map((file) => file.originalFile.file) })
+        addFoto({
+          id: id,
+          fotos: newFotos.map((file) => file.originalFile.file),
+        })
       )
-        // .then(() => navigate('/admin'))
+        .then(() => navigate('/admin'))
         .catch((error) => console.error(error));
     } else {
       dispatch(addCar(fotos));
-      // navigate('/admin');
+      navigate('/admin');
     }
+  };
+
+  const handleRemove = (id) => {
+    dispatch(removeFoto({ id }));
+  };
+
+  const handleSelectFoto = (id) => {
+    setBanner(id);
+    dispatch(selectFoto({ id }));
   };
 
   useEffect(() => {
@@ -182,6 +203,13 @@ const EditViatura = () => {
       setCar(cars.filter((car) => car.id === id)[0]);
     }
   }, [cars, id, dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllFotos(id)).then(({ payload }) => {
+      setFotos(payload);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrap className='container'>
@@ -243,13 +271,13 @@ const EditViatura = () => {
         </Tab>
 
         <Tab eventKey='profile' title='Fotos'>
-          <div className='form-group col-md-12'>
+          <div className='form-group'>
             <div className='form-input'>
               <UploadButton
                 uploader={uploader}
                 options={options}
                 onComplete={(files) =>
-                  setFotos((prev) => [...prev, ...files.map((file) => file)])
+                  setNewFotos((prev) => [...prev, ...files.map((file) => file)])
                 }
               >
                 {({ onClick }) => (
@@ -258,14 +286,39 @@ const EditViatura = () => {
               </UploadButton>
             </div>
           </div>
+          {newFotos.length ? (
+            <div className='form-group'>
+              {newFotos?.map((foto, i) => (
+                <img
+                  src={foto.fileUrl}
+                  className='foto col-sm-12 col-md-4 col-lg-3'
+                  key={i}
+                  alt={i}
+                />
+              ))}
+            </div>
+          ) : null}
           <div className='form-group'>
+            <p className='col-12'>
+              Selecione a foto a ser destacada no banner.
+            </p>
             {fotos?.map((foto, i) => (
-              <img
-                src={foto.fileUrl}
-                className='foto col-sm-12 col-md-4 col-lg-3'
+              <div
                 key={i}
-                alt={i}
-              />
+                className={`foto col-12 col-md-4 ${
+                  banner === foto.id || foto.banner === true ? 'selected' : ''
+                }`}
+                style={{
+                  backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
+                }}
+                onClick={() => handleSelectFoto(foto.id)}
+              >
+                <FontAwesomeIcon
+                  className='hand-pointer delete-icon'
+                  icon='fa-solid fa-trash'
+                  onClick={() => handleRemove(foto.id)}
+                />
+              </div>
             ))}
           </div>
           <div className='form-buttons gap-2'>

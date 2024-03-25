@@ -15,12 +15,9 @@ const Header = () => {
           </Link>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='me-auto'>
+            <Nav className='me-auto' style={{ flex: 1, justifyContent: 'end' }}>
               {isLogged ? (
                 <>
-                  <Link className='nav-link' to='/admin'>
-                    Admin Home
-                  </Link>
                   <Link className='nav-link' to='/admin/settings'>
                     Settings
                   </Link>
@@ -29,14 +26,9 @@ const Header = () => {
                   </Link>
                 </>
               ) : (
-                <>
-                  <Link className='nav-link' to='/'>
-                    Home
-                  </Link>
-                  <Link className='nav-link' to='/login'>
-                    Login
-                  </Link>
-                </>
+                <Link className='nav-link' to='/login'>
+                  Login
+                </Link>
               )}
             </Nav>
           </Navbar.Collapse>

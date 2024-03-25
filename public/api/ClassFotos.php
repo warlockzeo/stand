@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin:*");
 header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
-include("ClassConexao.php");
+include ("ClassConexao.php");
 
 function diverse_array($vector)
 {
@@ -15,9 +15,9 @@ function diverse_array($vector)
 
 class ClassFotos extends ClassConexao
 {
-    public function get($carId)
+    public function get($id)
     {
-        $BFetch = $this->conectDB()->prepare("SELECT * FROM fotos WHERE carId = $carId");
+        $BFetch = $this->conectDB()->prepare("SELECT * FROM fotos WHERE carId = $id");
         $BFetch->execute();
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($Fetch ?? []);
@@ -31,13 +31,23 @@ class ClassFotos extends ClassConexao
         }
     }
 
+    public function select($id)
+    {
+        $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 0");
+        $BFetch->execute();
+        $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 1 WHERE id = $id");
+        if ($BFetch->execute()) {
+            echo '{"id": ' . $id . '}';
+        }
+    }
+
     public function post()
     {
-        if (isset($_POST['id'])) {
+        if (isset ($_POST['id'])) {
             $carId = $_POST['id'];
             $upload = diverse_array($_FILES['fotos']);
 
-            if (isset($_FILES['fotos'])) {
+            if (isset ($_FILES['fotos'])) {
                 for ($i = 0; $i < count($upload); $i++) {
                     $ext = strtolower(substr($upload[$i]['name'], -4)); //Pegando extensão do arquivo
                     $newName = date("Y.m.d-H.i.s") . $i . $ext; //Definindo um novo nome para o arquivo

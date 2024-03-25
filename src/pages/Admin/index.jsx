@@ -26,76 +26,82 @@ const Admin = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <table>
-          <thead>
-            <tr>
-              <th colSpan={5}>
-                <h1>Minhas viaturas</h1>
-              </th>
-              <th>
-                <Link to={`/admin/viaturas/new`}>
-                  <FontAwesomeIcon icon='fa-solid fa-plus' />
-                </Link>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {cars?.length ? (
-              cars?.map((car) => (
-                <tr key={car.id}>
-                  <td
-                    className='hand-pointer'
-                    onClick={() => handleClick(car.id)}
-                  >
-                    <Image src={car?.fileName} alt='' />
-                  </td>
-                  <td
-                    className='hand-pointer'
-                    onClick={() => handleClick(car.id)}
-                  >
-                    {car.marca}
-                  </td>
-                  <td
-                    className='hand-pointer'
-                    onClick={() => handleClick(car.id)}
-                  >
-                    {car.modelo}
-                  </td>
-                  <td
-                    className='hand-pointer'
-                    onClick={() => handleClick(car.id)}
-                  >
-                    {car.ano}
-                  </td>
-                  <td
-                    className='hand-pointer'
-                    onClick={() => handleClick(car.id)}
-                  >
-                    {car.kms}
-                  </td>
-                  <td className='hand-pointer'>
-                    <FontAwesomeIcon
-                      icon='fa-solid fa-trash'
-                      onClick={() => handleDelete(car.id)}
-                    />
+        <>
+          <h1>Minhas viaturas</h1>
+
+          <button
+            type='button'
+            className='btn btn-success'
+            style={{ position: 'absolute', top: 0, right: 0 }}
+            onClick={() => navigate(`/admin/viaturas/new`)}
+          >
+            <FontAwesomeIcon icon='fa-solid fa-plus' /> Adicionar nova viatura
+          </button>
+
+          <table>
+            <tbody>
+              {cars?.length ? (
+                cars?.map((car) => (
+                  <tr key={car.id}>
+                    <td
+                      className='hand-pointer text-center'
+                      onClick={() => handleClick(car.id)}
+                    >
+                      <Image
+                        src={car?.fileName}
+                        alt=''
+                        style={{ with: '50px', height: '50px' }}
+                      />
+                    </td>
+                    <td
+                      className='hand-pointer'
+                      onClick={() => handleClick(car.id)}
+                    >
+                      {car.marca}
+                    </td>
+                    <td
+                      className='hand-pointer'
+                      onClick={() => handleClick(car.id)}
+                    >
+                      {car.modelo}
+                    </td>
+                    <td
+                      className='hand-pointer'
+                      onClick={() => handleClick(car.id)}
+                    >
+                      {car.ano}
+                    </td>
+                    <td
+                      className='hand-pointer'
+                      onClick={() => handleClick(car.id)}
+                    >
+                      {car.kms}
+                    </td>
+                    <td>
+                      <FontAwesomeIcon
+                        icon='fa-solid fa-trash'
+                        onClick={() => handleDelete(car.id)}
+                        className='delete-icon hand-pointer'
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={5}>
+                    <h1>Nenhuma viatura registrada.</h1>
+                    <Link to={`/admin/viaturas/new`}>
+                      <button className='btn btn-primary'>
+                        Registrar sua primeira viatura{' '}
+                        <FontAwesomeIcon icon='fa-solid fa-plus' />
+                      </button>
+                    </Link>
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan={5}>
-                  <h1>Nenhuma viatura registrada.</h1>
-                  <Link to={`/admin/viaturas/new`}>
-                    <button className='btn btn-primary'>
-                      Registrar sua primeira viatura{' '}
-                      <FontAwesomeIcon icon='fa-solid fa-plus' />
-                    </button>
-                  </Link>
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </>
       )}
     </Wrap>
   );

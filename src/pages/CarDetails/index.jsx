@@ -15,7 +15,6 @@ const CarDetails = () => {
   const dispatch = useDispatch();
   const carros = useSelector((state) => state.cars.cars);
   const fotos = useSelector((state) => state.fotos.fotos);
-  console.log(fotos);
 
   const [carro, setCarro] = useState(null);
 

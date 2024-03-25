@@ -14,7 +14,7 @@
 	RewriteRule ^api/cars/?$ api/index.php?tabela=cars [NC]
 	RewriteRule ^api/cars/([0-9-]+)?$ /api/index.php?tabela=cars&id=$1 [NC]
 	RewriteRule ^api/fotos/?$ /api/index.php?tabela=fotos [NC]
-	RewriteRule ^api/fotos/([0-9-]+)?$ /api/index.php?tabela=fotos&carId=$1 [NC]
+	RewriteRule ^api/fotos/([0-9-]+)?$ /api/index.php?tabela=fotos&id=$1 [NC]
 	
 	
 </IfModule>

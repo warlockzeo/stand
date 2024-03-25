@@ -15,7 +15,7 @@ const CarDetailsThumb = ({ car }) => {
         className='foto'
         style={{
           backgroundImage: `url(${
-            fileName ? `${SERVER_URL}'/imagens/'${fileName}` : noImage
+            fileName ? `${SERVER_URL}/imagens/${fileName}` : noImage
           })`,
         }}
       ></div>

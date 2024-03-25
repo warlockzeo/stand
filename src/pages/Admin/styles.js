@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -42,5 +43,15 @@ export const Wrap = styled.div`
 
   img {
     max-width: 100%;
+  }
+
+  .delete-icon {
+    background-color: #fff;
+    border-radius: 45px;
+    color: red;
+
+    &:hover {
+      color: #ccc;
+    }
   }
 `;

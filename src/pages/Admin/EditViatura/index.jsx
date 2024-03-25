@@ -205,6 +205,10 @@ const EditViatura = () => {
   }, [cars, id, dispatch]);
 
   useEffect(() => {
+    setBanner(fotos.filter((foto) => foto.banner === '1')?.[0]?.id);
+  }, [fotos]);
+
+  useEffect(() => {
     dispatch(getAllFotos(id)).then(({ payload }) => {
       setFotos(payload);
     });
@@ -271,8 +275,8 @@ const EditViatura = () => {
         </Tab>
 
         <Tab eventKey='profile' title='Fotos'>
-          <div className='form-group'>
-            <div className='form-input'>
+          <div className='form-group' style={{ backgroundColor: '#eee' }}>
+            <div className='form-input' style={{ padding: '20px' }}>
               <UploadButton
                 uploader={uploader}
                 options={options}
@@ -298,15 +302,15 @@ const EditViatura = () => {
               ))}
             </div>
           ) : null}
-          <div className='form-group'>
+          <div className='form-group' style={{ backgroundColor: '#eee' }}>
             <p className='col-12'>
               Selecione a foto a ser destacada no banner.
             </p>
             {fotos?.map((foto, i) => (
               <div
                 key={i}
-                className={`foto col-12 col-md-4 ${
-                  banner === foto.id || foto.banner === true ? 'selected' : ''
+                className={`foto col-2  ${
+                  banner === foto.id ? 'selected' : ''
                 }`}
                 style={{
                   backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
@@ -321,7 +325,10 @@ const EditViatura = () => {
               </div>
             ))}
           </div>
-          <div className='form-buttons gap-2'>
+          <div
+            className='form-buttons gap-2'
+            style={{ backgroundColor: '#eee' }}
+          >
             <button
               type='button'
               className='btn btn-danger'

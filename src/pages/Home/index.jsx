@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Loader, Banner, SearchBar, About, Footer } from '../../components';
+import { Loader, Banner, SearchBar, Footer } from '../../components';
 import LastReleases from '../../containers/lastReleases';
 import { getAllCars } from '../../features/cars/carsSlice';
 
@@ -10,20 +10,18 @@ import { HomeStyled } from './styles';
 const Home = () => {
   const dispatch = useDispatch();
   const { cars, isLoading } = useSelector((state) => state.cars);
-  const { settings, isLoadingSettings } = useSelector(
-    (state) => state.settings
-  );
+
   const [carsFiltered, setCarsFiltered] = useState([]);
   const [filters, setFilters] = useState([]);
 
   const handleChangeFilter = (field, value) => {
     if (value) {
       setFilters([
-        ...filters.filter((x) => x.field !== field),
+        ...filters.filter((filter) => filter.field !== field),
         { field, value },
       ]);
     } else {
-      setFilters(filters.filter((x) => x.field !== field));
+      setFilters(filters.filter((filter) => filter.field !== field));
     }
   };
 
@@ -55,13 +53,9 @@ const Home = () => {
 
   return (
     <HomeStyled>
-      <Banner
-        images={cars.filter((car) => car.fileName !== null)}
-        expandeble={true}
-      />
+      <Banner images={cars.filter((car) => car.fileName !== null)} />
       <SearchBar list={cars} onChange={handleChangeFilter} />
       {isLoading ? <Loader /> : <LastReleases data={carsFiltered} />}
-      <About />
       <Footer />
     </HomeStyled>
   );

@@ -33,7 +33,7 @@ const CarDetails = () => {
     <CarDetailsStyled>
       {carro ? (
         <>
-          <Banner images={fotos} />
+          <Banner images={fotos} expandeble={true} />
           <Destaq>
             <div>
               <h1>

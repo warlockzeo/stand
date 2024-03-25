@@ -15,4 +15,8 @@ export const FooterStyles = styled.article`
     font-size: x-large;
     border-bottom: solid 2px #fff;
   }
+
+  i {
+    margin-right: 10px;
+  }
 `;

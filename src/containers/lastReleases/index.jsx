@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Row, Col } from 'react-bootstrap';
 
 import { CarDetailsThumb } from '../../components';
 import { LastReleasesStyles } from './styles';
@@ -36,18 +37,22 @@ const LastReleases = ({ data }) => {
 
   return (
     <LastReleasesStyles>
-      {CarsList.map((car) => (
-        <CarDetailsThumb key={car.id} car={car} />
-      ))}
-      <div className='paginacao'>
-        <button className='btn' onClick={() => setActualPage(1)}>
-          {'<<'}
-        </button>
-        <PagesLink />
-        <button className='btn' onClick={() => setActualPage(pagesLenght)}>
-          {'>>'}
-        </button>
-      </div>
+      <Row>
+        {CarsList.map((car) => (
+          <Col lg={4} sm={6} xs={12} key={car.id}>
+            <CarDetailsThumb car={car} />
+          </Col>
+        ))}
+        <div className='paginacao'>
+          <button className='btn' onClick={() => setActualPage(1)}>
+            {'<<'}
+          </button>
+          <PagesLink />
+          <button className='btn' onClick={() => setActualPage(pagesLenght)}>
+            {'>>'}
+          </button>
+        </div>
+      </Row>
     </LastReleasesStyles>
   );
 };

@@ -1,22 +1,18 @@
 import styled from 'styled-components';
 
 export const SearchBarStyled = styled.div`
-  width: 100%;
   background-color: #000;
-  margin-top: 5px;
-  padding: 20px;
+  margin: 5px 0 0;
   color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 15px 15px 10px;
 
-  input,
-  select {
-    margin: 0 10px;
+  select,
+  input {
+    padding: 2px 12px;
+    margin-bottom: 5px;
   }
 
   #showPrice {
-    max-width: 150px;
     text-align: right;
     font-weight: bold;
   }

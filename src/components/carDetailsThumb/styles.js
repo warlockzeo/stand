@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Wrap = styled.div`
   position: relative;
-  width: 32%;
   padding: 0;
   background-color: #fff;
   display: flex;
@@ -11,14 +10,6 @@ export const Wrap = styled.div`
   margin: 5px;
   text-decoration: none;
   color: #000;
-
-  @media screen and (max-width: 768px) {
-    width: 48%;
-  }
-
-  @media screen and (max-width: 425px) {
-    width: 100%;
-  }
 
   .foto {
     width: 100%;

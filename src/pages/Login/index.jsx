@@ -10,11 +10,11 @@ import { login as submitLogin, isLogged } from '../../utils/JWTAuth.js';
 import { Loader } from '../../components/index.jsx';
 
 const Wrap = Styled.div`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 80%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 `;
 
 const schema = Yup.object().shape({
@@ -45,7 +45,7 @@ const Login = () => {
 
   return (
     <Wrap>
-      <Logo size='big' />
+      <Logo size='small' />
       {isLoading ? (
         <Loader />
       ) : isLogged ? (
@@ -53,7 +53,7 @@ const Login = () => {
       ) : (
         <Form onSubmit={onSubmit} schema={schema}>
           <Row>
-            <Col md={6}>
+            <Col sm={6}>
               <Input
                 className='form-control'
                 type='text'
@@ -77,9 +77,10 @@ const Login = () => {
               />
             </Col>
           </Row>
+
           <Button
             type='submit'
-            className='form-control'
+            className='col-12'
             color='danger'
             style={{ backgroundColor: '#0054AD' }}
           >

@@ -10,7 +10,7 @@ export const BannerCarousel = styled.div`
   }
 
   .carousel-foto {
-    height: ${(props) => (props.expandeble ? '80vh' : '50vh')};
+    height: ${(props) => (props.expandeble ? '50vh' : '80vh')};
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -31,5 +31,11 @@ export const BannerCarousel = styled.div`
     left: 0;
     width: 100%;
     padding-bottom: 30px;
+  }
+
+  .carousel-control-next-icon,
+  .carousel-control-prev-icon {
+    background-color: red;
+    border-radius: 45px;
   }
 `;

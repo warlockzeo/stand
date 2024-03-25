@@ -8,15 +8,22 @@ import Login from '../pages/Login';
 import CarDetails from '../pages/CarDetails';
 import Admin from '../pages/Admin';
 import EditViaturas from '../pages/Admin/EditViatura';
+import Settings from '../pages/Admin/Settings';
+import Users from '../pages/Admin/Users';
 import NoMatchPage from '../pages/NoMatchPage';
 
 const Routes = () => (
   <Switch>
     <Route path='/' element={<Home />} />
     <Route path='/home' element={<Home />} />
+    <Route path='/car/:id' element={<CarDetails />} />
     <Route path='/login' element={<Login />} />
     <Route path='/admin/' element={<PrivateRoute element={<Admin />} />} />
-    <Route path='/car/:id' element={<CarDetails />} />
+    <Route
+      path='/admin/settings'
+      element={<PrivateRoute element={<Settings />} />}
+    />
+    <Route path='/admin/users' element={<PrivateRoute element={<Users />} />} />
     <Route
       path='/admin/viaturas'
       element={<PrivateRoute element={<Admin />} />}

@@ -9,7 +9,7 @@ const Banner = ({ images, expandeble = false }) => {
   return (
     <>
       {Array.isArray(images) ? (
-        <BannerCarousel expandeble={expand}>
+        <BannerCarousel expandeble={expandeble ? expand : false}>
           <Carousel fade>
             {images?.map((car, index) => {
               return (

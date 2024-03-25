@@ -4,12 +4,12 @@ import { SERVER_URL } from '../../utils/constants';
 
 export const initialState = {
   isLoading: false,
-  settings: {},
+  settings: [],
   error: null,
 };
 
-export const getAllsettings = createAsyncThunk(
-  `${SERVER_URL}/getAllsettings`,
+export const getAllSettings = createAsyncThunk(
+  `${SERVER_URL}/getAllSettings`,
   async () => {
     return await apiClient.getAllSettings();
   }
@@ -28,14 +28,14 @@ export const settingsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllsettings.pending, (state) => {
+      .addCase(getAllSettings.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getAllsettings.fulfilled, (state, { payload }) => {
+      .addCase(getAllSettings.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.settings = payload[0];
+        state.settings = payload;
       })
-      .addCase(getAllsettings.rejected, (state, { error }) => {
+      .addCase(getAllSettings.rejected, (state, { error }) => {
         state.isLoading = true;
         state.error = error.message;
       })
@@ -44,7 +44,7 @@ export const settingsSlice = createSlice({
       })
       .addCase(updateSettings.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.settings = payload[0];
+        state.settings = payload;
       })
       .addCase(updateSettings.rejected, (state, { error }) => {
         state.isLoading = true;

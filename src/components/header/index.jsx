@@ -18,6 +18,12 @@ const Header = () => {
             <Nav className='me-auto' style={{ flex: 1, justifyContent: 'end' }}>
               {isLogged ? (
                 <>
+                  <Link className='nav-link' to='/admin/'>
+                    Viaturas
+                  </Link>
+                  <Link className='nav-link' to='/admin/users'>
+                    Users
+                  </Link>
                   <Link className='nav-link' to='/admin/settings'>
                     Settings
                   </Link>

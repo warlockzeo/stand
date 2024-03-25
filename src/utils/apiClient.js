@@ -100,3 +100,79 @@ export const selectFoto = async (id) => {
       console.error(err);
     });
 };
+
+export const getAllUsers = async () => {
+  const response = await fetch(`${SERVER_URL}/users`, {
+    headers: { Accept: 'application/json' },
+  }).then((res) => res.json());
+
+  return response;
+};
+
+export const addUser = async (data) => {
+  return await axios({
+    method: 'post',
+    responseType: 'json',
+    url: `${SERVER_URL}/users/`,
+    data: JSON.stringify({
+      body: data,
+    }),
+  })
+    .then((response) => response)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const removeUser = async (id) => {
+  return await axios({
+    method: 'delete',
+    responseType: 'json',
+    url: `${SERVER_URL}/users/${id}`,
+    data: JSON.stringify({
+      body: '',
+    }),
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const updateUser = async (data) => {
+  return await axios({
+    method: 'patch',
+    responseType: 'json',
+    url: `${SERVER_URL}/users/${data.id}`,
+    data: JSON.stringify({
+      body: data.car,
+    }),
+  })
+    .then((response) => response)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const getAllSettings = async () => {
+  const response = await fetch(`${SERVER_URL}/settings`, {
+    headers: { Accept: 'application/json' },
+  }).then((res) => res.json());
+
+  return response;
+};
+
+export const updateSettings = async (data) => {
+  return await axios({
+    method: 'patch',
+    responseType: 'json',
+    url: `${SERVER_URL}/settings/${data.id}`,
+    data: JSON.stringify({
+      body: data.car,
+    }),
+  })
+    .then((response) => response)
+    .catch((err) => {
+      console.error(err);
+    });
+};

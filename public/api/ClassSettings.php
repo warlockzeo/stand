@@ -3,64 +3,16 @@ header("Access-Control-Allow-Origin:*");
 header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
-include("ClassConexao.php");
+include ("ClassConexao.php");
 
-class ClassCars extends ClassConexao
+class ClassSettings extends ClassConexao
 {
     public function get($id = null)
     {
-        $BFetch = $id ? $this->conectDB()->prepare("SELECT fotos.fileName, cars.* FROM cars LEFT OUTER JOIN  fotos ON fotos.carId = cars.id AND fotos.banner=1 WHERE id = $id") :
-            $this->conectDB()->prepare("SELECT fotos.fileName, cars.* FROM cars LEFT OUTER JOIN  fotos ON fotos.carId = cars.id AND fotos.banner=1");
-
+        $BFetch = $this->conectDB()->prepare("SELECT * FROM settings");
         $BFetch->execute();
-
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
-
-        if ($id) {
-            echo json_encode($Fetch ?? "");
-        } else {
-            echo json_encode($Fetch ?? []);
-        }
-    }
-
-    public function delete($id)
-    {
-        $BFetch = $this->conectDB()->prepare("DELETE FROM cars WHERE id = $id");
-        if ($BFetch->execute()) {
-            echo '{"id": ' . $id . '}';
-        }
-    }
-
-    public function post()
-    {
-        $json = file_get_contents('php://input');
-        $body = json_decode($json, TRUE);
-        $obj = $body['body'];
-
-        $marca = isset($obj["marca"]) ? $obj["marca"] : "";
-        $modelo = isset($obj["modelo"]) ? $obj["modelo"] : "";
-        $ano = isset($obj["ano"]) ? $obj["ano"] : "";
-        $kms = isset($obj["kms"]) ? $obj["kms"] : "";
-        $motor = isset($obj["motor"]) ? $obj["motor"] : "";
-        $co2 = isset($obj["co2"]) ? $obj["co2"] : "";
-        $caixa = isset($obj["caixa"]) ? $obj["caixa"] : "";
-        $combustivel = isset($obj["combustivel"]) ? $obj["combustivel"] : "";
-        $tipo = isset($obj["tipo"]) ? $obj["tipo"] : "";
-        $lugares = isset($obj["lugares"]) ? $obj["lugares"] : "";
-        $portas = isset($obj["portas"]) ? $obj["portas"] : "";
-        $cor = isset($obj["cor"]) ? $obj["cor"] : "";
-        $estado = isset($obj["estado"]) ? $obj["estado"] : "";
-        $origem = isset($obj["origem"]) ? $obj["origem"] : "";
-        $garantia = isset($obj["garantia"]) ? $obj["garantia"] : "";
-        $preco = isset($obj["preco"]) ? $obj["preco"] : "";
-
-        $sql = "INSERT INTO cars (marca, modelo, ano, kms, motor, co2, caixa, combustivel, tipo, lugares, portas, cor, estado, origem, garantia, preco ) VALUES ('$marca', '$modelo', '$ano', '$kms', '$motor', '$co2', '$caixa', '$combustivel', '$tipo', '$lugares', '$portas', '$cor', '$estado', '$origem', '$garantia', '$preco')";
-        $BFetch = $this->conectDB()->prepare($sql);
-        if ($BFetch->execute()) {
-            echo '{"resp":"ok"}';
-        } else {
-            echo '{"resp":"Error", "sql":"' . $sql . '"}';
-        }
+        echo json_encode($Fetch ?? []);
     }
 
     public function update($id)
@@ -68,36 +20,33 @@ class ClassCars extends ClassConexao
         $json = file_get_contents('php://input');
         $body = json_decode($json, TRUE);
         $obj = $body['body'];
-        if ($id) {
-            $marca = isset($obj["marca"]) ? "marca = '$obj[marca]', " : "";
-            $modelo = isset($obj["modelo"]) ? "modelo = '$obj[modelo]', " : "";
-            $ano = isset($obj["ano"]) ? "ano = '$obj[ano]', " : "";
-            $kms = isset($obj["kms"]) ? "kms = '$obj[kms]', " : "";
-            $motor = isset($obj["motor"]) ? "motor = '$obj[motor]', " : "";
-            $co2 = isset($obj["co2"]) ? "co2 = '$obj[co2]', " : "";
-            $caixa = isset($obj["caixa"]) ? "caixa = '$obj[caixa]', " : "";
-            $combustivel = isset($obj["combustivel"]) ? "combustivel = '$obj[combustivel]', " : "";
-            $tipo = isset($obj["tipo"]) ? "tipo = '$obj[tipo]', " : "";
-            $lugares = isset($obj["lugares"]) ? "lugares = '$obj[lugares]', " : "";
-            $portas = isset($obj["portas"]) ? "portas = '$obj[portas]', " : "";
-            $cor = isset($obj["cor"]) ? "cor = '$obj[cor]', " : "";
-            $estado = isset($obj["estado"]) ? "estado = '$obj[estado]', " : "";
-            $origem = isset($obj["origem"]) ? "origem = '$obj[origem]', " : "";
-            $garantia = isset($obj["garantia"]) ? "garantia = '$obj[garantia]', " : "";
-            $preco = isset($obj["preco"]) ? "preco = '$obj[preco]' " : "";
 
-            $sql = "UPDATE cars SET $marca $modelo $ano $kms $motor $co2 $caixa $combustivel $tipo $lugares $portas $cor $estado $origem $garantia $preco WHERE id = $id";
-            $BFetch = $this->conectDB()->prepare($sql);
-            if ($BFetch->execute()) {
-                $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM cars WHERE id = $id");
-                $BFetchReturn->execute();
-                $FetchReturn = $BFetchReturn->fetchall(PDO::FETCH_ASSOC);
-                echo json_encode($FetchReturn ?? "");
-            } else {
-                echo '{"resp":"Error", "sql":"' . $sql . '"}';
-            }
+        $about = isset ($obj["about"]) ? "about = '$obj[about]', " : "";
+        $facebook = isset ($obj["facebook"]) ? "facebook = '$obj[facebook]', " : "";
+        $instagram = isset ($obj["instagram"]) ? "instagram = '$obj[instagram]', " : "";
+        $youtube = isset ($obj["youtube"]) ? "youtube = '$obj[youtube]', " : "";
+        $email = isset ($obj["email"]) ? "email = '$obj[email]', " : "";
+        $morada1 = isset ($obj["morada1"]) ? "morada1 = '$obj[morada1]', " : "";
+        $morada2 = isset ($obj["morada2"]) ? "morada2 = '$obj[morada2]', " : "";
+        $morada3 = isset ($obj["morada3"]) ? "morada3 = '$obj[morada3]', " : "";
+        $contacto1 = isset ($obj["contacto1"]) ? "contacto1 = '$obj[contacto1]', " : "";
+        $contacto2 = isset ($obj["contacto2"]) ? "contacto2 = '$obj[contacto2]', " : "";
+        $contacto3 = isset ($obj["contacto3"]) ? "contacto3 = '$obj[contacto3]', " : "";
+        $horario1 = isset ($obj["horario1"]) ? "horario1 = '$obj[horario1]', " : "";
+        $horario2 = isset ($obj["horario2"]) ? "horario2 = '$obj[horario2]', " : "";
+        $horario3 = isset ($obj["horario3"]) ? "horario3 = '$obj[horario3]', " : "";
+
+        $sql = "UPDATE settings SET $about $facebook $instagram $youtube $email $morada1 $morada2 $morada3 $contacto1 $contacto2 $contacto3 $horario1 $horario2 $horario3 WHERE id = 1";
+        $BFetch = $this->conectDB()->prepare($sql);
+        if ($BFetch->execute()) {
+            $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM settings WHERE id = 1");
+            $BFetchReturn->execute();
+            $FetchReturn = $BFetchReturn->fetchall(PDO::FETCH_ASSOC);
+            echo json_encode($FetchReturn ?? "");
+        } else {
+            echo '{"resp":"Error", "sql":"' . $sql . '"}';
         }
+
     }
 }
-
 

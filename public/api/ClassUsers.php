@@ -1,5 +1,5 @@
 <?php
-include("ClassConexao.php");
+include ("ClassConexao.php");
 
 class ClassUsers extends ClassConexao
 {
@@ -10,7 +10,7 @@ class ClassUsers extends ClassConexao
 
         $json = file_get_contents('php://input');
         $obj = json_decode($json, true);
-        $login = isset($obj['login']) ? $obj['login'] : "";
+        $login = isset ($obj['login']) ? $obj['login'] : "";
 
         if ($login) {
             $password = $obj['password'];
@@ -29,6 +29,65 @@ class ClassUsers extends ClassConexao
             }
         } else {
             echo json_encode(["error" => "need a login"]);
+        }
+    }
+
+    public function get($id = null)
+    {
+        $BFetch = $this->conectDB()->prepare("SELECT * FROM users");
+        $BFetch->execute();
+        $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
+        echo json_encode($Fetch ?? []);
+
+    }
+
+    public function delete($id)
+    {
+        $BFetch = $this->conectDB()->prepare("DELETE FROM cars WHERE id = $id");
+        if ($BFetch->execute()) {
+            echo '{"id": ' . $id . '}';
+        }
+    }
+
+    public function post()
+    {
+        $json = file_get_contents('php://input');
+        $body = json_decode($json, TRUE);
+        $obj = $body['body'];
+
+        $name = isset ($obj["name"]) ? $obj["name"] : "";
+        $login = isset ($obj["login"]) ? $obj["login"] : "";
+        $password = isset ($obj["password"]) ? $obj["password"] : "";
+
+        $sql = "INSERT INTO cars (name, login, password)";
+        $BFetch = $this->conectDB()->prepare($sql);
+        if ($BFetch->execute()) {
+            echo '{"resp":"ok"}';
+        } else {
+            echo '{"resp":"Error", "sql":"' . $sql . '"}';
+        }
+    }
+
+    public function update($id)
+    {
+        $json = file_get_contents('php://input');
+        $body = json_decode($json, TRUE);
+        $obj = $body['body'];
+        if ($id) {
+            $name = isset ($obj["name"]) ? "name = '$obj[name]', " : "";
+            $login = isset ($obj["login"]) ? "login = '$obj[login]', " : "";
+            $password = isset ($obj["password"]) ? "password = '$obj[password]', " : "";
+
+            $sql = "UPDATE cars SET $name $login $password WHERE id = $id";
+            $BFetch = $this->conectDB()->prepare($sql);
+            if ($BFetch->execute()) {
+                $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM cars WHERE id = $id");
+                $BFetchReturn->execute();
+                $FetchReturn = $BFetchReturn->fetchall(PDO::FETCH_ASSOC);
+                echo json_encode($FetchReturn ?? "");
+            } else {
+                echo '{"resp":"Error", "sql":"' . $sql . '"}';
+            }
         }
     }
 }

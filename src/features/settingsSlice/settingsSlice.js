@@ -11,7 +11,7 @@ export const initialState = {
 export const getAllsettings = createAsyncThunk(
   `${SERVER_URL}/getAllsettings`,
   async () => {
-    return await apiClient.getAllsettings();
+    return await apiClient.getAllSettings();
   }
 );
 

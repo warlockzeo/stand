@@ -15,10 +15,10 @@ export const getAllUsers = createAsyncThunk(
   }
 );
 
-export const addUsers = createAsyncThunk(
-  `${SERVER_URL}/addUsers`,
+export const addUser = createAsyncThunk(
+  `${SERVER_URL}/addUser`,
   async (payload) => {
-    return await apiClient.addUsers(payload);
+    return await apiClient.addUser(payload);
   }
 );
 
@@ -53,14 +53,14 @@ export const usersSlice = createSlice({
         state.isLoading = true;
         state.error = error.message;
       })
-      .addCase(addUsers.pending, (state) => {
+      .addCase(addUser.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addUsers.fulfilled, (state, { payload }) => {
+      .addCase(addUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.users = [...state.users, payload];
       })
-      .addCase(addUsers.rejected, (state, { error }) => {
+      .addCase(addUser.rejected, (state, { error }) => {
         state.isLoading = true;
         state.error = error.message;
       })

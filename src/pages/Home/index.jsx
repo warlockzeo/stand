@@ -10,6 +10,9 @@ import { HomeStyled } from './styles';
 const Home = () => {
   const dispatch = useDispatch();
   const { cars, isLoading } = useSelector((state) => state.cars);
+  const { settings, isLoadingSettings } = useSelector(
+    (state) => state.settings
+  );
   const [carsFiltered, setCarsFiltered] = useState([]);
   const [filters, setFilters] = useState([]);
 

@@ -5,11 +5,26 @@ import { Logo } from '../';
 import { Wrap } from './styles';
 import { logout, isLogged } from '../../utils/JWTAuth';
 
+const useDeviceDetect = () => {
+  const [isTouchDevice, setIsTouchDevice] = React.useState(false);
+  React.useEffect(() => {
+    if (!window.matchMedia) return;
+    setIsTouchDevice(window.matchMedia('(pointer:coarse)').matches);
+  }, []);
+
+  return isTouchDevice;
+};
+
 const LinkAutoColapse = ({ to, onClick, children }) => {
+  const isTouchDevice = useDeviceDetect();
+
   const click = () => {
-    const btn = document.getElementsByClassName('navbar-toggler');
-    btn[0].click();
+    if (isTouchDevice) {
+      const btn = document.getElementsByClassName('navbar-toggler');
+      btn[0].click();
+    }
   };
+
   return (
     <Link className={`nav-link`} onClick={onClick || click} to={to}>
       {children}

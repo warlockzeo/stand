@@ -19,4 +19,14 @@ export const Wrap = styled.div`
       color: #ccc;
     }
   }
+
+  .form-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0 0;
+    width: 100%;
+  }
 `;

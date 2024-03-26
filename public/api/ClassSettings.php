@@ -7,7 +7,7 @@ include ("ClassConexao.php");
 
 class ClassSettings extends ClassConexao
 {
-    public function get($id = null)
+    public function get()
     {
         $BFetch = $this->conectDB()->prepare("SELECT * FROM settings");
         $BFetch->execute();
@@ -15,7 +15,7 @@ class ClassSettings extends ClassConexao
         echo json_encode($Fetch ?? []);
     }
 
-    public function update($id)
+    public function update()
     {
         $json = file_get_contents('php://input');
         $body = json_decode($json, TRUE);
@@ -34,7 +34,7 @@ class ClassSettings extends ClassConexao
         $contacto3 = isset ($obj["contacto3"]) ? "contacto3 = '$obj[contacto3]', " : "";
         $horario1 = isset ($obj["horario1"]) ? "horario1 = '$obj[horario1]', " : "";
         $horario2 = isset ($obj["horario2"]) ? "horario2 = '$obj[horario2]', " : "";
-        $horario3 = isset ($obj["horario3"]) ? "horario3 = '$obj[horario3]', " : "";
+        $horario3 = isset ($obj["horario3"]) ? "horario3 = '$obj[horario3]' " : "";
 
         $sql = "UPDATE settings SET $about $facebook $instagram $youtube $email $morada1 $morada2 $morada3 $contacto1 $contacto2 $contacto3 $horario1 $horario2 $horario3 WHERE id = 1";
         $BFetch = $this->conectDB()->prepare($sql);

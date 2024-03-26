@@ -10,6 +10,7 @@ import Admin from '../pages/Admin';
 import EditViaturas from '../pages/Admin/EditViatura';
 import Settings from '../pages/Admin/Settings';
 import Users from '../pages/Admin/Users';
+import EditUser from '../pages/Admin/EditUser';
 import NoMatchPage from '../pages/NoMatchPage';
 
 const Routes = () => (
@@ -24,6 +25,14 @@ const Routes = () => (
       element={<PrivateRoute element={<Settings />} />}
     />
     <Route path='/admin/users' element={<PrivateRoute element={<Users />} />} />
+    <Route
+      path='/admin/users/new'
+      element={<PrivateRoute element={<EditUser />} />}
+    />
+    <Route
+      path='/admin/users/:id'
+      element={<PrivateRoute element={<EditUser />} />}
+    />
     <Route
       path='/admin/viaturas'
       element={<PrivateRoute element={<Admin />} />}

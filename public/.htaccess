@@ -11,7 +11,7 @@
 	ErrorDocument 403 "Desculpe! Acesso nao permitido"
 
 	RewriteRule ^api/login/?$ /api/index.php?tabela=users [NC]
-	RewriteRule ^api/users/?$ api/index.php?tabela=users [NC]
+	RewriteRule ^api/users/?$ /api/index.php?tabela=users [NC]
 	RewriteRule ^api/users/([0-9-]+)?$ /api/index.php?tabela=users&id=$1 [NC]
 	RewriteRule ^api/cars/?$ api/index.php?tabela=cars [NC]
 	RewriteRule ^api/cars/([0-9-]+)?$ /api/index.php?tabela=cars&id=$1 [NC]

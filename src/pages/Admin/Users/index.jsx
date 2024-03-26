@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { Wrap } from './styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getAllUsers, removeUser } from '../../../features/users/usersSlice';
-import Image from '../../../components/Image';
 import { Loader } from '../../../components';
 
 const Users = () => {
@@ -15,7 +15,7 @@ const Users = () => {
   const handleDelete = (id) => dispatch(removeUser({ id }));
 
   const handleClick = (userId) => {
-    navigate(`/users/viaturas/${userId}`);
+    navigate(`/admin/users/${userId}`);
   };
   useEffect(() => {
     dispatch(getAllUsers());
@@ -33,54 +33,32 @@ const Users = () => {
             type='button'
             className='btn btn-success'
             style={{ position: 'absolute', top: 0, right: 0 }}
-            onClick={() => navigate(`/users/viaturas/new`)}
+            onClick={() => navigate(`/admin/users/new`)}
           >
-            <FontAwesomeIcon icon='fa-solid fa-plus' /> Adicionar nova viatura
+            <FontAwesomeIcon icon='fa-solid fa-plus' /> Adicionar novo usuário
           </button>
 
           <table>
             <tbody>
               {users?.length ? (
-                users?.map((user) => (
-                  <tr key={user.id}>
+                users?.map(({ id, name, login }) => (
+                  <tr key={id}>
                     <td
-                      className='hand-pointer text-center'
-                      onClick={() => handleClick(user.id)}
+                      className='hand-pointer'
+                      onClick={() => handleClick(id)}
                     >
-                      <Image
-                        src={user?.fileName}
-                        alt=''
-                        style={{ with: '50px', height: '50px' }}
-                      />
+                      {name}
                     </td>
                     <td
                       className='hand-pointer'
-                      onClick={() => handleClick(user.id)}
+                      onClick={() => handleClick(id)}
                     >
-                      {user.marca}
-                    </td>
-                    <td
-                      className='hand-pointer'
-                      onClick={() => handleClick(user.id)}
-                    >
-                      {user.modelo}
-                    </td>
-                    <td
-                      className='hand-pointer'
-                      onClick={() => handleClick(user.id)}
-                    >
-                      {user.ano}
-                    </td>
-                    <td
-                      className='hand-pointer'
-                      onClick={() => handleClick(user.id)}
-                    >
-                      {user.kms}
+                      {login}
                     </td>
                     <td>
                       <FontAwesomeIcon
                         icon='fa-solid fa-trash'
-                        onClick={() => handleDelete(user.id)}
+                        onClick={() => handleDelete(id)}
                         className='delete-icon hand-pointer'
                       />
                     </td>
@@ -89,10 +67,10 @@ const Users = () => {
               ) : (
                 <tr>
                   <td colSpan={5}>
-                    <h1>Nenhuma viatura registrada.</h1>
-                    <Link to={`/users/viaturas/new`}>
+                    <h1>Nenhum usuário registrado.</h1>
+                    <Link to={`/admin/users/new`}>
                       <button className='btn btn-primary'>
-                        Registrar sua primeira viatura{' '}
+                        Registrar seu primeiro usuário{' '}
                         <FontAwesomeIcon icon='fa-solid fa-plus' />
                       </button>
                     </Link>

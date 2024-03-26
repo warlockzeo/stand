@@ -28,6 +28,21 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
+} else if ($_GET['tabela'] === 'settings') {
+    include ("ClassSettings.php");
+
+    $settings = new ClassSettings();
+    switch ($method) {
+        case "GET":
+            $settings->get();
+            break;
+        case "PATCH":
+            $settings->update();
+            break;
+    }
+
+
+
 } else if ($_GET['tabela'] === 'fotos') {
     include ("ClassFotos.php");
 
@@ -59,7 +74,26 @@ if ($_GET['tabela'] === 'cars') {
 
     $users = new ClassUsers();
 
-    if ($_GET['option'] === 'login') {
+    if (isset ($_GET['option']) && $_GET['option'] === 'login') {
         $users->login();
+    }
+
+    switch ($method) {
+        case "GET":
+            $users->get();
+            break;
+        case "POST":
+            $users->post();
+            break;
+        case "PATCH":
+            if (isset ($_GET['id'])) {
+                $users->update($_GET['id']);
+            }
+            break;
+        case "DELETE":
+            if (isset ($_GET['id'])) {
+                $users->delete($_GET['id']);
+            }
+            break;
     }
 }

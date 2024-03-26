@@ -32,13 +32,12 @@ class ClassUsers extends ClassConexao
         }
     }
 
-    public function get($id = null)
+    public function get()
     {
-        $BFetch = $this->conectDB()->prepare("SELECT * FROM users");
+        $BFetch = $this->conectDB()->prepare("SELECT id, name, login FROM users");
         $BFetch->execute();
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($Fetch ?? []);
-
     }
 
     public function delete($id)
@@ -59,7 +58,7 @@ class ClassUsers extends ClassConexao
         $login = isset ($obj["login"]) ? $obj["login"] : "";
         $password = isset ($obj["password"]) ? $obj["password"] : "";
 
-        $sql = "INSERT INTO cars (name, login, password)";
+        $sql = "INSERT INTO users (name, login, password) VALUES ('$name', '$login', '$password')";
         $BFetch = $this->conectDB()->prepare($sql);
         if ($BFetch->execute()) {
             echo '{"resp":"ok"}';
@@ -73,15 +72,17 @@ class ClassUsers extends ClassConexao
         $json = file_get_contents('php://input');
         $body = json_decode($json, TRUE);
         $obj = $body['body'];
-        if ($id) {
-            $name = isset ($obj["name"]) ? "name = '$obj[name]', " : "";
-            $login = isset ($obj["login"]) ? "login = '$obj[login]', " : "";
-            $password = isset ($obj["password"]) ? "password = '$obj[password]', " : "";
 
-            $sql = "UPDATE cars SET $name $login $password WHERE id = $id";
+        $name = isset ($obj["name"]) ? "name = '$obj[name]', " : "";
+        $login = isset ($obj["login"]) ? "login = '$obj[login]'" : "";
+        $password = isset ($obj["password"]) ? ", password = '$obj[password]'" : "";
+
+        if ($id && ($name || $login)) {
+
+            $sql = "UPDATE users SET $name $login $password WHERE id = $id";
             $BFetch = $this->conectDB()->prepare($sql);
             if ($BFetch->execute()) {
-                $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM cars WHERE id = $id");
+                $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM users WHERE id = $id");
                 $BFetchReturn->execute();
                 $FetchReturn = $BFetchReturn->fetchall(PDO::FETCH_ASSOC);
                 echo json_encode($FetchReturn ?? "");

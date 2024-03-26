@@ -6,15 +6,9 @@ import {
   getAllSettings,
   updateSettings,
 } from '../../../features/settings/settingsSlice';
-import { Loader } from '../../../components';
+import { Loader, Input } from '../../../components';
 import { Wrap } from './styles';
 
-const Input = ({ name, label, className = '12', ...rest }) => (
-  <Form.Group className={className}>
-    <Form.Label>{label}</Form.Label>
-    <Form.Control name={name} {...rest} />
-  </Form.Group>
-);
 const Settings = () => {
   const dispatch = useDispatch();
   const { settings, isLoading } = useSelector((state) => state.settings);
@@ -146,10 +140,16 @@ const Settings = () => {
               name='youtube'
               defaultValue={settings?.[0]?.youtube}
             />
+            <div className='form-buttons'>
+              <button
+                type='submit'
+                className='btn btn-success'
+                onClick={onSubmit}
+              >
+                Guardar Settings
+              </button>
+            </div>
           </Form>
-          <button type='submit' className='btn btn-success' onClick={onSubmit}>
-            Guardar Fotos
-          </button>
         </>
       )}
     </Wrap>

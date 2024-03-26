@@ -7,6 +7,7 @@ import CarDetailsThumb from './carDetailsThumb';
 import SearchBar from './searchBar';
 import Loader from './loader';
 import Logo from './logo';
+import Input from './input';
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   SearchBar,
   Loader,
   Logo,
+  Input,
 };

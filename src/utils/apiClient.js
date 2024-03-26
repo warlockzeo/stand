@@ -145,10 +145,10 @@ export const updateUser = async (data) => {
     responseType: 'json',
     url: `${SERVER_URL}/users/${data.id}`,
     data: JSON.stringify({
-      body: data.car,
+      body: data,
     }),
   })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((err) => {
       console.error(err);
     });

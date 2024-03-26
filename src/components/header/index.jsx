@@ -5,6 +5,18 @@ import { Logo } from '../';
 import { Wrap } from './styles';
 import { logout, isLogged } from '../../utils/JWTAuth';
 
+const LinkAutoColapse = ({ to, onClick, children }) => {
+  const click = () => {
+    const btn = document.getElementsByClassName('navbar-toggler');
+    btn[0].click();
+  };
+  return (
+    <Link className={`nav-link`} onClick={onClick || click} to={to}>
+      {children}
+    </Link>
+  );
+};
+
 const Header = () => {
   return (
     <Wrap>
@@ -18,23 +30,15 @@ const Header = () => {
             <Nav className='me-auto' style={{ flex: 1, justifyContent: 'end' }}>
               {isLogged ? (
                 <>
-                  <Link className='nav-link' to='/admin/'>
-                    Viaturas
-                  </Link>
-                  <Link className='nav-link' to='/admin/users'>
-                    Users
-                  </Link>
-                  <Link className='nav-link' to='/admin/settings'>
+                  <LinkAutoColapse to='/admin/'>Viaturas</LinkAutoColapse>
+                  <LinkAutoColapse to='/admin/users'>Users</LinkAutoColapse>
+                  <LinkAutoColapse to='/admin/settings'>
                     Settings
-                  </Link>
-                  <Link className='nav-link' onClick={logout}>
-                    Logout
-                  </Link>
+                  </LinkAutoColapse>
+                  <LinkAutoColapse onClick={logout}>Logout</LinkAutoColapse>
                 </>
               ) : (
-                <Link className='nav-link' to='/login'>
-                  Login
-                </Link>
+                <LinkAutoColapse to='/login/'>Login</LinkAutoColapse>
               )}
             </Nav>
           </Navbar.Collapse>

@@ -15,6 +15,10 @@ const Wrap = Styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
+  input {
+    margin-bottom: 10px;
+  }
 `;
 
 const schema = Yup.object().shape({
@@ -62,10 +66,9 @@ const Login = () => {
                 placeholder='Login'
                 onChange={onChangeField}
                 onFocus={onChangeField}
-                style={{ marginBottom: 10 }}
               />
             </Col>
-            <Col md={6}>
+            <Col sm={6}>
               <Input
                 className='form-control'
                 type='password'

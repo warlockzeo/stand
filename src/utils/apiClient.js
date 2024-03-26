@@ -49,7 +49,7 @@ export const updateCar = async (data) => {
       body: data.car,
     }),
   })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((err) => {
       console.error(err);
     });
@@ -166,12 +166,12 @@ export const updateSettings = async (data) => {
   return await axios({
     method: 'patch',
     responseType: 'json',
-    url: `${SERVER_URL}/settings/${data.id}`,
+    url: `${SERVER_URL}/settings/`,
     data: JSON.stringify({
-      body: data.car,
+      body: data,
     }),
   })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((err) => {
       console.error(err);
     });

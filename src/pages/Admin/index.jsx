@@ -14,9 +14,8 @@ const Admin = () => {
 
   const handleDelete = (id) => dispatch(removeCar({ id }));
 
-  const handleClick = (carId) => {
-    navigate(`/admin/viaturas/${carId}`);
-  };
+  const handleClick = (carId) => navigate(`/admin/viaturas/${carId}`);
+
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);

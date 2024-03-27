@@ -49,7 +49,9 @@ const Login = () => {
 
   return (
     <Wrap>
-      <Logo size='small' />
+      <p>
+        <Logo size='big' />
+      </p>
       {isLoading ? (
         <Loader />
       ) : isLogged ? (

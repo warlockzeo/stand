@@ -18,7 +18,7 @@ const Wrap = styled.div`
   }
 
   img {
-    width: ${(props) => (props.size === 'big' ? '450px' : '50px')};
+    width: ${(props) => (props.size === 'big' ? '350px' : '180px')};
     margin-right: ${(props) => (props.size === 'big' ? '0' : '20px')};
   }
 `;
@@ -26,10 +26,7 @@ const Wrap = styled.div`
 const Logo = ({ size }) => {
   return (
     <Wrap size={size}>
-      <img src='/logocar.png' alt='Stand ALLCAR' />
-      <p>
-        Stand <span>ALLCAR</span>
-      </p>
+      <img src='/standlogo.svg' alt='Stand ALLCAR' />
     </Wrap>
   );
 };

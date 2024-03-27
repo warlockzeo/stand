@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { FooterStyles } from './styles';
 
 const Footer = () => {
-  const settings = useSelector((state) => state.settings.settings?.[0]);
+  const settings = useSelector((state) => state.settings.settings);
 
   return (
     <FooterStyles>
@@ -16,7 +16,7 @@ const Footer = () => {
         <h1>Onde estamos</h1>
         {settings?.morada1 ? (
           <p>
-            settings?.morada1
+            {settings?.morada1}
             <br />
             {settings?.contacto1}
             <br />
@@ -25,7 +25,7 @@ const Footer = () => {
         ) : null}
         {settings?.morada2 ? (
           <p>
-            settings?.morada2
+            {settings?.morada2}
             <br />
             {settings?.contacto2}
             <br />
@@ -34,7 +34,7 @@ const Footer = () => {
         ) : null}
         {settings?.morada3 ? (
           <p>
-            settings?.morada3
+            {settings?.morada3}
             <br />
             {settings?.contacto3}
             <br />
@@ -47,20 +47,23 @@ const Footer = () => {
           <h1>Redes Sociais</h1>
           {settings.facebook ? (
             <p>
-              <i className='bi bi-facebook' />
-              {settings.facebook}
+              <a href={settings.facebook}>
+                <i className='bi bi-facebook' /> Facebook
+              </a>
             </p>
           ) : null}
           {settings.instagram ? (
             <p>
-              <i className='bi bi-instagram' />
-              {settings.instagram}
+              <a href={settings.instagram}>
+                <i className='bi bi-instagram' /> Instagram
+              </a>
             </p>
           ) : null}
           {settings.youtube ? (
             <p>
-              <i className='bi bi-youtube' />
-              {settings.youtube}
+              <a href={settings.youtube}>
+                <i className='bi bi-youtube' /> Youtube
+              </a>
             </p>
           ) : null}
         </section>

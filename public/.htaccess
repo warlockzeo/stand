@@ -18,6 +18,14 @@
 	RewriteRule ^api/fotos/?$ /api/index.php?tabela=fotos [NC]
 	RewriteRule ^api/fotos/([0-9-]+)?$ /api/index.php?tabela=fotos&id=$1 [NC]
 	RewriteRule ^api/settings/?$ /api/index.php?tabela=settings [NC]
+
+	RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/?$ /index.html [NC]
+	RewriteRule ^([a-z0-9-]+)/?$ /index.html [NC]
 </IfModule>
 
-
+# php -- BEGIN cPanel-generated handler, do not edit
+# Defina o pacote “ea-php82” como a linguagem padrão de programação “PHP”.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php82___lsphp .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Row, Form } from 'react-bootstrap';
+import { Row, Form, Toast, ToastContainer } from 'react-bootstrap';
 
 import {
   getAllSettings,
@@ -12,7 +12,8 @@ import { Wrap } from './styles';
 const Settings = () => {
   const dispatch = useDispatch();
   const { settings, isLoading } = useSelector((state) => state.settings);
-  const [data, setData] = useState(settings?.[0]);
+  const [data, setData] = useState(settings);
+  const [showToast, setShowToast] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -22,7 +23,8 @@ const Settings = () => {
     });
   };
 
-  const onSubmit = () => dispatch(updateSettings(data));
+  const onSubmit = () =>
+    dispatch(updateSettings(data)).then(() => setShowToast(true));
 
   useEffect(() => {
     if (!data && settings.length > 0) {
@@ -33,6 +35,19 @@ const Settings = () => {
 
   return (
     <Wrap className='container' isLoading={isLoading}>
+      <ToastContainer position='bottom-center'>
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide
+          bg='success'
+        >
+          <Toast.Body className='text-white'>
+            Usuário removido com sucesso!
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
       {isLoading ? (
         <Loader />
       ) : (
@@ -46,7 +61,7 @@ const Settings = () => {
               rows={3}
               onChange={handleChange}
               name='about'
-              defaultValue={settings?.[0]?.about}
+              defaultValue={settings?.about}
             />
             <Input
               className='col-lg-6'
@@ -54,91 +69,91 @@ const Settings = () => {
               type='email'
               onChange={handleChange}
               name='morada1'
-              defaultValue={settings?.[0]?.morada1}
+              defaultValue={settings?.morada1}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Contacto1'
               onChange={handleChange}
               name='contacto1'
-              defaultValue={settings?.[0]?.contacto1}
+              defaultValue={settings?.contacto1}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Horário1'
               onChange={handleChange}
               name='horario1'
-              defaultValue={settings?.[0]?.horario1}
+              defaultValue={settings?.horario1}
             />
             <Input
               className='col-lg-6'
               label='Morada2'
               onChange={handleChange}
               name='morada2'
-              defaultValue={settings?.[0]?.morada2}
+              defaultValue={settings?.morada2}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Contacto2'
               onChange={handleChange}
               name='contacto2'
-              defaultValue={settings?.[0]?.contacto2}
+              defaultValue={settings?.contacto2}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Horário2'
               onChange={handleChange}
               name='horario2'
-              defaultValue={settings?.[0]?.horario2}
+              defaultValue={settings?.horario2}
             />
             <Input
               className='col-lg-6'
               label='Morada3'
               onChange={handleChange}
               name='morada3'
-              defaultValue={settings?.[0]?.morada3}
+              defaultValue={settings?.morada3}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Contacto3'
               onChange={handleChange}
               name='contacto3'
-              defaultValue={settings?.[0]?.contacto3}
+              defaultValue={settings?.contacto3}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Horário3'
               onChange={handleChange}
               name='horario3'
-              defaultValue={settings?.[0]?.horario3}
+              defaultValue={settings?.horario3}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='E-mail'
               onChange={handleChange}
               name='email'
-              defaultValue={settings?.[0]?.email}
+              defaultValue={settings?.email}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Facebook'
               onChange={handleChange}
               name='facebook'
-              defaultValue={settings?.[0]?.facebook}
+              defaultValue={settings?.facebook}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Instagram'
               onChange={handleChange}
               name='instagram'
-              defaultValue={settings?.[0]?.instagram}
+              defaultValue={settings?.instagram}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Youtube'
               onChange={handleChange}
               name='youtube'
-              defaultValue={settings?.[0]?.youtube}
+              defaultValue={settings?.youtube}
             />
             <div className='form-buttons'>
               <button

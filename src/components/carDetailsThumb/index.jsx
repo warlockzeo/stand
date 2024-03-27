@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useFormatCurrency } from '../../hooks/useFormatCurrency';
+import { formatCurrency } from '../../utils/formatCurrency';
 import { SERVER_URL } from '../../utils/constants';
 import noImage from '../../features/no-image.png';
 import { Wrap } from './styles';
@@ -24,7 +24,7 @@ const CarDetailsThumb = ({ car }) => {
       <span>Modelo: {modelo}</span>
       <span>Ano: {ano}</span>
       <span>Kms: {kms}</span>
-      <span className='preco'>Preço: {useFormatCurrency(preco)}</span>
+      <span className='preco'>Preço: {formatCurrency(preco)}</span>
     </Wrap>
   );
 };

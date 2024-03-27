@@ -7,6 +7,7 @@ import CarDetailsThumb from './carDetailsThumb';
 import SearchBar from './searchBar';
 import Loader from './loader';
 import Logo from './logo';
+import Image from './Image';
 import Input from './input';
 
 export {
@@ -19,5 +20,6 @@ export {
   SearchBar,
   Loader,
   Logo,
+  Image,
   Input,
 };

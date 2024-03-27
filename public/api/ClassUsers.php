@@ -42,7 +42,7 @@ class ClassUsers extends ClassConexao
 
     public function delete($id)
     {
-        $BFetch = $this->conectDB()->prepare("DELETE FROM cars WHERE id = $id");
+        $BFetch = $this->conectDB()->prepare("DELETE FROM users WHERE id = $id");
         if ($BFetch->execute()) {
             echo '{"id": ' . $id . '}';
         }

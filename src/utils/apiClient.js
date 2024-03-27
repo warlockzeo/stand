@@ -129,9 +129,6 @@ export const removeUser = async (id) => {
     method: 'delete',
     responseType: 'json',
     url: `${SERVER_URL}/users/${id}`,
-    data: JSON.stringify({
-      body: '',
-    }),
   })
     .then((response) => response.data)
     .catch((err) => {
@@ -159,7 +156,7 @@ export const getAllSettings = async () => {
     headers: { Accept: 'application/json' },
   }).then((res) => res.json());
 
-  return response;
+  return response[0];
 };
 
 export const updateSettings = async (data) => {
@@ -171,7 +168,7 @@ export const updateSettings = async (data) => {
       body: data,
     }),
   })
-    .then((response) => response.data)
+    .then((response) => response.data[0])
     .catch((err) => {
       console.error(err);
     });

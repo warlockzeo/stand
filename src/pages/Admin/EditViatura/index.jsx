@@ -205,13 +205,17 @@ const EditViatura = () => {
   }, [cars, id, dispatch]);
 
   useEffect(() => {
-    setBanner(fotos.filter((foto) => foto.banner === '1')?.[0]?.id);
+    if (id) {
+      setBanner(fotos.filter((foto) => foto.banner === '1')?.[0]?.id);
+    }
   }, [fotos]);
 
   useEffect(() => {
-    dispatch(getAllFotos(id)).then(({ payload }) => {
-      setFotos(payload);
-    });
+    if (id) {
+      dispatch(getAllFotos(id)).then(({ payload }) => {
+        setFotos(payload);
+      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

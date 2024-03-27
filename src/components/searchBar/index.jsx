@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 import { SearchBarStyled } from './styles';
-import { useFormatCurrency } from '../../hooks/useFormatCurrency';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 const SearchBar = ({ list, onChange }) => {
   const [price, setPrice] = useState(0);
@@ -84,7 +84,7 @@ const SearchBar = ({ list, onChange }) => {
             className='form-control'
             name='showPrice'
             id='showPrice'
-            value={useFormatCurrency(price)}
+            value={formatCurrency(price)}
             disabled
           />
         </Col>

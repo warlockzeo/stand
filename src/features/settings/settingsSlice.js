@@ -4,7 +4,7 @@ import { SERVER_URL } from '../../utils/constants';
 
 export const initialState = {
   isLoading: false,
-  settings: [],
+  settings: {},
   error: null,
 };
 

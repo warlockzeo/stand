@@ -41,6 +41,8 @@ const Home = () => {
     }
   }, [cars, filters]);
 
+  const bannerImages = cars?.filter((car) => car.fileName !== null);
+
   useEffect(() => {
     dispatch(getAllCars());
   }, [dispatch]);
@@ -53,7 +55,11 @@ const Home = () => {
 
   return (
     <HomeStyled>
-      <Banner images={cars.filter((car) => car.fileName !== null)} />
+      <Banner
+        images={
+          bannerImages.length ? bannerImages : [{ fullName: './logocar.png' }]
+        }
+      />
       <SearchBar list={cars} onChange={handleChangeFilter} />
       {isLoading ? <Loader /> : <LastReleases data={carsFiltered} />}
       <Footer />

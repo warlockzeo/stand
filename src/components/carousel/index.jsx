@@ -6,18 +6,22 @@ import { BannerCarousel } from './styles';
 
 const Banner = ({ images, expandeble = false }) => {
   const [expand, setExpand] = useState(expandeble);
+
   return (
     <>
       {Array.isArray(images) ? (
         <BannerCarousel expandeble={expandeble ? expand : false}>
           <Carousel fade>
             {images?.map((car, index) => {
+              const img =
+                car.fullName ?? `${SERVER_URL}/imagens/${car.fileName}`;
+
               return (
                 <Carousel.Item key={index} onClick={() => setExpand(!expand)}>
                   <div
                     className='carousel-foto'
                     style={{
-                      backgroundImage: `url("${SERVER_URL}/imagens/${car.fileName}")`,
+                      backgroundImage: `url("${img}")`,
                     }}
                   ></div>
 

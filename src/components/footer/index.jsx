@@ -2,17 +2,18 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { FooterStyles } from './styles';
+import { Col } from 'react-bootstrap';
 
 const Footer = () => {
   const settings = useSelector((state) => state.settings.settings);
 
   return (
-    <FooterStyles>
-      <section className='col-md-4'>
+    <FooterStyles className='row'>
+      <Col xs={12} md={4}>
         <h1>Sobre nós</h1>
         <p>{settings?.about}</p>
-      </section>
-      <section className='col-md-4'>
+      </Col>
+      <Col xs={12} md={4}>
         <h1>Onde estamos</h1>
         {settings?.morada1 ? (
           <p>
@@ -41,9 +42,9 @@ const Footer = () => {
             {settings?.horario3}
           </p>
         ) : null}
-      </section>
+      </Col>
       {settings?.facebook || settings?.instagram || settings?.youtube ? (
-        <section className='col-md-4'>
+        <Col xs={12} md={4}>
           <h1>Redes Sociais</h1>
           {settings.facebook ? (
             <p>
@@ -66,7 +67,7 @@ const Footer = () => {
               </a>
             </p>
           ) : null}
-        </section>
+        </Col>
       ) : (
         ''
       )}

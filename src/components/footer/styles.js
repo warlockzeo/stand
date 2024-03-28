@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const FooterStyles = styled.article`
+export const FooterStyles = styled.div`
   display: flex;
   flex-direction: row;
   background-color: #000;
@@ -18,5 +18,9 @@ export const FooterStyles = styled.article`
 
   i {
     margin-right: 10px;
+  }
+
+  a:link {
+    color: #000;
   }
 `;

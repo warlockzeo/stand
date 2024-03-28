@@ -36,22 +36,26 @@ const LastReleases = ({ data }) => {
   }, [actualPage]);
 
   return (
-    <LastReleasesStyles>
-      {CarsList.map((car) => (
-        <Col xs={12} sm={6} md={4} key={car.id}>
-          <CarDetailsThumb car={car} />
-        </Col>
-      ))}
-      <div className='paginacao'>
-        <button className='btn' onClick={() => setActualPage(1)}>
-          {'<<'}
-        </button>
-        <PagesLink />
-        <button className='btn' onClick={() => setActualPage(pagesLenght)}>
-          {'>>'}
-        </button>
-      </div>
-    </LastReleasesStyles>
+    <>
+      {Array.isArray(data) && data.length ? (
+        <LastReleasesStyles>
+          {CarsList.map((car) => (
+            <Col xs={12} sm={6} md={4} key={car.id}>
+              <CarDetailsThumb car={car} />
+            </Col>
+          ))}
+          <div className='paginacao'>
+            <button className='btn' onClick={() => setActualPage(1)}>
+              {'<<'}
+            </button>
+            <PagesLink />
+            <button className='btn' onClick={() => setActualPage(pagesLenght)}>
+              {'>>'}
+            </button>
+          </div>
+        </LastReleasesStyles>
+      ) : null}
+    </>
   );
 };
 

@@ -29,92 +29,93 @@ const CarDetails = () => {
     }
   }, [carros, id]);
 
-  if (!carro) {
-    return (
-      <Container className='container'>
-        <h1>Viatura não localizada</h1>
-      </Container>
-    );
-  }
   return (
     <CarDetailsStyled>
-      <Banner images={fotos} expandeble={true} />
-      <Destaq>
-        <div>
-          <h1>
-            {carro.marca} - {carro.modelo}
-          </h1>
-          <p>xvdfg{carro.combustivel}</p>
-        </div>
-        <h2>{formatCurrency(carro.preco)}</h2>
-      </Destaq>
-      <Container>
-        <h1>Detalhes</h1>
-        <Row>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Marca</span> Mercedes-Benz
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Modelo</span> C 250
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Sub-modelo</span> Classe C Versão d Aut.
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Combustível</span> Diesel
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Mês de Registo</span> Setembro 2016
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Quilómetros</span> 39 000 km
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Cilindrada</span> 2 143 cm3
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Potência</span> 204 cv
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Segmento</span> Cabrio
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Cor</span> Preto
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Tipo de cor</span> Metalizado
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Tipo de Caixa</span> Automáticad
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Número de Mudanças</span> 9
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Nº de portas</span> 2d
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Lotação</span> 4d
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Classe do veículo</span> Classe 1d
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Tracção</span> Tracção traseira
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Emissões CO2</span> 121 g/klg 64
-          </Col>
-          <Col lg={4} sm={6} xs={12}>
-            <span>Origem</span> Nacional
-          </Col>
-        </Row>
+      {carro ? (
+        <>
+          <Banner images={fotos} expandeble={true} />
+          <Destaq>
+            <div>
+              <h1>
+                {carro.marca} - {carro.modelo}
+              </h1>
+              <p>xvdfg{carro.combustivel}</p>
+            </div>
+            <h2>{formatCurrency(carro.preco)}</h2>
+          </Destaq>
+          <Container>
+            <h1>Detalhes</h1>
+            <Row>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Marca</span> Mercedes-Benz
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Modelo</span> C 250
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Sub-modelo</span> Classe C Versão d Aut.
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Combustível</span> Diesel
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Mês de Registo</span> Setembro 2016
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Quilómetros</span> 39 000 km
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Cilindrada</span> 2 143 cm3
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Potência</span> 204 cv
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Segmento</span> Cabrio
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Cor</span> Preto
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Tipo de cor</span> Metalizado
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Tipo de Caixa</span> Automáticad
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Número de Mudanças</span> 9
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Nº de portas</span> 2d
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Lotação</span> 4d
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Classe do veículo</span> Classe 1d
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Tracção</span> Tracção traseira
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Emissões CO2</span> 121 g/klg 64
+              </Col>
+              <Col lg={4} sm={6} xs={12}>
+                <span>Origem</span> Nacional
+              </Col>
+            </Row>
 
-        <Row>
-          <h2>Anotações</h2>
-          <Col>fdsfsdfsdf</Col>
-        </Row>
-      </Container>
+            <Row>
+              <h2>Anotações</h2>
+              <Col>fdsfsdfsdf</Col>
+            </Row>
+          </Container>
+        </>
+      ) : (
+        <Container className='container'>
+          <h1>Viatura não localizada</h1>
+        </Container>
+      )}
       <Footer />
     </CarDetailsStyled>
   );

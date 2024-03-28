@@ -44,7 +44,7 @@ const Settings = () => {
           bg='success'
         >
           <Toast.Body className='text-white'>
-            Usuário removido com sucesso!
+            Textos atualizados com sucesso!
           </Toast.Body>
         </Toast>
       </ToastContainer>

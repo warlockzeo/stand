@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Col, Row, Button, Alert } from 'react-bootstrap';
+import { Col, Row, Button, Toast, ToastContainer } from 'react-bootstrap';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import Styled from 'styled-components';
@@ -94,9 +94,18 @@ const Login = () => {
         </Form>
       )}
 
-      {loginErrorMessage?.error && (
-        <Alert variant='danger'>{loginErrorMessage?.error}</Alert>
-      )}
+      <ToastContainer position='bottom-center'>
+        <Toast
+          show={!!loginErrorMessage?.error}
+          delay={3000}
+          autohide
+          bg='danger'
+        >
+          <Toast.Body className='text-white'>
+            {loginErrorMessage?.error}
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
     </Wrap>
   );
 };

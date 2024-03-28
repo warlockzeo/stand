@@ -26,4 +26,13 @@ export const Wrap = styled.div`
       margin-right: 20px;
     }
   }
+
+  .navbar-collapse {
+    margin-top: 10px;
+  }
+
+  .nav-link:hover {
+    color: red;
+    font-weight: bold;
+  }
 `;

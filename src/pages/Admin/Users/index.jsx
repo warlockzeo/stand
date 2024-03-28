@@ -29,43 +29,18 @@ const Users = () => {
 
   return (
     <Wrap className='container' isLoading={isLoading}>
-      <ToastContainer position='bottom-center'>
-        <Toast
-          onClose={() => setShowToast(false)}
-          show={showToast}
-          delay={3000}
-          autohide
-          bg='success'
-        >
-          <Toast.Body className='text-white'>
-            Usuário removido com sucesso!
-          </Toast.Body>
-        </Toast>
-      </ToastContainer>
-      <Modal show={!!showModal} onHide={() => setShowModal(0)}>
-        <Modal.Body>Quer mesmo remover este usuário?</Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={() => setShowModal(0)}>
-            Cancelar
-          </Button>
-          <Button variant='primary' onClick={() => handleDelete(showModal)}>
-            Remover
-          </Button>
-        </Modal.Footer>
-      </Modal>
       {isLoading ? (
         <Loader />
       ) : (
         <>
           <h1>Users</h1>
-
           <button
             type='button'
             className='btn btn-success'
-            style={{ position: 'absolute', top: 0, right: 0 }}
+            style={{ position: 'absolute', top: 0, right: 10 }}
             onClick={() => navigate(`/admin/users/new`)}
           >
-            <FontAwesomeIcon icon='fa-solid fa-plus' /> Adicionar novo usuário
+            <FontAwesomeIcon icon='fa-solid fa-plus' />
           </button>
 
           <table>
@@ -111,6 +86,32 @@ const Users = () => {
           </table>
         </>
       )}
+
+      <ToastContainer position='bottom-center'>
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide
+          bg='success'
+        >
+          <Toast.Body className='text-white'>
+            Usuário removido com sucesso!
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
+
+      <Modal show={!!showModal} onHide={() => setShowModal(0)}>
+        <Modal.Body>Quer mesmo remover este usuário?</Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={() => setShowModal(0)}>
+            Cancelar
+          </Button>
+          <Button variant='primary' onClick={() => handleDelete(showModal)}>
+            Remover
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Wrap>
   );
 };

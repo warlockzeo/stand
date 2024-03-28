@@ -299,7 +299,7 @@ const EditViatura = () => {
               {newFotos?.map((foto, i) => (
                 <img
                   src={foto.fileUrl}
-                  className='foto col-sm-12 col-md-4 col-lg-3'
+                  className='foto col-12 col-md-4 col-lg-3'
                   key={i}
                   alt={i}
                 />
@@ -313,7 +313,7 @@ const EditViatura = () => {
             {fotos?.map((foto, i) => (
               <div
                 key={i}
-                className={`foto col-2  ${
+                className={`foto col-12 col-md-4  ${
                   banner === foto.id ? 'selected' : ''
                 }`}
                 style={{

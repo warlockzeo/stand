@@ -6,7 +6,7 @@ import { Modal, Button, Toast, ToastContainer } from 'react-bootstrap';
 
 import { getAllCars, removeCar } from '../../features/cars/carsSlice';
 import { Loader, Image } from '../../components';
-import { Wrap } from './styles';
+import { Wrap, EmptyArray } from './styles';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -27,7 +27,85 @@ const Admin = () => {
   }, [dispatch]);
 
   return (
-    <Wrap className='container' isLoading={isLoading}>
+    <Wrap className='container'>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          {cars?.length ? (
+            <>
+              <h1>Minhas viaturas</h1>
+              <button
+                type='button'
+                className='btn btn-success'
+                style={{ position: 'absolute', top: 0, right: 10 }}
+                onClick={() => navigate(`/admin/viaturas/new`)}
+              >
+                <FontAwesomeIcon icon='fa-solid fa-plus' />
+              </button>
+              <table>
+                <tbody>
+                  {cars?.map((car) => (
+                    <tr key={car.id}>
+                      <td
+                        className='hand-pointer text-center'
+                        onClick={() => setShowModal(car.id)}
+                      >
+                        <Image
+                          src={car?.fileName}
+                          alt=''
+                          style={{ with: '50px', height: '50px' }}
+                        />
+                      </td>
+                      <td
+                        className='hand-pointer'
+                        onClick={() => handleClick(car.id)}
+                      >
+                        {car.marca}
+                      </td>
+                      <td
+                        className='hand-pointer'
+                        onClick={() => handleClick(car.id)}
+                      >
+                        {car.modelo}
+                      </td>
+                      <td
+                        className='hand-pointer'
+                        onClick={() => handleClick(car.id)}
+                      >
+                        {car.ano}
+                      </td>
+                      <td
+                        className='hand-pointer'
+                        onClick={() => handleClick(car.id)}
+                      >
+                        {car.kms}
+                      </td>
+                      <td>
+                        <FontAwesomeIcon
+                          icon='fa-solid fa-trash'
+                          onClick={() => setShowModal(car.id)}
+                          className='delete-icon hand-pointer'
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          ) : (
+            <EmptyArray>
+              <h1>Nenhuma viatura encontrada.</h1>
+              <Link to={`/admin/viaturas/new`}>
+                <button className='btn btn-primary'>
+                  Registrar sua primeira viatura
+                </button>
+              </Link>
+            </EmptyArray>
+          )}
+        </>
+      )}
+
       <ToastContainer position='bottom-center'>
         <Toast
           onClose={() => setShowToast(false)}
@@ -36,16 +114,7 @@ const Admin = () => {
           autohide
           bg='success'
         >
-          <Toast.Header>
-            <img
-              src='holder.js/20x20?text=%20'
-              className='rounded me-2'
-              alt=''
-            />
-            <strong className='me-auto'>Bootstrap</strong>
-            <small>11 mins ago</small>
-          </Toast.Header>
-          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+          <Toast.Body>Viatura removida com sucesso!</Toast.Body>
         </Toast>
       </ToastContainer>
 
@@ -60,87 +129,6 @@ const Admin = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <h1>Minhas viaturas</h1>
-
-          <button
-            type='button'
-            className='btn btn-success'
-            style={{ position: 'absolute', top: 0, right: 0 }}
-            onClick={() => navigate(`/admin/viaturas/new`)}
-          >
-            <FontAwesomeIcon icon='fa-solid fa-plus' /> Adicionar nova viatura
-          </button>
-
-          <table>
-            <tbody>
-              {cars?.length ? (
-                cars?.map((car) => (
-                  <tr key={car.id}>
-                    <td
-                      className='hand-pointer text-center'
-                      onClick={() => setShowModal(car.id)}
-                    >
-                      <Image
-                        src={car?.fileName}
-                        alt=''
-                        style={{ with: '50px', height: '50px' }}
-                      />
-                    </td>
-                    <td
-                      className='hand-pointer'
-                      onClick={() => handleClick(car.id)}
-                    >
-                      {car.marca}
-                    </td>
-                    <td
-                      className='hand-pointer'
-                      onClick={() => handleClick(car.id)}
-                    >
-                      {car.modelo}
-                    </td>
-                    <td
-                      className='hand-pointer'
-                      onClick={() => handleClick(car.id)}
-                    >
-                      {car.ano}
-                    </td>
-                    <td
-                      className='hand-pointer'
-                      onClick={() => handleClick(car.id)}
-                    >
-                      {car.kms}
-                    </td>
-                    <td>
-                      <FontAwesomeIcon
-                        icon='fa-solid fa-trash'
-                        onClick={() => setShowModal(car.id)}
-                        className='delete-icon hand-pointer'
-                      />
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={5}>
-                    <h1>Nenhuma viatura registrada.</h1>
-                    <Link to={`/admin/viaturas/new`}>
-                      <button className='btn btn-primary'>
-                        Registrar sua primeira viatura{' '}
-                        <FontAwesomeIcon icon='fa-solid fa-plus' />
-                      </button>
-                    </Link>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </>
-      )}
     </Wrap>
   );
 };

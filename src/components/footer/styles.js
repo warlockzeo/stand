@@ -6,6 +6,7 @@ export const FooterStyles = styled.div`
   background-color: #000;
   color: white;
   padding: 40px 40px 0;
+  margin: 0;
 
   section {
     padding: 10px;
@@ -20,7 +21,8 @@ export const FooterStyles = styled.div`
     margin-right: 10px;
   }
 
-  a:link {
-    color: #000;
+  a:link,
+  a:visited {
+    color: #fff;
   }
 `;

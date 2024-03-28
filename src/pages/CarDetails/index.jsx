@@ -17,8 +17,6 @@ const CarDetails = () => {
   const fotos = useSelector((state) => state.fotos.fotos);
   const [car, setCar] = useState(null);
 
-  console.log(car);
-
   useEffect(() => {
     dispatch(getAllCars());
     dispatch(getAllFotos(id));

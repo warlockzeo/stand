@@ -1,14 +1,28 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import {
+  Tab,
+  Tabs,
+  Modal,
+  Button,
+  ToastContainer,
+  Toast,
+} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Uploader } from 'uploader'; // Installed by "react-uploader".
 import { UploadButton } from 'react-uploader';
 
-import { addCar, updateCar } from '../../../features/cars/carsSlice';
+import { Loader } from '../../../components';
+import {
+  addCar,
+  getAllCars,
+  updateCar,
+} from '../../../features/cars/carsSlice';
 import {
   addFoto,
   removeFoto,
@@ -16,10 +30,9 @@ import {
   selectFoto,
 } from '../../../features/fotos/fotosSlice';
 
+import { SERVER_URL } from '../../../utils/constants';
 import Field from '../Field';
 import { Wrap } from './styles';
-import { SERVER_URL } from '../../../utils/constants';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const EditViatura = () => {
   // Initialize once (at the start of your app).
@@ -34,10 +47,12 @@ const EditViatura = () => {
   const dispatch = useDispatch();
   const cars = useSelector((state) => state.cars.cars);
   const carFotos = useSelector((state) => state.fotos.fotos);
+  const [saving, setSaving] = useState(false);
+  const [showModal, setShowModal] = useState(0);
+  const [showToast, setShowToast] = useState(false);
 
   const [car, setCar] = useState(null);
   const [fotos, setFotos] = useState(carFotos || []);
-  const [newFotos, setNewFotos] = useState([]);
   const [banner, setBanner] = useState(null);
 
   const {
@@ -173,12 +188,13 @@ const EditViatura = () => {
     }
   });
 
-  const onSubmitFotos = () => {
+  const onSubmitFotos = (photos) => {
+    setSaving(true);
     if (id) {
       dispatch(
         addFoto({
           id: id,
-          fotos: newFotos.map((file) => file.originalFile.file),
+          fotos: photos,
         })
       )
         .then(() => navigate('/admin'))
@@ -190,7 +206,10 @@ const EditViatura = () => {
   };
 
   const handleRemove = (id) => {
-    dispatch(removeFoto({ id }));
+    dispatch(removeFoto({ id }))
+      .then(() => setShowToast(true))
+      .then(() => setFotos((fotos) => fotos.filter((foto) => foto.id != id)));
+    setShowModal(0);
   };
 
   const handleSelectFoto = (id) => {
@@ -199,7 +218,7 @@ const EditViatura = () => {
   };
 
   useEffect(() => {
-    if (cars) {
+    if (cars.length) {
       setCar(cars.filter((car) => car.id == id)[0]);
     }
   }, [cars, id, dispatch]);
@@ -211,12 +230,15 @@ const EditViatura = () => {
   }, [fotos]);
 
   useEffect(() => {
+    if (cars.length < 1) {
+      dispatch(getAllCars());
+    }
+
     if (id) {
       dispatch(getAllFotos(id)).then(({ payload }) => {
         setFotos(payload);
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -285,54 +307,40 @@ const EditViatura = () => {
                 uploader={uploader}
                 options={options}
                 onComplete={(files) =>
-                  setNewFotos((prev) => [...prev, ...files.map((file) => file)])
+                  onSubmitFotos(files.map((file) => file.originalFile.file))
                 }
               >
                 {({ onClick }) => (
-                  <button onClick={onClick}>Selecione uma foto...</button>
+                  <button onClick={onClick}>Adicione fotos...</button>
                 )}
               </UploadButton>
             </div>
           </div>
-          {newFotos.length ? (
-            <div className='form-group'>
-              {newFotos?.map((foto, i) => (
-                <img
-                  src={foto.fileUrl}
-                  className='foto col-12 col-md-4 col-lg-3'
-                  key={i}
-                  alt={i}
-                />
-              ))}
-            </div>
-          ) : null}
+
           <div className='form-group' style={{ backgroundColor: '#eee' }}>
-            <p className='col-12'>
-              Selecione a foto a ser destacada no banner.
-            </p>
+            <p>Selecione a foto a ser destacada no banner.</p>
             {fotos?.map((foto, i) => (
               <div
                 key={i}
-                className={`foto col-12 col-md-4  ${
+                className={`foto col-12 col-md-4 ${
                   banner == foto.id ? 'selected' : ''
                 }`}
-                style={{
-                  backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
-                }}
-                onClick={() => handleSelectFoto(foto.id)}
               >
                 <FontAwesomeIcon
                   className='hand-pointer delete-icon'
                   icon='fa-solid fa-trash'
-                  onClick={() => handleRemove(foto.id)}
+                  onClick={() => setShowModal(foto.id)}
                 />
+                <div
+                  style={{
+                    backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
+                  }}
+                  onClick={() => handleSelectFoto(foto.id)}
+                ></div>
               </div>
             ))}
           </div>
-          <div
-            className='form-buttons gap-2'
-            style={{ backgroundColor: '#eee' }}
-          >
+          <div className='form-buttons gap-2'>
             <button
               type='button'
               className='btn btn-danger'
@@ -340,16 +348,48 @@ const EditViatura = () => {
             >
               Voltar
             </button>
+
             <button
               type='button'
               className='btn btn-success'
               onClick={onSubmitFotos}
+              disabled={saving}
             >
-              Guardar Fotos
+              Guardar mudanças
             </button>
           </div>
         </Tab>
       </Tabs>
+
+      <ToastContainer position='bottom-center'>
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide
+          bg='success'
+        >
+          <Toast.Body>Foto removida com sucesso!</Toast.Body>
+        </Toast>
+      </ToastContainer>
+
+      <Modal show={!!showModal} onHide={() => setShowModal(0)}>
+        <Modal.Body>Quer mesmo remover esta foto?</Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={() => setShowModal(0)}>
+            Cancelar
+          </Button>
+          <Button variant='primary' onClick={() => handleRemove(showModal)}>
+            Remover
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {saving && (
+        <div className='cover'>
+          <Loader />
+        </div>
+      )}
     </Wrap>
   );
 };

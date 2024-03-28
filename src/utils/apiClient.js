@@ -59,7 +59,6 @@ export const getAllFotos = async (data) => {
   const response = await fetch(`${SERVER_URL}/fotos/${data}`, {
     headers: { Accept: 'application/json' },
   }).then((res) => res.json());
-
   return response;
 };
 
@@ -71,7 +70,7 @@ export const addFotos = async (data) => {
     headers: { 'Content-Type': 'multipart/form-data' },
     data: data,
   })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((err) => {
       console.error(err);
     });

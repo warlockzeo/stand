@@ -76,17 +76,21 @@ export const Wrap = styled.div`
 
   .foto {
     position: relative;
-    height: 200px;
     margin-top: 5px;
     margin-bottom: 5px;
-    background-position: center center;
-    background-size: cover;
     border: #ccc 2px solid;
+
+    & div {
+      height: 200px;
+      background-position: center center;
+      background-size: cover;
+      margin: 0;
+    }
   }
 
   .delete-icon {
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -104,5 +108,18 @@ export const Wrap = styled.div`
 
   .selected {
     border: red solid 2px;
+  }
+
+  .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
   }
 `;

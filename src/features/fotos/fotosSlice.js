@@ -59,9 +59,8 @@ export const fotosSlice = createSlice({
       .addCase(addFoto.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addFoto.fulfilled, (state, { payload }) => {
+      .addCase(addFoto.fulfilled, (state) => {
         state.isLoading = false;
-        state.fotos = [...state.fotos, payload];
       })
       .addCase(addFoto.rejected, (state, { error }) => {
         state.isLoading = true;

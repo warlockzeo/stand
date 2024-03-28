@@ -318,7 +318,9 @@ const EditViatura = () => {
           </div>
 
           <div className='form-group' style={{ backgroundColor: '#eee' }}>
-            <p>Selecione a foto a ser destacada no banner.</p>
+            <p className='col-12'>
+              Selecione a foto a ser destacada no banner.
+            </p>
             {fotos?.map((foto, i) => (
               <div
                 key={i}

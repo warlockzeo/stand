@@ -25,11 +25,18 @@ class ClassFotos extends ClassConexao
 
     public function delete($id)
     {
+        $BFetch = $this->conectDB()->prepare("SELECT fileName FROM fotos WHERE id = $id");
+        $BFetch->execute();
+        $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
+        $fotoFile = $Fetch[0]['fileName'];
+        unlink("./imagens/$fotoFile");
+
         $BFetch = $this->conectDB()->prepare("DELETE FROM fotos WHERE id = $id");
         if ($BFetch->execute()) {
             echo '{"id": ' . $id . '}';
         }
     }
+
 
     public function select($id)
     {
@@ -43,11 +50,11 @@ class ClassFotos extends ClassConexao
 
     public function post()
     {
-        if (isset ($_POST['id'])) {
+        if (isset($_POST['id'])) {
             $carId = $_POST['id'];
             $upload = diverse_array($_FILES['fotos']);
 
-            if (isset ($_FILES['fotos'])) {
+            if (isset($_FILES['fotos'])) {
                 for ($i = 0; $i < count($upload); $i++) {
                     $ext = strtolower(substr($upload[$i]['name'], -4)); //Pegando extensão do arquivo
                     $newName = date("Y.m.d-H.i.s") . $i . $ext; //Definindo um novo nome para o arquivo
@@ -72,9 +79,5 @@ class ClassFotos extends ClassConexao
                 }
             }
         }
-
-
     }
 }
-
-

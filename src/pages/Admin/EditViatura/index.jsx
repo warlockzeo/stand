@@ -200,13 +200,13 @@ const EditViatura = () => {
 
   useEffect(() => {
     if (cars) {
-      setCar(cars.filter((car) => car.id === id)[0]);
+      setCar(cars.filter((car) => car.id == id)[0]);
     }
   }, [cars, id, dispatch]);
 
   useEffect(() => {
     if (id) {
-      setBanner(fotos.filter((foto) => foto.banner === '1')?.[0]?.id);
+      setBanner(fotos.filter((foto) => foto.banner == '1')?.[0]?.id);
     }
   }, [fotos]);
 
@@ -314,7 +314,7 @@ const EditViatura = () => {
               <div
                 key={i}
                 className={`foto col-12 col-md-4  ${
-                  banner === foto.id ? 'selected' : ''
+                  banner == foto.id ? 'selected' : ''
                 }`}
                 style={{
                   backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,

@@ -13,10 +13,11 @@ import { formatCurrency } from '../../utils/formatCurrency';
 const CarDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const carros = useSelector((state) => state.cars.cars);
+  const cars = useSelector((state) => state.cars.cars);
   const fotos = useSelector((state) => state.fotos.fotos);
+  const [car, setCar] = useState(null);
 
-  const [carro, setCarro] = useState({});
+  console.log(car);
 
   useEffect(() => {
     dispatch(getAllCars());
@@ -24,24 +25,24 @@ const CarDetails = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (carros) {
-      setCarro(carros.filter((carro) => carro.id === id)[0]);
+    if (cars) {
+      setCar(cars.filter((car) => car.id == id)[0]);
     }
-  }, [carros, id]);
+  }, [cars, id]);
 
   return (
     <CarDetailsStyled>
-      {carro ? (
+      {car ? (
         <>
           <Banner images={fotos} expandeble={true} />
           <Destaq>
             <div>
               <h1>
-                {carro.marca} - {carro.modelo}
+                {car.marca} - {car.modelo}
               </h1>
-              <p>xvdfg{carro.combustivel}</p>
+              <p>xvdfg{car.combustivel}</p>
             </div>
-            <h2>{formatCurrency(carro.preco)}</h2>
+            <h2>{formatCurrency(car.preco)}</h2>
           </Destaq>
           <Container>
             <h1>Detalhes</h1>

@@ -18,7 +18,7 @@
 	RewriteRule ^api/fotos/?$ /api/index.php?tabela=fotos [NC]
 	RewriteRule ^api/fotos/([0-9-]+)?$ /api/index.php?tabela=fotos&id=$1 [NC]
 	RewriteRule ^api/settings/?$ /api/index.php?tabela=settings [NC]
-
+	RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/([a-z0-9-]+)/?$ /index.html [NC]
 	RewriteRule ^([a-z0-9-]+)/([a-z0-9-]+)/?$ /index.html [NC]
 	RewriteRule ^([a-z0-9-]+)/?$ /index.html [NC]
 </IfModule>

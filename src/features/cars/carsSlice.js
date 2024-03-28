@@ -45,7 +45,7 @@ export const carsSlice = createSlice({
       const { id } = payload;
       return {
         ...state,
-        car: { ...state.cars.filter((xcar) => xcar.id === id) },
+        car: { ...state.cars.filter((xcar) => xcar.id == id) },
       };
     },
   },
@@ -80,7 +80,7 @@ export const carsSlice = createSlice({
         state.isLoading = false;
         state.cars = [
           ...state.cars.map((car) => {
-            return car.id === payload.id ? payload : car;
+            return car.id == payload.id ? payload : car;
           }),
           payload,
         ];

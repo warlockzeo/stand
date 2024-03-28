@@ -20,7 +20,7 @@ const LastReleases = ({ data }) => {
     for (let i = 1; i <= pagesLenght; i++) {
       buttonsList.push(
         <button
-          className={`btn ${actualPage === i ? 'btn-actual' : ''}`}
+          className={`btn ${actualPage == i ? 'btn-actual' : ''}`}
           key={i}
           onClick={() => setActualPage(i)}
         >

@@ -10,13 +10,13 @@ const SearchBar = ({ list, onChange }) => {
   const marcas = list
     .map((car) => car.marca)
     .filter(function (elem, pos, self) {
-      return self.indexOf(elem) === pos;
+      return self.indexOf(elem) == pos;
     });
 
   const modelos = list
     .map((car) => car.modelo)
     .filter(function (elem, pos, self) {
-      return self.indexOf(elem) === pos;
+      return self.indexOf(elem) == pos;
     });
 
   const onDropRange = (e) => {

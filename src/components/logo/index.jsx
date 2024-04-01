@@ -19,7 +19,7 @@ const Wrap = styled.div`
 
   img {
     width: ${(props) => (props.size == 'big' ? '350px' : '180px')};
-    margin-right: ${(props) => (props.size == 'big' ? '0' : '20px')};
+    margin-bottom: ${(props) => (props.size == 'big' ? '20px' : '0')};
   }
 `;
 

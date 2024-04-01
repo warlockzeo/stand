@@ -9,10 +9,12 @@ class ClassSettings extends ClassConexao
 {
     public function get()
     {
+
         $BFetch = $this->conectDB()->prepare("SELECT * FROM settings");
         $BFetch->execute();
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($Fetch ?? []);
+
     }
 
     public function update()
@@ -28,11 +30,13 @@ class ClassSettings extends ClassConexao
             $newobj[$i] = "$key = '$obj[$key]'";
         }
         $joined = implode(",", $newobj);
+        $id = $obj['id'];
 
-        $sql = "UPDATE settings SET $joined WHERE id = 1";
+        $sql = "UPDATE settings SET $joined WHERE id = $id";
+
         $BFetch = $this->conectDB()->prepare($sql);
         if ($BFetch->execute()) {
-            $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM settings WHERE id = 1");
+            $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM settings WHERE id = $id");
             $BFetchReturn->execute();
             $FetchReturn = $BFetchReturn->fetchall(PDO::FETCH_ASSOC);
             echo json_encode($FetchReturn ?? "");

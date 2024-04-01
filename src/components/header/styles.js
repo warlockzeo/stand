@@ -31,6 +31,5 @@ export const Wrap = styled.div`
 
   .nav-link:hover {
     color: red;
-    font-weight: bold;
   }
 `;

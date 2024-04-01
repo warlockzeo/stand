@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Row, Form, Toast, ToastContainer } from 'react-bootstrap';
 
 import {
-  getAllSettings,
   updateSettings,
+  getAllSettings,
 } from '../../../features/settings/settingsSlice';
 import { Loader, Input } from '../../../components';
 import { Wrap } from './styles';
@@ -12,23 +12,30 @@ import { Wrap } from './styles';
 const Settings = () => {
   const dispatch = useDispatch();
   const { settings, isLoading } = useSelector((state) => state.settings);
-  const [data, setData] = useState(settings);
+  const [setting, setSetting] = useState(null);
   const [showToast, setShowToast] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    setData({
-      ...data,
+    setSetting({
+      ...setting,
       [e.target.name]: value,
     });
   };
 
-  const onSubmit = () =>
-    dispatch(updateSettings(data)).then(() => setShowToast(true));
+  const onSubmit = () => {
+    delete setting.option;
+    dispatch(updateSettings({ ...setting, id: setting.id })).then(() =>
+      setShowToast(true)
+    );
+  };
 
   useEffect(() => {
-    if (!data && settings.length > 0) {
-      setData(settings[0]);
+    if (!setting && settings.length > 0) {
+      const setting = settings.filter(
+        (setting) => setting.option == 'footer'
+      )[0];
+      setSetting(setting);
       dispatch(getAllSettings());
     }
   }, [settings, dispatch]);
@@ -52,7 +59,7 @@ const Settings = () => {
         <Loader />
       ) : (
         <>
-          <h1>Settings</h1>
+          <h1>Settings - Footer</h1>
           <Form className='col-12' as={Row}>
             <Input
               className='col-12'
@@ -61,7 +68,7 @@ const Settings = () => {
               rows={3}
               onChange={handleChange}
               name='about'
-              defaultValue={settings?.about}
+              defaultValue={setting?.about}
             />
             <Input
               className='col-lg-6'
@@ -69,98 +76,98 @@ const Settings = () => {
               type='email'
               onChange={handleChange}
               name='morada1'
-              defaultValue={settings?.morada1}
+              defaultValue={setting?.morada1}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Contacto1'
               onChange={handleChange}
               name='contacto1'
-              defaultValue={settings?.contacto1}
+              defaultValue={setting?.contacto1}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Horário1'
               onChange={handleChange}
               name='horario1'
-              defaultValue={settings?.horario1}
+              defaultValue={setting?.horario1}
             />
             <Input
               className='col-lg-6'
               label='Morada2'
               onChange={handleChange}
               name='morada2'
-              defaultValue={settings?.morada2}
+              defaultValue={setting?.morada2}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Contacto2'
               onChange={handleChange}
               name='contacto2'
-              defaultValue={settings?.contacto2}
+              defaultValue={setting?.contacto2}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Horário2'
               onChange={handleChange}
               name='horario2'
-              defaultValue={settings?.horario2}
+              defaultValue={setting?.horario2}
             />
             <Input
               className='col-lg-6'
               label='Morada3'
               onChange={handleChange}
               name='morada3'
-              defaultValue={settings?.morada3}
+              defaultValue={setting?.morada3}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Contacto3'
               onChange={handleChange}
               name='contacto3'
-              defaultValue={settings?.contacto3}
+              defaultValue={setting?.contacto3}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Horário3'
               onChange={handleChange}
               name='horario3'
-              defaultValue={settings?.horario3}
+              defaultValue={setting?.horario3}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='E-mail'
               onChange={handleChange}
               name='email'
-              defaultValue={settings?.email}
+              defaultValue={setting?.email}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Facebook'
               onChange={handleChange}
               name='facebook'
-              defaultValue={settings?.facebook}
+              defaultValue={setting?.facebook}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Instagram'
               onChange={handleChange}
               name='instagram'
-              defaultValue={settings?.instagram}
+              defaultValue={setting?.instagram}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='Youtube'
               onChange={handleChange}
               name='youtube'
-              defaultValue={settings?.youtube}
+              defaultValue={setting?.youtube}
             />
             <Input
               className='col-md-6 col-lg-3'
               label='TikTok'
               onChange={handleChange}
               name='tiktok'
-              defaultValue={settings?.tiktok}
+              defaultValue={setting?.tiktok}
             />
             <div className='form-buttons'>
               <button
@@ -168,7 +175,7 @@ const Settings = () => {
                 className='btn btn-success'
                 onClick={onSubmit}
               >
-                Guardar Settings
+                Guardar
               </button>
             </div>
           </Form>

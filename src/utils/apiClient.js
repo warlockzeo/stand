@@ -151,11 +151,11 @@ export const updateUser = async (data) => {
 };
 
 export const getAllSettings = async () => {
-  const response = await fetch(`${SERVER_URL}/settings`, {
+  const response = await fetch(`${SERVER_URL}/settings/`, {
     headers: { Accept: 'application/json' },
   }).then((res) => res.json());
 
-  return response[0];
+  return response;
 };
 
 export const updateSettings = async (data) => {
@@ -167,7 +167,7 @@ export const updateSettings = async (data) => {
       body: data,
     }),
   })
-    .then((response) => response.data[0])
+    .then((response) => response.data)
     .catch((err) => {
       console.error(err);
     });

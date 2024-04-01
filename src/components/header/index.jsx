@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Logo } from '../';
 import { Wrap } from './styles';
 import { logout, isLogged } from '../../utils/JWTAuth';
@@ -45,20 +45,24 @@ const Header = () => {
             <Nav className='me-auto' style={{ flex: 1, justifyContent: 'end' }}>
               {isLogged ? (
                 <>
-                  <LinkAutoColapse to='/admin/loja/productos'>
-                    Loja - Productos
-                  </LinkAutoColapse>
-                  <LinkAutoColapse to='/admin/loja/vendas'>
-                    Loja - Vendas
-                  </LinkAutoColapse>
-                  <LinkAutoColapse to='/admin/oficina/'>
-                    Oficina
-                  </LinkAutoColapse>
                   <LinkAutoColapse to='/admin/'>Viaturas</LinkAutoColapse>
                   <LinkAutoColapse to='/admin/users'>Usuários</LinkAutoColapse>
-                  <LinkAutoColapse to='/admin/settings'>
-                    Textos do site
-                  </LinkAutoColapse>
+                  <NavDropdown title='Loja' id='basic-nav-dropdown'>
+                    <LinkAutoColapse to='/admin/loja-productos'>
+                      Loja - Productos
+                    </LinkAutoColapse>
+                    <LinkAutoColapse to='/admin/loja-vendas'>
+                      Loja - Vendas
+                    </LinkAutoColapse>
+                  </NavDropdown>
+                  <NavDropdown title='Settings' id='basic-nav-dropdown'>
+                    <LinkAutoColapse to='/admin/oficina/'>
+                      Settings - Oficina
+                    </LinkAutoColapse>
+                    <LinkAutoColapse to='/admin/footer'>
+                      Settings - Footer
+                    </LinkAutoColapse>
+                  </NavDropdown>
                   <LinkAutoColapse onClick={logout}>Logout</LinkAutoColapse>
                 </>
               ) : (

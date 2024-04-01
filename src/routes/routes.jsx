@@ -5,10 +5,12 @@ import PrivateRoute from './PrivateRoute';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import Oficina from '../pages/Oficina';
 import CarDetails from '../pages/CarDetails';
 import Admin from '../pages/Admin';
 import EditViaturas from '../pages/Admin/EditViatura';
 import Settings from '../pages/Admin/Settings';
+import AdminOficina from '../pages/Admin/Oficina';
 import Users from '../pages/Admin/Users';
 import EditUser from '../pages/Admin/EditUser';
 import NoMatchPage from '../pages/NoMatchPage';
@@ -19,9 +21,22 @@ const Routes = () => (
     <Route path='/home' element={<Home />} />
     <Route path='/car/:id' element={<CarDetails />} />
     <Route path='/login' element={<Login />} />
+    <Route path='/oficina' element={<Oficina />} />
     <Route path='/admin/' element={<PrivateRoute element={<Admin />} />} />
     <Route
-      path='/admin/settings'
+      path='/admin/footer'
+      element={<PrivateRoute element={<Settings />} />}
+    />
+    <Route
+      path='/admin/oficina'
+      element={<PrivateRoute element={<AdminOficina />} />}
+    />
+    <Route
+      path='/admin/loja-productos'
+      element={<PrivateRoute element={<Settings />} />}
+    />
+    <Route
+      path='/admin/loja-vendas'
       element={<PrivateRoute element={<Settings />} />}
     />
     <Route path='/admin/users' element={<PrivateRoute element={<Users />} />} />

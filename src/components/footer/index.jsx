@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { FooterStyles } from './styles';
@@ -6,70 +6,75 @@ import { Col } from 'react-bootstrap';
 
 const Footer = () => {
   const settings = useSelector((state) => state.settings.settings);
+  const [setting, setSetting] = useState({});
+
+  useEffect(() => {
+    setSetting(settings.filter((setting) => setting.option == 'footer')[0]);
+  }, [settings]);
 
   return (
     <FooterStyles className='row'>
       <Col xs={12} md={4}>
         <h1>Sobre nós</h1>
-        <p>{settings?.about}</p>
+        <p>{setting?.about}</p>
       </Col>
       <Col xs={12} md={4}>
         <h1>Onde estamos</h1>
-        {settings?.morada1 ? (
+        {setting?.morada1 ? (
           <p>
-            {settings?.morada1}
+            {setting?.morada1}
             <br />
-            {settings?.contacto1}
+            {setting?.contacto1}
             <br />
-            {settings?.horario1}
+            {setting?.horario1}
           </p>
         ) : null}
-        {settings?.morada2 ? (
+        {setting?.morada2 ? (
           <p>
-            {settings?.morada2}
+            {setting?.morada2}
             <br />
-            {settings?.contacto2}
+            {setting?.contacto2}
             <br />
-            {settings?.horario2}
+            {setting?.horario2}
           </p>
         ) : null}
-        {settings?.morada3 ? (
+        {setting?.morada3 ? (
           <p>
-            {settings?.morada3}
+            {setting?.morada3}
             <br />
-            {settings?.contacto3}
+            {setting?.contacto3}
             <br />
-            {settings?.horario3}
+            {setting?.horario3}
           </p>
         ) : null}
       </Col>
-      {settings?.facebook || settings?.instagram || settings?.youtube ? (
+      {setting?.facebook || setting?.instagram || setting?.youtube ? (
         <Col xs={12} md={4}>
           <h1>Redes Sociais</h1>
-          {settings.facebook ? (
+          {setting.facebook ? (
             <p>
-              <a href={settings.facebook}>
+              <a href={setting.facebook}>
                 <i className='bi bi-facebook' /> Facebook
               </a>
             </p>
           ) : null}
-          {settings.instagram ? (
+          {setting.instagram ? (
             <p>
-              <a href={settings.instagram}>
+              <a href={setting.instagram}>
                 <i className='bi bi-instagram' /> Instagram
               </a>
             </p>
           ) : null}
-          {settings.youtube ? (
+          {setting.youtube ? (
             <p>
-              <a href={settings.youtube}>
+              <a href={setting.youtube}>
                 <i className='bi bi-youtube' /> Youtube
               </a>
             </p>
           ) : null}
-          {settings.tiktok ? (
+          {setting.tiktok ? (
             <p>
-              <a href={settings.tiktok}>
+              <a href={setting.tiktok}>
                 <i className='bi bi-tiktok' /> TikTok
               </a>
             </p>

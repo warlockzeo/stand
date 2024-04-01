@@ -41,8 +41,6 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-
-
 } else if ($_GET['tabela'] === 'fotos') {
     include ("ClassFotos.php");
 
@@ -93,7 +91,7 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-} else if ($_GET['option'] === "login") {
+} else if ($_GET['tabela'] === 'users' && $_GET['option'] === "login") {
 
     include ("ClassUsers.php");
     $users = new ClassUsers();

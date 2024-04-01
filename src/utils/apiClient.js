@@ -5,7 +5,7 @@ import { SERVER_URL } from './constants';
 export const getAllCars = async () => {
   const response = await fetch(`${SERVER_URL}/cars`, {
     headers: { Accept: 'application/json' },
-  }).then((res) => res.json());
+  }).then((response) => response.json());
 
   return response;
 };

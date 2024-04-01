@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Modal, Button, Toast, ToastContainer } from 'react-bootstrap';
+import { Modal, Button, Toast, ToastContainer, Form } from 'react-bootstrap';
 
-import { getAllCars, removeCar } from '../../features/cars/carsSlice';
+import {
+  getAllCars,
+  removeCar,
+  updateCar,
+} from '../../features/cars/carsSlice';
 import { Loader, Image } from '../../components';
 import { Wrap, EmptyArray } from './styles';
 
@@ -21,6 +25,17 @@ const Admin = () => {
   };
 
   const handleClick = (carId) => navigate(`/admin/viaturas/${carId}`);
+
+  const onChangeVendido = (id) => {
+    const car = Object.assign({}, cars.filter((car) => car.id === id)[0]);
+    delete car.fileName;
+
+    const vendido = car.vendido == 1 ? 0 : 1;
+
+    dispatch(updateCar({ id: id, car: { ...car, vendido: vendido } }))
+      .then(() => dispatch(getAllCars()))
+      .catch((error) => console.error(error));
+  };
 
   useEffect(() => {
     dispatch(getAllCars());
@@ -44,6 +59,15 @@ const Admin = () => {
                 <FontAwesomeIcon icon='fa-solid fa-plus' />
               </button>
               <table>
+                <thead>
+                  <tr>
+                    <th>Banner</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>
+                    <th>Vendido</th>
+                  </tr>
+                </thead>
                 <tbody>
                   {cars?.map((car) => (
                     <tr key={car.id}>
@@ -75,11 +99,14 @@ const Admin = () => {
                       >
                         {car.ano}
                       </td>
-                      <td
-                        className='hand-pointer'
-                        onClick={() => handleClick(car.id)}
-                      >
-                        {car.kms}
+                      <td className='hand-pointer'>
+                        <Form.Check
+                          type='switch'
+                          name='vendido'
+                          label={car.vendido == 1 ? 'Sim' : 'Não'}
+                          checked={car.vendido == 1 ? true : false}
+                          onChange={() => onChangeVendido(car.id)}
+                        />
                       </td>
                       <td>
                         <FontAwesomeIcon

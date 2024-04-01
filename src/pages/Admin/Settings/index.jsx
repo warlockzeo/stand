@@ -155,6 +155,13 @@ const Settings = () => {
               name='youtube'
               defaultValue={settings?.youtube}
             />
+            <Input
+              className='col-md-6 col-lg-3'
+              label='TikTok'
+              onChange={handleChange}
+              name='tiktok'
+              defaultValue={settings?.tiktok}
+            />
             <div className='form-buttons'>
               <button
                 type='submit'

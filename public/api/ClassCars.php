@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin:*");
 header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
-include("ClassConexao.php");
+include ("ClassConexao.php");
 
 class ClassCars extends ClassConexao
 {
@@ -68,25 +68,17 @@ class ClassCars extends ClassConexao
         $json = file_get_contents('php://input');
         $body = json_decode($json, TRUE);
         $obj = $body['body'];
-        if ($id) {
-            $marca = isset($obj["marca"]) ? "marca = '$obj[marca]', " : "";
-            $modelo = isset($obj["modelo"]) ? "modelo = '$obj[modelo]', " : "";
-            $ano = isset($obj["ano"]) ? "ano = '$obj[ano]', " : "";
-            $kms = isset($obj["kms"]) ? "kms = '$obj[kms]', " : "";
-            $motor = isset($obj["motor"]) ? "motor = '$obj[motor]', " : "";
-            $co2 = isset($obj["co2"]) ? "co2 = '$obj[co2]', " : "";
-            $caixa = isset($obj["caixa"]) ? "caixa = '$obj[caixa]', " : "";
-            $combustivel = isset($obj["combustivel"]) ? "combustivel = '$obj[combustivel]', " : "";
-            $tipo = isset($obj["tipo"]) ? "tipo = '$obj[tipo]', " : "";
-            $lugares = isset($obj["lugares"]) ? "lugares = '$obj[lugares]', " : "";
-            $portas = isset($obj["portas"]) ? "portas = '$obj[portas]', " : "";
-            $cor = isset($obj["cor"]) ? "cor = '$obj[cor]', " : "";
-            $estado = isset($obj["estado"]) ? "estado = '$obj[estado]', " : "";
-            $origem = isset($obj["origem"]) ? "origem = '$obj[origem]', " : "";
-            $garantia = isset($obj["garantia"]) ? "garantia = '$obj[garantia]', " : "";
-            $preco = isset($obj["preco"]) ? "preco = '$obj[preco]' " : "";
 
-            $sql = "UPDATE cars SET $marca $modelo $ano $kms $motor $co2 $caixa $combustivel $tipo $lugares $portas $cor $estado $origem $garantia $preco WHERE id = $id";
+        if ($id) {
+            $newobj = [];
+            $keys = array_keys($obj);
+            for ($i = 0; $i < count($obj); $i++) {
+                $key = $keys[$i];
+                $newobj[$i] = "$key = '$obj[$key]'";
+            }
+            $joined = implode(",", $newobj);
+
+            $sql = "UPDATE cars SET $joined WHERE id = $id";
             $BFetch = $this->conectDB()->prepare($sql);
             if ($BFetch->execute()) {
                 $BFetchReturn = $this->conectDB()->prepare("SELECT * FROM cars WHERE id = $id");

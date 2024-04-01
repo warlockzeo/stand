@@ -78,12 +78,6 @@ export const carsSlice = createSlice({
       })
       .addCase(updateCar.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.cars = [
-          ...state.cars.map((car) => {
-            return car.id == payload.id ? payload : car;
-          }),
-          payload,
-        ];
       })
       .addCase(updateCar.rejected, (state, { error }) => {
         state.isLoading = true;

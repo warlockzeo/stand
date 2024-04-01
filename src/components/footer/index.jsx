@@ -67,6 +67,13 @@ const Footer = () => {
               </a>
             </p>
           ) : null}
+          {settings.tiktok ? (
+            <p>
+              <a href={settings.tiktok}>
+                <i className='bi bi-tiktok' /> TikTok
+              </a>
+            </p>
+          ) : null}
         </Col>
       ) : (
         ''

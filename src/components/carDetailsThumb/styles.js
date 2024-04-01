@@ -10,6 +10,7 @@ export const Wrap = styled.div`
   margin: 5px;
   text-decoration: none;
   color: #000;
+  overflow: hidden;
 
   .foto {
     width: 100%;
@@ -46,5 +47,16 @@ export const Wrap = styled.div`
     :hover {
       background-color: rgba(0, 0, 0, 0.3);
     }
+  }
+
+  .vendido {
+    position: absolute;
+    top: 25px;
+    left: -40px;
+    padding: 5px 50px;
+    color: #fff;
+    background-color: red;
+    rotate: -45deg;
+    font-weight: bold;
   }
 `;

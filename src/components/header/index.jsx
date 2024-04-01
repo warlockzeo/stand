@@ -35,7 +35,7 @@ const LinkAutoColapse = ({ to, onClick, children }) => {
 const Header = () => {
   return (
     <Wrap>
-      <Navbar bg='light' expand='lg'>
+      <Navbar expand='lg'>
         <Container>
           <Link className='nav-link' to={isLogged ? '/admin' : '/'}>
             <Logo />
@@ -45,15 +45,28 @@ const Header = () => {
             <Nav className='me-auto' style={{ flex: 1, justifyContent: 'end' }}>
               {isLogged ? (
                 <>
+                  <LinkAutoColapse to='/admin/loja/productos'>
+                    Loja - Productos
+                  </LinkAutoColapse>
+                  <LinkAutoColapse to='/admin/loja/vendas'>
+                    Loja - Vendas
+                  </LinkAutoColapse>
+                  <LinkAutoColapse to='/admin/oficina/'>
+                    Oficina
+                  </LinkAutoColapse>
                   <LinkAutoColapse to='/admin/'>Viaturas</LinkAutoColapse>
-                  <LinkAutoColapse to='/admin/users'>Users</LinkAutoColapse>
+                  <LinkAutoColapse to='/admin/users'>Usuários</LinkAutoColapse>
                   <LinkAutoColapse to='/admin/settings'>
-                    Settings
+                    Textos do site
                   </LinkAutoColapse>
                   <LinkAutoColapse onClick={logout}>Logout</LinkAutoColapse>
                 </>
               ) : (
-                <LinkAutoColapse to='/login/'>Login</LinkAutoColapse>
+                <>
+                  <LinkAutoColapse to='/loja/'>Loja</LinkAutoColapse>
+                  <LinkAutoColapse to='/oficina/'>Oficina</LinkAutoColapse>
+                  <LinkAutoColapse to='/login/'>Login</LinkAutoColapse>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>

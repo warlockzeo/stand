@@ -7,10 +7,11 @@ import { Wrap } from './styles';
 
 const CarDetailsThumb = ({ car }) => {
   const navigate = useNavigate();
-  const { id, fileName, marca, modelo, ano, kms, preco } = car;
+  const { id, fileName, marca, modelo, ano, kms, preco, vendido } = car;
   return (
     <Wrap onClick={() => navigate(`/car/${id}`)}>
-      <div className='cover'></div>
+      <div className='cover hand-pointer'></div>
+      {vendido && <div className='vendido'>Vendido</div>}
       <div
         className='foto'
         style={{

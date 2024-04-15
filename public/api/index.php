@@ -28,6 +28,29 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
+} else if ($_GET['tabela'] === 'products') {
+    include ("ClassProducts.php");
+
+    $products = new ClassProducts();
+    switch ($method) {
+        case "GET":
+            $products->get(isset($_GET['id']) ? $_GET['id'] : "");
+            break;
+        case "POST":
+            $products->post();
+            break;
+        case "PATCH":
+            if (isset($_GET['id'])) {
+                $products->update($_GET['id']);
+            }
+            break;
+        case "DELETE":
+            if (isset($_GET['id'])) {
+                $products->delete($_GET['id']);
+            }
+            break;
+    }
+
 } else if ($_GET['tabela'] === 'settings') {
     include ("ClassSettings.php");
 

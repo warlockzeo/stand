@@ -174,7 +174,7 @@ export const updateSettings = async (data) => {
 };
 
 export const getAllProducts = async () => {
-  const response = await fetch(`${SERVER_URL}/produtos`, {
+  const response = await fetch(`${SERVER_URL}/products`, {
     headers: { Accept: 'application/json' },
   }).then((response) => response.json());
 
@@ -185,7 +185,7 @@ export const addProduct = async (data) => {
   return await axios({
     method: 'post',
     responseType: 'json',
-    url: `${SERVER_URL}/produtos/`,
+    url: `${SERVER_URL}/products/`,
     data: JSON.stringify({
       body: data,
     }),
@@ -200,7 +200,7 @@ export const removeProduct = async (id) => {
   return await axios({
     method: 'delete',
     responseType: 'json',
-    url: `${SERVER_URL}/produtos/${id}`,
+    url: `${SERVER_URL}/products/${id}`,
     data: JSON.stringify({
       body: '',
     }),
@@ -215,7 +215,7 @@ export const updateProduct = async (data) => {
   return await axios({
     method: 'patch',
     responseType: 'json',
-    url: `${SERVER_URL}/produtos/${data.id}`,
+    url: `${SERVER_URL}/products/${data.id}`,
     data: JSON.stringify({
       body: data.car,
     }),

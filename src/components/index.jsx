@@ -4,6 +4,7 @@ import SocialBar from './socialBar';
 import About from './about';
 import Footer from './footer';
 import CarDetailsThumb from './carDetailsThumb';
+import ProductThumb from './productThumb';
 import SearchBar from './searchBar';
 import Loader from './loader';
 import Logo from './logo';
@@ -17,6 +18,7 @@ export {
   Banner,
   SocialBar,
   CarDetailsThumb,
+  ProductThumb,
   SearchBar,
   Loader,
   Logo,

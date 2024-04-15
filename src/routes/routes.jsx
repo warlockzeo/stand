@@ -5,6 +5,7 @@ import PrivateRoute from './PrivateRoute';
 
 import Home from '../pages/Home';
 import Login from '../pages/Login';
+import Loja from '../pages/Loja';
 import Oficina from '../pages/Oficina';
 import CarDetails from '../pages/CarDetails';
 import Admin from '../pages/Admin';
@@ -21,6 +22,7 @@ const Routes = () => (
     <Route path='/home' element={<Home />} />
     <Route path='/car/:id' element={<CarDetails />} />
     <Route path='/login' element={<Login />} />
+    <Route path='/loja' element={<Loja />} />
     <Route path='/oficina' element={<Oficina />} />
     <Route path='/admin/' element={<PrivateRoute element={<Admin />} />} />
     <Route

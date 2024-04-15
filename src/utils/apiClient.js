@@ -172,3 +172,56 @@ export const updateSettings = async (data) => {
       console.error(err);
     });
 };
+
+export const getAllProducts = async () => {
+  const response = await fetch(`${SERVER_URL}/produtos`, {
+    headers: { Accept: 'application/json' },
+  }).then((response) => response.json());
+
+  return response;
+};
+
+export const addProduct = async (data) => {
+  return await axios({
+    method: 'post',
+    responseType: 'json',
+    url: `${SERVER_URL}/produtos/`,
+    data: JSON.stringify({
+      body: data,
+    }),
+  })
+    .then((response) => response)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const removeProduct = async (id) => {
+  return await axios({
+    method: 'delete',
+    responseType: 'json',
+    url: `${SERVER_URL}/produtos/${id}`,
+    data: JSON.stringify({
+      body: '',
+    }),
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const updateProduct = async (data) => {
+  return await axios({
+    method: 'patch',
+    responseType: 'json',
+    url: `${SERVER_URL}/produtos/${data.id}`,
+    data: JSON.stringify({
+      body: data.car,
+    }),
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};

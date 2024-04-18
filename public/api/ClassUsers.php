@@ -10,7 +10,7 @@ class ClassUsers extends ClassConexao
 
         $json = file_get_contents('php://input');
         $obj = json_decode($json, true);
-        $login = isset ($obj['login']) ? $obj['login'] : "";
+        $login = isset($obj['login']) ? $obj['login'] : "";
 
         if ($login) {
             $password = $obj['password'];
@@ -54,9 +54,9 @@ class ClassUsers extends ClassConexao
         $body = json_decode($json, TRUE);
         $obj = $body['body'];
 
-        $name = isset ($obj["name"]) ? $obj["name"] : "";
-        $login = isset ($obj["login"]) ? $obj["login"] : "";
-        $password = isset ($obj["password"]) ? $obj["password"] : "";
+        $name = isset($obj["name"]) ? $obj["name"] : "";
+        $login = isset($obj["login"]) ? $obj["login"] : "";
+        $password = isset($obj["password"]) ? $obj["password"] : "";
 
         $sql = "INSERT INTO users (name, login, password) VALUES ('$name', '$login', '$password')";
         $BFetch = $this->conectDB()->prepare($sql);
@@ -73,9 +73,9 @@ class ClassUsers extends ClassConexao
         $body = json_decode($json, TRUE);
         $obj = $body['body'];
 
-        $name = isset ($obj["name"]) ? "name = '$obj[name]', " : "";
-        $login = isset ($obj["login"]) ? "login = '$obj[login]'" : "";
-        $password = isset ($obj["password"]) ? ", password = '$obj[password]'" : "";
+        $name = isset($obj["name"]) ? "name = '$obj[name]', " : "";
+        $login = isset($obj["login"]) ? "login = '$obj[login]'" : "";
+        $password = isset($obj["password"]) ? ", password = '$obj[password]'" : "";
 
         if ($id && ($name || $login)) {
 

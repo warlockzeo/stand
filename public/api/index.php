@@ -4,8 +4,9 @@ header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
 $method = isset($_SERVER["REQUEST_METHOD"]) ? $_SERVER["REQUEST_METHOD"] : "";
+$tabela = isset($_GET['tabela']) ? $_GET['tabela'] : "";
 
-if ($_GET['tabela'] === 'cars') {
+if ($tabela === 'cars') {
     include ("ClassCars.php");
 
     $cars = new ClassCars();
@@ -28,7 +29,7 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-} else if ($_GET['tabela'] === 'products') {
+} else if ($tabela === 'products') {
     include ("ClassProducts.php");
 
     $products = new ClassProducts();
@@ -51,7 +52,7 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-} else if ($_GET['tabela'] === 'settings') {
+} else if ($tabela === 'settings') {
     include ("ClassSettings.php");
 
     $settings = new ClassSettings();
@@ -64,7 +65,7 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-} else if ($_GET['tabela'] === 'fotos') {
+} else if ($tabela === 'fotos') {
     include ("ClassFotos.php");
 
     $fotos = new ClassFotos();
@@ -90,7 +91,7 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-} else if ($_GET['tabela'] === 'users') {
+} else if ($tabela === 'users') {
 
     include ("ClassUsers.php");
     $users = new ClassUsers();
@@ -114,7 +115,7 @@ if ($_GET['tabela'] === 'cars') {
             break;
     }
 
-} else if ($_GET['tabela'] === 'users' && $_GET['option'] === "login") {
+} else if ($_GET['option'] === "login") {
 
     include ("ClassUsers.php");
     $users = new ClassUsers();

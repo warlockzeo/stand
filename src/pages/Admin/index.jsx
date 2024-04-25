@@ -69,8 +69,8 @@ const Admin = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cars?.map((car) => (
-                    <tr key={car.id}>
+                  {cars?.map((car, index) => (
+                    <tr key={index}>
                       <td
                         className='hand-pointer text-center'
                         onClick={() => setShowModal(car.id)}

@@ -25,22 +25,6 @@ const Products = () => {
 
   const handleClick = (productId) => navigate(`/admin/products/${productId}`);
 
-  // const onChangeVendido = (id) => {
-  //   const product = Object.assign(
-  //     {},
-  //     products.filter((product) => product.id === id)[0]
-  //   );
-  //   delete product.fileName;
-
-  //   const vendido = product.vendido == 1 ? 0 : 1;
-
-  //   dispatch(
-  //     updateProduct({ id: id, product: { ...product, vendido: vendido } })
-  //   )
-  //     .then(() => dispatch(getAllProducts()))
-  //     .catch((error) => console.error(error));
-  // };
-
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
@@ -73,8 +57,8 @@ const Products = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {products?.map((product) => (
-                    <tr key={product.id}>
+                  {products?.map((product, index) => (
+                    <tr key={index}>
                       <td
                         className='hand-pointer text-center'
                         onClick={() => setShowModal(product.id)}
@@ -107,7 +91,7 @@ const Products = () => {
                         className='hand-pointer'
                         onClick={() => handleClick(product.id)}
                       >
-                        {product.estoq}
+                        {product.quant}
                       </td>
                       <td>
                         <FontAwesomeIcon
@@ -125,9 +109,9 @@ const Products = () => {
             <EmptyArray>
               <h1>Nenhum produto encontrado.</h1>
               <Link to={`/admin/products/new`}>
-                <buttonr className='btn btn-primary'>
+                <button className='btn btn-primary'>
                   Registrar seu primeiro produto
-                </buttonr>
+                </button>
               </Link>
             </EmptyArray>
           )}

@@ -19,7 +19,7 @@ export const addCar = async (data) => {
       body: data,
     }),
   })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((err) => {
       console.error(err);
     });
@@ -190,7 +190,7 @@ export const addProduct = async (data) => {
       body: data,
     }),
   })
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((err) => {
       console.error(err);
     });
@@ -212,7 +212,6 @@ export const removeProduct = async (id) => {
 };
 
 export const updateProduct = async (data) => {
-  console.log(data);
   return await axios({
     method: 'patch',
     responseType: 'json',

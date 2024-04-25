@@ -5,7 +5,7 @@ import { SERVER_URL } from '../../utils/constants';
 
 export const initialState = {
   isLoading: false,
-  fotos: [],
+  productFotos: [],
   error: null,
 };
 
@@ -50,7 +50,7 @@ export const fotosSlice = createSlice({
       })
       .addCase(getAllProductFotos.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.fotos = payload;
+        state.productFotos = payload;
       })
       .addCase(getAllProductFotos.rejected, (state, { error }) => {
         state.isLoading = true;
@@ -71,7 +71,7 @@ export const fotosSlice = createSlice({
       })
       .addCase(removeProductFoto.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.fotos = state.fotos.filter(
+        state.productFotos = state.productFotos.filter(
           (foto) => foto.id !== String(payload.id)
         );
       })

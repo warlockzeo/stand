@@ -46,7 +46,7 @@ const EditProducts = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-  const productFotos = useSelector((state) => state.fotos.fotos);
+  const productFotos = useSelector((state) => state.productFotos.productFotos);
   const [saving, setSaving] = useState(false);
   const [showModal, setShowModal] = useState(0);
   const [showToast, setShowToast] = useState(false);
@@ -54,7 +54,7 @@ const EditProducts = () => {
   const [product, setProduct] = useState(null);
   const [fotos, setFotos] = useState(productFotos || []);
   const [banner, setBanner] = useState(null);
-
+  console.log(productFotos);
   const {
     register,
     handleSubmit,
@@ -94,9 +94,8 @@ const EditProducts = () => {
 
   const onSubmit = handleSubmit(async (product) => {
     if (id) {
-      console.log(product);
       dispatch(updateProduct({ id: id, product: product }))
-        //   .then(() => navigate('/admin/loja-produtos'))
+        .then(() => navigate('/admin/loja-produtos'))
         .catch((error) => console.error(error));
     } else {
       dispatch(addProduct({ ...product }))
@@ -114,11 +113,11 @@ const EditProducts = () => {
           fotos: photos,
         })
       )
-        .then(() => navigate('/admin'))
+        .then(() => navigate('/admin/loja-produtos'))
         .catch((error) => console.error(error));
     } else {
       dispatch(addProduct(fotos));
-      navigate('/admin/products');
+      navigate('/admin/loja-produtos');
     }
   };
 
@@ -241,7 +240,7 @@ const EditProducts = () => {
             <button
               type='button'
               className='btn btn-danger'
-              onClick={() => navigate('/admin')}
+              onClick={() => navigate('/admin/loja-produtos')}
             >
               Voltar
             </button>

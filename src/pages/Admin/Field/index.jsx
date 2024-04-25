@@ -14,7 +14,7 @@ const Field = ({
 }) => {
   return (
     <Wrap>
-      <FontAwesomeIcon icon={icon} />
+      {icon && <FontAwesomeIcon icon={icon} />}
       <span>{label}</span>
       <input
         defaultValue={value}

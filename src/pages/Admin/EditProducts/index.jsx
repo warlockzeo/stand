@@ -19,22 +19,22 @@ import { UploadButton } from 'react-uploader';
 
 import { Loader } from '../../../components';
 import {
-  addCar,
-  getAllCars,
-  updateCar,
-} from '../../../features/cars/carsSlice';
+  addProduct,
+  getAllProducts,
+  updateProduct,
+} from '../../../features/products/productsSlice';
 import {
-  addFoto,
-  removeFoto,
-  getAllFotos,
-  selectFoto,
-} from '../../../features/fotos/fotosSlice';
+  addProductFoto,
+  removeProductFoto,
+  getAllProductFotos,
+  selectProductFoto,
+} from '../../../features/productFotos/productFotosSlice';
 
 import { SERVER_URL } from '../../../utils/constants';
 import Field from '../Field';
 import { Wrap } from './styles';
 
-const EditViatura = () => {
+const EditProducts = () => {
   // Initialize once (at the start of your app).
   const uploader = Uploader({
     apiKey: 'free', // Get production API keys from Bytescale
@@ -45,145 +45,62 @@ const EditViatura = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cars = useSelector((state) => state.cars.cars);
-  const carFotos = useSelector((state) => state.fotos.fotos);
+  const products = useSelector((state) => state.products.products);
+  const productFotos = useSelector((state) => state.fotos.fotos);
   const [saving, setSaving] = useState(false);
   const [showModal, setShowModal] = useState(0);
   const [showToast, setShowToast] = useState(false);
 
-  const [car, setCar] = useState(null);
-  const [fotos, setFotos] = useState(carFotos || []);
+  const [product, setProduct] = useState(null);
+  const [fotos, setFotos] = useState(productFotos || []);
   const [banner, setBanner] = useState(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ values: car });
+  } = useForm({ values: product });
 
   const fields = [
     {
-      label: 'Ano',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'ano',
-      placeholder: 'Ano',
-      value: car?.ano,
+      label: 'Nome',
+      nameId: 'name',
+      placeholder: 'Nome',
+      value: product?.name,
       type: 'text',
     },
     {
-      label: 'KMS',
-      icon: 'fa-solid fa-road',
-      nameId: 'kms',
-      placeholder: 'KMS',
-      value: car?.kms,
-      type: 'number',
-    },
-    {
-      label: 'Motor',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'motor',
-      placeholder: 'Motor',
-      value: car?.motor,
-      type: 'text',
-    },
-    {
-      label: 'CO2',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'co2',
-      placeholder: 'CO2',
-      value: car?.co2,
-      type: 'number',
-    },
-    {
-      label: 'Caixa',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'caixa',
-      placeholder: 'Caixa',
-      value: car?.caixa,
-      type: 'text',
-    },
-    {
-      label: 'Combustível',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'combustivel',
-      placeholder: 'Combustível',
-      value: car?.combustivel,
-      type: 'text',
-    },
-    {
-      label: 'Tipo',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'tipo',
-      placeholder: 'Tipo',
-      value: car?.tipo,
-      type: 'text',
-    },
-    {
-      label: 'Lugares',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'lugares',
-      placeholder: 'Lugares',
-      value: car?.lugares,
-      type: 'number',
-    },
-    {
-      label: 'Portas',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'portas',
-      placeholder: 'Portas',
-      value: car?.portas,
-      type: 'number',
-    },
-    {
-      label: 'Cor',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'cor',
-      placeholder: 'Cor',
-      value: car?.cor,
-      type: 'text',
-    },
-    {
-      label: 'Estado',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'estado',
-      placeholder: 'Estado',
-      value: car?.estado,
-      type: 'text',
-    },
-    {
-      label: 'Origem',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'origem',
-      placeholder: 'Origem',
-      value: car?.origem,
-      type: 'text',
-    },
-    {
-      label: 'Garantia',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'garantia',
-      placeholder: 'Garantia',
-      value: car?.garantia,
+      label: 'Descrição',
+      nameId: 'descr',
+      placeholder: 'Descrição',
+      value: product?.descr,
       type: 'text',
     },
     {
       label: 'Preço',
-      icon: 'fa-solid fa-calendar-days',
       nameId: 'preco',
       placeholder: 'Preço',
-      value: car?.preco,
-      type: 'text',
+      value: product?.preco,
+      type: 'number',
+    },
+    {
+      label: 'Quantidade',
+      nameId: 'quant',
+      placeholder: 'Quantidade',
+      value: product?.quant,
+      type: 'number',
     },
   ];
 
-  const onSubmit = handleSubmit(async (car) => {
+  const onSubmit = handleSubmit(async (product) => {
     if (id) {
-      dispatch(updateCar({ id: id, car: car }))
-        .then(() => navigate('/admin'))
+      console.log(product);
+      dispatch(updateProduct({ id: id, product: product }))
+        //   .then(() => navigate('/admin/loja-produtos'))
         .catch((error) => console.error(error));
     } else {
-      dispatch(addCar({ ...car }))
-        .then(() => navigate('/admin'))
+      dispatch(addProduct({ ...product }))
+        .then(() => navigate('/admin/loja-produtos'))
         .catch((error) => console.error(error));
     }
   });
@@ -192,7 +109,7 @@ const EditViatura = () => {
     setSaving(true);
     if (id) {
       dispatch(
-        addFoto({
+        addProductFoto({
           id: id,
           fotos: photos,
         })
@@ -200,13 +117,13 @@ const EditViatura = () => {
         .then(() => navigate('/admin'))
         .catch((error) => console.error(error));
     } else {
-      dispatch(addCar(fotos));
-      navigate('/admin');
+      dispatch(addProduct(fotos));
+      navigate('/admin/products');
     }
   };
 
   const handleRemove = (id) => {
-    dispatch(removeFoto({ id }))
+    dispatch(removeProductFoto({ id }))
       .then(() => setShowToast(true))
       .then(() => setFotos((fotos) => fotos.filter((foto) => foto.id != id)));
     setShowModal(0);
@@ -214,28 +131,28 @@ const EditViatura = () => {
 
   const handleSelectFoto = (id) => {
     setBanner(id);
-    dispatch(selectFoto({ id }));
+    dispatch(selectProductFoto({ id }));
   };
 
   useEffect(() => {
-    if (cars.length) {
-      setCar(cars.filter((car) => car.id == id)[0]);
+    if (products.length) {
+      setProduct(products.filter((product) => product.id == id)[0]);
     }
-  }, [cars, id, dispatch]);
+  }, [products, id, dispatch]);
 
   useEffect(() => {
     if (id) {
-      setBanner(fotos.filter((foto) => foto.banner == '1')?.[0]?.id);
+      setBanner(productFotos.filter((foto) => foto.banner == '1')?.[0]?.id);
     }
-  }, [fotos]);
+  }, [productFotos]);
 
   useEffect(() => {
-    if (cars.length < 1) {
-      dispatch(getAllCars());
+    if (products.length < 1) {
+      dispatch(getAllProducts());
     }
 
     if (id) {
-      dispatch(getAllFotos(id)).then(({ payload }) => {
+      dispatch(getAllProductFotos(id)).then(({ payload }) => {
         setFotos(payload);
       });
     }
@@ -250,28 +167,6 @@ const EditViatura = () => {
       >
         <Tab eventKey='dados' title='Dados da viatura'>
           <form onSubmit={onSubmit}>
-            <div className='form-group'>
-              <div className='form-input'>
-                <span>{errors.marca ? 'Marca is required.' : 'Marca'}</span>
-                <input
-                  className='form-control'
-                  type='text'
-                  {...register('marca')}
-                  id='marca'
-                  placeholder='Marca'
-                />
-              </div>
-              <div className='form-input'>
-                <span>{errors.modelo ? 'Modelo is required.' : 'Modelo'}</span>
-                <input
-                  className='form-control'
-                  type='text'
-                  {...register('modelo')}
-                  id='modelo'
-                  placeholder='Modelo'
-                />
-              </div>
-            </div>
             <div className='input-fields'>
               {fields.map((field, index) => (
                 <Field
@@ -396,4 +291,4 @@ const EditViatura = () => {
   );
 };
 
-export default EditViatura;
+export default EditProducts;

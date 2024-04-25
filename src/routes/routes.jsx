@@ -12,6 +12,8 @@ import Admin from '../pages/Admin';
 import EditViaturas from '../pages/Admin/EditViatura';
 import Settings from '../pages/Admin/Settings';
 import AdminOficina from '../pages/Admin/Oficina';
+import Products from '../pages/Admin/Products';
+import EditProducts from '../pages/Admin/EditProducts';
 import Users from '../pages/Admin/Users';
 import EditUser from '../pages/Admin/EditUser';
 import NoMatchPage from '../pages/NoMatchPage';
@@ -34,8 +36,16 @@ const Routes = () => (
       element={<PrivateRoute element={<AdminOficina />} />}
     />
     <Route
-      path='/admin/loja-productos'
-      element={<PrivateRoute element={<Settings />} />}
+      path='/admin/loja-produtos'
+      element={<PrivateRoute element={<Products />} />}
+    />
+    <Route
+      path='/admin/products/new'
+      element={<PrivateRoute element={<EditProducts />} />}
+    />
+    <Route
+      path='/admin/products/:id'
+      element={<PrivateRoute element={<EditProducts />} />}
     />
     <Route
       path='/admin/loja-vendas'

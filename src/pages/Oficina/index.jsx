@@ -18,15 +18,19 @@ const Oficina = () => {
       <div className='container'>
         <h1>Oficina</h1>
 
+        <img src='' alt='' />
+        <img src='' alt='' />
+
         <p>{setting?.about ?? null}</p>
 
-        {setting?.morada1 ? (
+        <h2>Onde nos encontrar?</h2>
+        {setting?.morada1 && (
           <>
             <p>{setting?.morada1}</p>
             <p>{setting?.contacto1}</p>
             <p>{setting?.horario1}</p>
           </>
-        ) : null}
+        )}
       </div>
 
       <Footer />

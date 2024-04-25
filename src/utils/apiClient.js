@@ -212,13 +212,59 @@ export const removeProduct = async (id) => {
 };
 
 export const updateProduct = async (data) => {
+  console.log(data);
   return await axios({
     method: 'patch',
     responseType: 'json',
     url: `${SERVER_URL}/products/${data.id}`,
     data: JSON.stringify({
-      body: data.car,
+      body: data.product,
     }),
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const getAllProductFotos = async (data) => {
+  const response = await fetch(`${SERVER_URL}/productfotos/${data}`, {
+    headers: { Accept: 'application/json' },
+  }).then((res) => res.json());
+  return response;
+};
+
+export const addProductFotos = async (data) => {
+  return await axios({
+    method: 'post',
+    responseType: 'json',
+    url: `${SERVER_URL}/productfotos/`,
+    headers: { 'Content-Type': 'multipart/form-data' },
+    data: data,
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const removeProductFoto = async (id) => {
+  return await axios({
+    method: 'delete',
+    responseType: 'json',
+    url: `${SERVER_URL}/productfotos/${id}`,
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const selectProductFoto = async (id) => {
+  return await axios({
+    method: 'patch',
+    responseType: 'json',
+    url: `${SERVER_URL}/productfotos/${id}`,
   })
     .then((response) => response.data)
     .catch((err) => {

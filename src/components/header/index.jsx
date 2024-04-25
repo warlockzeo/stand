@@ -48,8 +48,8 @@ const Header = () => {
                   <LinkAutoColapse to='/admin/'>Viaturas</LinkAutoColapse>
                   <LinkAutoColapse to='/admin/users'>Usuários</LinkAutoColapse>
                   <NavDropdown title='Loja' id='basic-nav-dropdown'>
-                    <LinkAutoColapse to='/admin/loja-productos'>
-                      Loja - Productos
+                    <LinkAutoColapse to='/admin/loja-produtos'>
+                      Loja - Produtos
                     </LinkAutoColapse>
                     <LinkAutoColapse to='/admin/loja-vendas'>
                       Loja - Vendas

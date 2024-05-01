@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
+  Row,
+  Col,
   Tab,
   Tabs,
   Modal,
@@ -60,37 +62,6 @@ const EditProducts = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ values: product });
-
-  const fields = [
-    {
-      label: 'Nome',
-      nameId: 'name',
-      placeholder: 'Nome',
-      value: product?.name,
-      type: 'text',
-    },
-    {
-      label: 'Descrição',
-      nameId: 'descr',
-      placeholder: 'Descrição',
-      value: product?.descr,
-      type: 'text',
-    },
-    {
-      label: 'Preço',
-      nameId: 'preco',
-      placeholder: 'Preço',
-      value: product?.preco,
-      type: 'number',
-    },
-    {
-      label: 'Quantidade',
-      nameId: 'quant',
-      placeholder: 'Quantidade',
-      value: product?.quant,
-      type: 'number',
-    },
-  ];
 
   const onSubmit = handleSubmit(async (product) => {
     if (id) {
@@ -166,15 +137,55 @@ const EditProducts = () => {
       >
         <Tab eventKey='dados' title='Dados da viatura'>
           <form onSubmit={onSubmit}>
-            <div className='input-fields'>
-              {fields.map((field, index) => (
-                <Field
-                  register={register(field.nameId)}
-                  {...field}
-                  key={index}
-                />
-              ))}
+            <div className='form-group'>
+              <Row className='w-100'>
+                <Col md={12}>
+                  <span>{errors.name ? 'Nome é necessário.' : 'Nome'}</span>
+                  <input
+                    className='form-control'
+                    type='text'
+                    {...register('name')}
+                    id='name'
+                    placeholder='Nome'
+                  />
+                </Col>
+                <Col md={12}>
+                  <span>
+                    {errors.descr ? 'Descrição é necessário.' : 'Descrição'}
+                  </span>
+                  <textarea
+                    rows={5}
+                    className='form-control'
+                    {...register('descr')}
+                    id='descr'
+                    placeholder='Descrição'
+                  />
+                </Col>
+                <Col md={6}>
+                  <span>{errors.preco ? 'Preço é necessário.' : 'Preço'}</span>
+                  <input
+                    className='form-control'
+                    type='number'
+                    {...register('preco')}
+                    id='preco'
+                    placeholder='Preço'
+                  />
+                </Col>
+                <Col md={6}>
+                  <span>
+                    {errors.quant ? 'Quantidade é necessária.' : 'Quantidade'}
+                  </span>
+                  <input
+                    className='form-control'
+                    type='number'
+                    {...register('quant')}
+                    id='quant'
+                    placeholder='Quantidade'
+                  />
+                </Col>
+              </Row>
             </div>
+
             <div className='form-buttons gap-2'>
               <button
                 type='button'

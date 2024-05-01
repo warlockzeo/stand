@@ -31,6 +31,7 @@ import {
 } from '../../../features/fotos/fotosSlice';
 
 import { SERVER_URL } from '../../../utils/constants';
+//import resizeImage from '../../../utils/resizeImge';
 import Field from '../Field';
 import { Wrap } from './styles';
 
@@ -40,7 +41,102 @@ const EditViatura = () => {
     apiKey: 'free', // Get production API keys from Bytescale
   });
   // Configuration options: https://www.bytescale.com/docs/upload-widget/frameworks/react#customize
-  const options = { multi: true };
+  const options = {
+    // //    apiKey: 'public_A623uY2RvnNq1vZ80fYgGyhKN0U7',
+    // editor: {
+    //   images: {
+    //     allowResizeOnMove: true,
+    //     crop: true,
+    //     // cropFilePath: Function,
+    //     cropRatio: 1,
+    //     //cropShape: 'circ',
+    //     preview: true,
+    //   },
+    // },
+    // //    layout: 'modal',
+    // locale: {
+    //   //addAnotherFileBtn: 'Add another file...',
+    //   addAnotherImageBtn: 'Inserir outra imagem...',
+    //   cancelBtn: 'Cancelar',
+    //   cancelBtnClicked: 'Cancelado',
+    //   cancelPreviewBtn: 'Cancelar',
+    //   continueBtn: 'Continuar',
+    //   cropBtn: 'Recortar',
+    //   customValidationFailed: 'Falha ao validar ficheiro.',
+    //   doneBtn: 'Feito',
+    //   fileSizeLimitPrefix: 'Imagem grande demais:',
+    //   finishBtn: 'Concluir',
+    //   finishBtnIcon: true,
+    //   imageCropNumberPrefix: 'Imagem',
+    //   //maxFilesReachedPrefix: 'Maximum number of files:',
+    //   //maxImagesReachedPrefix: 'Maximum number of images:',
+    //   orDragDropFile: '...ou arraste uma imagem.',
+    //   orDragDropFileMulti: '...ou arraste uma ou mais imagens.',
+    //   orDragDropImage: '...ou arraste uma imagem.',
+    //   orDragDropImageMulti: '...ou arraste uma ou mais imagens.',
+    //   processingFile: 'Processando ficheiro...',
+    //   removeBtn: 'remover',
+    //   removeBtnClicked: 'removido',
+    //   submitBtnError: 'Erro!',
+    //   submitBtnLoading: 'Por favor espere...',
+    //   unsupportedFileType: 'Ficheiro não permitido.',
+    //   uploadFileBtn: 'Carregar uma imagem',
+    //   uploadFileMultiBtn: 'Carregar imagens',
+    //   uploadImageBtn: 'Carregar uma imagem',
+    //   uploadImageMultiBtn: 'Carregar imagens',
+    //   xOfY: 'de',
+    // },
+    // //    maxFileCount: 1,
+    // maxFileSizeBytes: 1024000,
+    // metadata: {
+    //   // myCustomField1: true,
+    //   // myCustomField2: {
+    //   //   hello: 'world',
+    //   // },
+    //   // anotherCustomField: 42,
+    // },
+    mimeTypes: ['image/jpeg'],
+    multi: true,
+    // // onInit: Function,
+    // // onPreUpload: Function,
+    // // onUpdate: Function,
+    // path: {
+    //   // fileName: 'image.jpg',
+    //   // fileNameFallback: 'image.jpg',
+    //   // fileNameVariablesEnabled: true,
+    //   // folderPath: '/uploads',
+    //   // folderPathVariablesEnabled: true,
+    // },
+    // // showFinishButton: true,
+    // // showRemoveButton: true,
+    // styles: {
+    //   // breakpoints: {
+    //   //   fullScreenHeight: 420,
+    //   //   fullScreenWidth: 750,
+    //   // },
+    //   // colors: {
+    //   //   active: '#528fff',
+    //   //   error: '#d23f4d',
+    //   //   primary: '#377dff',
+    //   //   shade100: '#333',
+    //   //   shade200: '#7a7a7a',
+    //   //   shade300: '#999',
+    //   //   shade400: '#a5a6a8',
+    //   //   shade500: '#d3d3d3',
+    //   //   shade600: '#dddddd',
+    //   //   shade700: '#f0f0f0',
+    //   //   shade800: '#f8f8f8',
+    //   //   shade900: '#fff',
+    //   // },
+    //   // fontFamilies: {
+    //   //   base: '-apple-system, blinkmacsystemfont, Segoe UI, helvetica, arial, sans-serif',
+    //   // },
+    //   // fontSizes: {
+    //   //   base: 16,
+    //   // },
+    // },
+    // //  tags: ['example_tag'],
+  };
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -307,7 +403,22 @@ const EditViatura = () => {
                 uploader={uploader}
                 options={options}
                 onComplete={(files) =>
-                  onSubmitFotos(files.map((file) => file.originalFile.file))
+                  onSubmitFotos(
+                    files.map((file) => {
+                      return file.originalFile.file;
+                      // const config = {
+                      //   file: file.originalFile.file,
+                      //   maxSize: 1024,
+                      // };
+                      // const resizedImage = await resizeImage(config);
+                      // console.log(
+                      //   'upload resized image - ',
+                      //   file.originalFile.file,
+                      //   resizedImage
+                      // );
+                      // return resizedImage;
+                    })
+                  )
                 }
               >
                 {({ onClick }) => (

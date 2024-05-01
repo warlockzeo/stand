@@ -54,10 +54,6 @@ export const Wrap = styled.div`
         margin-bottom: 10px;
       }
     }
-
-    * {
-      margin: 0 5px;
-    }
   }
 
   .form-buttons {

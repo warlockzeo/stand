@@ -9,13 +9,13 @@ const SearchBar = ({ list, onChange }) => {
 
   const marcas = list
     .map((car) => car.marca)
-    .filter(function (elem, pos, self) {
+    .filter((elem, pos, self) => {
       return self.indexOf(elem) == pos;
     });
 
   const modelos = list
     .map((car) => car.modelo)
-    .filter(function (elem, pos, self) {
+    .filter((elem, pos, self) => {
       return self.indexOf(elem) == pos;
     });
 
@@ -28,7 +28,7 @@ const SearchBar = ({ list, onChange }) => {
   return (
     <SearchBarStyled>
       <Row>
-        <Col sm={12} md={3}>
+        <Col xs={12} sm={3}>
           <select
             className='form-control'
             name='brand'
@@ -43,7 +43,7 @@ const SearchBar = ({ list, onChange }) => {
             ))}
           </select>
         </Col>
-        <Col sm={12} md={3}>
+        <Col xs={12} sm={3}>
           <select
             className='form-control'
             name='model'
@@ -59,8 +59,8 @@ const SearchBar = ({ list, onChange }) => {
           </select>
         </Col>
         <Col
-          sm={12}
-          md={3}
+          xs={12}
+          sm={3}
           style={{ flexDirection: 'row', display: 'flex', gap: 5 }}
         >
           Preço:
@@ -78,7 +78,7 @@ const SearchBar = ({ list, onChange }) => {
             style={{ padding: '6px 2px' }}
           />
         </Col>
-        <Col sm={12} md={3}>
+        <Col xs={12} sm={3}>
           <input
             type='text'
             className='form-control'

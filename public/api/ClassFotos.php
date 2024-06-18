@@ -4,6 +4,7 @@ header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
 include ("ClassConexao.php");
+include ("resizeImage.php");
 
 function diverse_array($vector)
 {
@@ -40,8 +41,14 @@ class ClassFotos extends ClassConexao
 
     public function select($id)
     {
-        $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 0");
+        $BFetch = $this->conectDB()->prepare("SELECT * FROM fotos WHERE id = $id");
         $BFetch->execute();
+        $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
+        $carId = $Fetch[0]['carId'];
+
+        $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 0 WHERE carId = $carId");
+        $BFetch->execute();
+
         $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 1 WHERE id = $id");
         if ($BFetch->execute()) {
             echo '{"id": ' . $id . '}';
@@ -63,15 +70,12 @@ class ClassFotos extends ClassConexao
                     $fileType = $upload[$i]['type'];
 
                     if ($fileType == "image/jpeg") {
-                        if (move_uploaded_file($upload[$i]['tmp_name'], $targetFile)) { //Fazer upload do arquivo
-
-                            $sql = "INSERT INTO fotos (fileName, carId ) VALUES ('$newName', '$carId')";
-                            $BFetch = $this->conectDB()->prepare($sql);
-                            if (!$BFetch->execute()) {
-                                echo '{"resp":"Error", "sql":"' . $sql . '"}';
-                            }
-                        } else {
-                            echo "Problem uploading file";
+                        $newImage = resize_image($upload[$i]['tmp_name'], 1024, 1024);
+                        imagejpeg($newImage, $targetFile, 100);
+                        $sql = "INSERT INTO fotos (fileName, carId ) VALUES ('$newName', '$carId')";
+                        $BFetch = $this->conectDB()->prepare($sql);
+                        if (!$BFetch->execute()) {
+                            echo '{"resp":"Error", "sql":"' . $sql . '"}';
                         }
                     } else {
                         echo "You may only upload JPEGs or GIF files.<br>";

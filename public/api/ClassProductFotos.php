@@ -4,6 +4,7 @@ header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
 include ("ClassConexao.php");
+include ("resizeImage.php");
 
 function diverse_array($vector)
 {
@@ -17,7 +18,7 @@ class ClassProductFotos extends ClassConexao
 {
     public function get($id)
     {
-        $BFetch = $this->conectDB()->prepare("SELECT * FROM product_fotos WHERE carId = $id");
+        $BFetch = $this->conectDB()->prepare("SELECT * FROM product_fotos WHERE prodId = $id");
         $BFetch->execute();
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
         echo json_encode($Fetch ?? []);
@@ -37,7 +38,6 @@ class ClassProductFotos extends ClassConexao
         }
     }
 
-
     public function select($id)
     {
         $BFetch = $this->conectDB()->prepare("UPDATE product_fotos SET banner = 0");
@@ -51,10 +51,10 @@ class ClassProductFotos extends ClassConexao
     public function post()
     {
         if (isset($_POST['id'])) {
-            $carId = $_POST['id'];
-            $upload = diverse_array($_FILES['product_fotos']);
+            $prodId = $_POST['id'];
+            $upload = diverse_array($_FILES['fotos']);
 
-            if (isset($_FILES['product_fotos'])) {
+            if (isset($_FILES['fotos'])) {
                 for ($i = 0; $i < count($upload); $i++) {
                     $ext = strtolower(substr($upload[$i]['name'], -4)); //Pegando extensão do arquivo
                     $newName = date("Y.m.d-H.i.s") . $i . $ext; //Definindo um novo nome para o arquivo
@@ -63,15 +63,12 @@ class ClassProductFotos extends ClassConexao
                     $fileType = $upload[$i]['type'];
 
                     if ($fileType == "image/jpeg") {
-                        if (move_uploaded_file($upload[$i]['tmp_name'], $targetFile)) { //Fazer upload do arquivo
-
-                            $sql = "INSERT INTO product_fotos (fileName, carId ) VALUES ('$newName', '$carId')";
-                            $BFetch = $this->conectDB()->prepare($sql);
-                            if (!$BFetch->execute()) {
-                                echo '{"resp":"Error", "sql":"' . $sql . '"}';
-                            }
-                        } else {
-                            echo "Problem uploading file";
+                        $newImage = resize_image($upload[$i]['tmp_name'], 1024, 1024);
+                        imagejpeg($newImage, $targetFile, 100);
+                        $sql = "INSERT INTO product_fotos (fileName, prodId ) VALUES ('$newName', '$prodId')";
+                        $BFetch = $this->conectDB()->prepare($sql);
+                        if (!$BFetch->execute()) {
+                            echo '{"resp":"Error", "sql":"' . $sql . '"}';
                         }
                     } else {
                         echo "You may only upload JPEGs or GIF files.<br>";

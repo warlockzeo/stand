@@ -13,19 +13,32 @@ const Field = ({
   register,
 }) => {
   return (
-    <Wrap>
+    <Wrap type={type}>
       {icon && <FontAwesomeIcon icon={icon} />}
       <span>{label}</span>
-      <input
-        defaultValue={value}
-        className='form-control'
-        type={type}
-        {...register}
-        id={nameId}
-        placeholder={placeholder}
-        onChange={onChangeField}
-        onFocus={onChangeField}
-      />
+      {type === 'multitext' ? (
+        <textarea
+          defaultValue={value}
+          className='form-control'
+          {...register}
+          id={nameId}
+          placeholder={placeholder}
+          onChange={onChangeField}
+          onFocus={onChangeField}
+          style={{}}
+        />
+      ) : (
+        <input
+          defaultValue={value}
+          className='form-control'
+          type={type}
+          {...register}
+          id={nameId}
+          placeholder={placeholder}
+          onChange={onChangeField}
+          onFocus={onChangeField}
+        />
+      )}
     </Wrap>
   );
 };

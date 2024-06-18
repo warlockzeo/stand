@@ -14,7 +14,8 @@ export const FooterStyles = styled.div`
 
   h1 {
     font-size: x-large;
-    border-bottom: solid 2px #fff;
+    border-bottom: solid 2px red;
+    color: red;
   }
 
   i {
@@ -24,5 +25,8 @@ export const FooterStyles = styled.div`
   a:link,
   a:visited {
     color: #fff;
+  }
+  a:hover {
+    color: red;
   }
 `;

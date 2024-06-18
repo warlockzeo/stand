@@ -73,7 +73,7 @@ const Admin = () => {
                     <tr key={index}>
                       <td
                         className='hand-pointer text-center'
-                        onClick={() => setShowModal(car.id)}
+                        onClick={() => handleClick(car.id)}
                       >
                         <Image
                           src={car?.fileName}

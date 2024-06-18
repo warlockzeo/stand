@@ -61,7 +61,7 @@ const Products = () => {
                     <tr key={index}>
                       <td
                         className='hand-pointer text-center'
-                        onClick={() => setShowModal(product.id)}
+                        onClick={() => handleClick(product.id)}
                       >
                         <Image
                           src={product?.fileName}

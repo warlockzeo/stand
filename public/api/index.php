@@ -5,6 +5,7 @@ header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
 $method = isset($_SERVER["REQUEST_METHOD"]) ? $_SERVER["REQUEST_METHOD"] : "";
 $tabela = isset($_GET['tabela']) ? $_GET['tabela'] : "";
+$option = isset($_GET['option']) ? $_GET['option'] : "";
 
 if ($tabela === 'cars') {
     include ("ClassCars.php");
@@ -91,6 +92,32 @@ if ($tabela === 'cars') {
             break;
     }
 
+} else if ($tabela === 'productFotos') {
+    include ("ClassProductFotos.php");
+
+    $fotos = new ClassProductFotos();
+
+    switch ($method) {
+        case "GET":
+            if (isset($_GET['id'])) {
+                $fotos->get($_GET['id']);
+            }
+            break;
+        case "POST":
+            $fotos->post();
+            break;
+        case "PATCH":
+            if (isset($_GET['id'])) {
+                $fotos->select($_GET['id']);
+            }
+            break;
+        case "DELETE":
+            if (isset($_GET['id'])) {
+                $fotos->delete($_GET['id']);
+            }
+            break;
+    }
+
 } else if ($tabela === 'users') {
 
     include ("ClassUsers.php");
@@ -115,7 +142,7 @@ if ($tabela === 'cars') {
             break;
     }
 
-} else if ($_GET['option'] === "login") {
+} else if ($option === "login") {
 
     include ("ClassUsers.php");
     $users = new ClassUsers();

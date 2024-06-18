@@ -37,24 +37,23 @@ class ClassCars extends ClassConexao
         $body = json_decode($json, TRUE);
         $obj = $body['body'];
 
-        $marca = isset($obj["marca"]) ? $obj["marca"] : "";
-        $modelo = isset($obj["modelo"]) ? $obj["modelo"] : "";
-        $ano = isset($obj["ano"]) ? $obj["ano"] : "";
-        $kms = isset($obj["kms"]) ? $obj["kms"] : "";
-        $motor = isset($obj["motor"]) ? $obj["motor"] : "";
-        $co2 = isset($obj["co2"]) ? $obj["co2"] : "";
-        $caixa = isset($obj["caixa"]) ? $obj["caixa"] : "";
-        $combustivel = isset($obj["combustivel"]) ? $obj["combustivel"] : "";
-        $tipo = isset($obj["tipo"]) ? $obj["tipo"] : "";
+        $marca = isset($obj["marca"]) ? trim($obj["marca"]) : "";
+        $modelo = isset($obj["modelo"]) ? trim($obj["modelo"]) : "";
+        $registo = isset($obj["registo"]) ? $obj["registo"] : "";
+        $quilometros = isset($obj["quilometros"]) ? $obj["quilometros"] : "";
         $lugares = isset($obj["lugares"]) ? $obj["lugares"] : "";
-        $portas = isset($obj["portas"]) ? $obj["portas"] : "";
+        $combustivel = isset($obj["combustivel"]) ? $obj["combustivel"] : "";
+        $potencia = isset($obj["potencia"]) ? $obj["potencia"] : "";
+        $cilindrada = isset($obj["cilindrada"]) ? $obj["cilindrada"] : "";
+        $transmissao = isset($obj["transmissao"]) ? $obj["transmissao"] : "";
         $cor = isset($obj["cor"]) ? $obj["cor"] : "";
+        $portas = isset($obj["portas"]) ? $obj["portas"] : "";
         $estado = isset($obj["estado"]) ? $obj["estado"] : "";
-        $origem = isset($obj["origem"]) ? $obj["origem"] : "";
         $garantia = isset($obj["garantia"]) ? $obj["garantia"] : "";
         $preco = isset($obj["preco"]) ? $obj["preco"] : "";
+        $observacoes = isset($obj["observacoes"]) ? $obj["observacoes"] : "";
 
-        $sql = "INSERT INTO cars (marca, modelo, ano, kms, motor, co2, caixa, combustivel, tipo, lugares, portas, cor, estado, origem, garantia, preco ) VALUES ('$marca', '$modelo', '$ano', '$kms', '$motor', '$co2', '$caixa', '$combustivel', '$tipo', '$lugares', '$portas', '$cor', '$estado', '$origem', '$garantia', '$preco')";
+        $sql = "INSERT INTO cars (marca, modelo, registo, quilometros, lugares, combustivel, potencia, cilindrada,  transmissao,  cor,portas, estado,  garantia, preco, observacoes ) VALUES ('$marca', '$modelo', '$registo', '$quilometros', '$lugares', '$combustivel', '$potencia', '$cilindrada', '$transmissao', '$cor', '$portas', '$estado', '$garantia', '$preco', '$observacoes')";
         $BFetch = $this->conectDB()->prepare($sql);
         if ($BFetch->execute()) {
             echo '{"resp":"ok"}';
@@ -74,7 +73,8 @@ class ClassCars extends ClassConexao
             $keys = array_keys($obj);
             for ($i = 0; $i < count($obj); $i++) {
                 $key = $keys[$i];
-                $newobj[$i] = "$key = '$obj[$key]'";
+                $value = trim($obj[$key]);
+                $newobj[$i] = "$key = '$value'";
             }
             $joined = implode(",", $newobj);
 
@@ -91,5 +91,3 @@ class ClassCars extends ClassConexao
         }
     }
 }
-
-

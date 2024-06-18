@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Logo } from '../';
 import { Wrap } from './styles';
 import { logout, isLogged } from '../../utils/JWTAuth';
 
 const useDeviceDetect = () => {
-  const [isTouchDevice, setIsTouchDevice] = React.useState(false);
-  React.useEffect(() => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
     if (!window.matchMedia) return;
     setIsTouchDevice(window.matchMedia('(pointer:coarse)').matches);
   }, []);
@@ -15,27 +17,37 @@ const useDeviceDetect = () => {
   return isTouchDevice;
 };
 
-const LinkAutoColapse = ({ to, onClick, children }) => {
-  const isTouchDevice = useDeviceDetect();
+const Header = () => {
+  const [expanded, setExpanded] = useState(false);
 
-  const click = () => {
-    if (isTouchDevice) {
-      const btn = document.getElementsByClassName('navbar-toggler');
-      btn[0].click();
-    }
+  const LinkAutoColapse = ({ to, onClick, children }) => {
+    const isTouchDevice = useDeviceDetect();
+
+    const click = () => {
+      if (isTouchDevice) {
+        const btn = document.getElementsByClassName('navbar-toggler');
+        btn[0].click();
+      }
+
+      setExpanded(false);
+    };
+
+    return (
+      <Link className={`nav-link`} onClick={onClick || click} to={to}>
+        {children}
+      </Link>
+    );
   };
 
   return (
-    <Link className={`nav-link`} onClick={onClick || click} to={to}>
-      {children}
-    </Link>
-  );
-};
-
-const Header = () => {
-  return (
     <Wrap>
-      <Navbar expand='lg'>
+      <Navbar
+        expand='lg'
+        variant='dark'
+        fixed='top'
+        onToggle={(x) => setExpanded(x)}
+        expanded={expanded}
+      >
         <Container>
           <Link className='nav-link' to={isLogged ? '/admin' : '/'}>
             <Logo />
@@ -67,9 +79,25 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <LinkAutoColapse to='/loja/'>Loja</LinkAutoColapse>
-                  <LinkAutoColapse to='/oficina/'>Oficina</LinkAutoColapse>
-                  <LinkAutoColapse to='/login/'>Login</LinkAutoColapse>
+                  <LinkAutoColapse to='/'>
+                    <FontAwesomeIcon icon='fa fa-car' className='icon' />{' '}
+                    Viaturas
+                  </LinkAutoColapse>
+                  <LinkAutoColapse to='/loja/'>
+                    <FontAwesomeIcon
+                      icon='fa fa-shopping-bag'
+                      className='icon'
+                    />{' '}
+                    Loja
+                  </LinkAutoColapse>
+                  <LinkAutoColapse to='/oficina/'>
+                    <FontAwesomeIcon icon='fa fa-cog' className='icon' />{' '}
+                    Oficina
+                  </LinkAutoColapse>
+                  <LinkAutoColapse to='/login/'>
+                    <FontAwesomeIcon icon='fa fa-sign-in' className='icon' />{' '}
+                    Login
+                  </LinkAutoColapse>
                 </>
               )}
             </Nav>

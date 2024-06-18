@@ -36,7 +36,7 @@ export const Wrap = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
+    background-color: #000;
     width: 100%;
     margin-bottom: 10px;
     padding: 20px;
@@ -46,7 +46,7 @@ export const Wrap = styled.div`
       display: flex;
       flex-direction: row;
       align-items: center;
-      background-color: #fff;
+      background-color: #000;
       padding: 0;
       min-width: 260px;
 
@@ -64,7 +64,7 @@ export const Wrap = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: right;
-    background-color: #fff;
+    background-color: #000;
     padding: 10px;
     margin: 10px 0 0;
     width: 100%;
@@ -96,8 +96,8 @@ export const Wrap = styled.div`
     right: 5px;
     margin: 0;
     padding: 5px;
-    z-index: 999;
-    background-color: #fff;
+    z-index: 10;
+    background-color: #000;
     border-radius: 45px;
     color: red;
 
@@ -108,18 +108,5 @@ export const Wrap = styled.div`
 
   .selected {
     border: red solid 2px;
-  }
-
-  .cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
   }
 `;

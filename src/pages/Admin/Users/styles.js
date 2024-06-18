@@ -15,11 +15,11 @@ export const Wrap = styled.div`
   }
 
   tbody tr {
-    background-color: #eee;
-    border-bottom: solid 5px #fff;
+    background-color: #333;
+    border-bottom: solid 5px #000;
 
     :hover {
-      background-color: #ddd;
+      background-color: #555;
     }
   }
 
@@ -31,13 +31,13 @@ export const Wrap = styled.div`
     }
 
     :not(:last-child) {
-      border-right: solid 2px #fff;
+      border-right: solid 2px #000;
     }
 
     :last-child {
       width: 50px;
       text-align: center;
-      background-color: #fff;
+      background-color: #000;
     }
   }
 
@@ -46,7 +46,7 @@ export const Wrap = styled.div`
   }
 
   .delete-icon {
-    background-color: #fff;
+    background-color: #000;
     border-radius: 45px;
     color: red;
 

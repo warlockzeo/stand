@@ -107,7 +107,10 @@ const EditUser = () => {
             {!equalPasswords ? 'Palavra passe não confere' : null}
           </>
         ) : null}
-        <div className='form-buttons gap-2'>
+        <div
+          className='form-buttons gap-2'
+          style={{ border: 'solid 20px #eee', backgroundColor: '#000' }}
+        >
           <button
             type='button'
             className='btn btn-danger'

@@ -9,8 +9,8 @@ class ClassProducts extends ClassConexao
 {
     public function get($id = null)
     {
-        $BFetch = $id ? $this->conectDB()->prepare("SELECT product_fotos.fileName, products.* FROM products LEFT OUTER JOIN  product_fotos ON fotos.carId = products.id AND fotos.banner=1 WHERE id = $id") :
-            $this->conectDB()->prepare("SELECT product_fotos.fileName, products.* FROM products LEFT OUTER JOIN  product_fotos ON product_fotos.carId = products.id AND product_fotos.banner=1");
+        $BFetch = $id ? $this->conectDB()->prepare("SELECT product_fotos.fileName, products.* FROM products LEFT OUTER JOIN  product_fotos ON product_fotos.prodId = products.id AND product_fotos.banner=1 WHERE id = $id") :
+            $this->conectDB()->prepare("SELECT product_fotos.fileName, products.* FROM products LEFT OUTER JOIN  product_fotos ON product_fotos.prodId = products.id AND product_fotos.banner=1");
 
         $BFetch->execute();
 
@@ -37,24 +37,17 @@ class ClassProducts extends ClassConexao
         $body = json_decode($json, TRUE);
         $obj = $body['body'];
 
-        $marca = isset($obj["marca"]) ? $obj["marca"] : "";
-        $modelo = isset($obj["modelo"]) ? $obj["modelo"] : "";
-        $ano = isset($obj["ano"]) ? $obj["ano"] : "";
-        $kms = isset($obj["kms"]) ? $obj["kms"] : "";
-        $motor = isset($obj["motor"]) ? $obj["motor"] : "";
-        $co2 = isset($obj["co2"]) ? $obj["co2"] : "";
-        $caixa = isset($obj["caixa"]) ? $obj["caixa"] : "";
-        $combustivel = isset($obj["combustivel"]) ? $obj["combustivel"] : "";
-        $tipo = isset($obj["tipo"]) ? $obj["tipo"] : "";
-        $lugares = isset($obj["lugares"]) ? $obj["lugares"] : "";
-        $portas = isset($obj["portas"]) ? $obj["portas"] : "";
-        $cor = isset($obj["cor"]) ? $obj["cor"] : "";
-        $estado = isset($obj["estado"]) ? $obj["estado"] : "";
-        $origem = isset($obj["origem"]) ? $obj["origem"] : "";
-        $garantia = isset($obj["garantia"]) ? $obj["garantia"] : "";
-        $preco = isset($obj["preco"]) ? $obj["preco"] : "";
+        $values = [];
+        $keys = array_keys($obj);
+        for ($i = 0; $i < count($obj); $i++) {
+            $key = $keys[$i];
+            $values[$i] = is_numeric($obj[$key]) ? $obj[$key] : "'$obj[$key]'";
+        }
 
-        $sql = "INSERT INTO products (marca, modelo, ano, kms, motor, co2, caixa, combustivel, tipo, lugares, portas, cor, estado, origem, garantia, preco ) VALUES ('$marca', '$modelo', '$ano', '$kms', '$motor', '$co2', '$caixa', '$combustivel', '$tipo', '$lugares', '$portas', '$cor', '$estado', '$origem', '$garantia', '$preco')";
+        $keys = implode(",", $keys);
+        $values = implode(",", $values);
+
+        $sql = "INSERT INTO products ($keys ) VALUES ($values)";
         $BFetch = $this->conectDB()->prepare($sql);
         if ($BFetch->execute()) {
             echo '{"resp":"ok"}';

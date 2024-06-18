@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const ProductListStyles = styled.div`
   padding: 40px;
-  background-color: #fff;
+  background-color: #000;
   display: flex;
   width: 100%;
   flex-wrap: wrap;

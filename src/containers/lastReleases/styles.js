@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const LastReleasesStyles = styled.div`
   padding: 40px;
-  background-color: #fff;
+  background-color: #000;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -16,7 +16,7 @@ export const LastReleasesStyles = styled.div`
     .btn-actual {
       border: none;
       background-color: transparent;
-      color: blue;
+      color: #fff;
     }
 
     .btn-actual {

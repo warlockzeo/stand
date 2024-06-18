@@ -16,9 +16,6 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Uploader } from 'uploader'; // Installed by "react-uploader".
-import { UploadButton } from 'react-uploader';
-
 import { Loader } from '../../../components';
 import {
   addProduct,
@@ -33,17 +30,9 @@ import {
 } from '../../../features/productFotos/productFotosSlice';
 
 import { SERVER_URL } from '../../../utils/constants';
-import Field from '../Field';
 import { Wrap } from './styles';
 
 const EditProducts = () => {
-  // Initialize once (at the start of your app).
-  const uploader = Uploader({
-    apiKey: 'free', // Get production API keys from Bytescale
-  });
-  // Configuration options: https://www.bytescale.com/docs/upload-widget/frameworks/react#customize
-  const options = { multi: true };
-
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -65,6 +54,7 @@ const EditProducts = () => {
 
   const onSubmit = handleSubmit(async (product) => {
     if (id) {
+      delete product.fileName;
       dispatch(updateProduct({ id: id, product: product }))
         .then(() => navigate('/admin/loja-produtos'))
         .catch((error) => console.error(error));
@@ -190,7 +180,7 @@ const EditProducts = () => {
               <button
                 type='button'
                 className='btn btn-danger'
-                onClick={() => navigate('/admin')}
+                onClick={() => navigate('/admin/loja-produtos')}
               >
                 Voltar
               </button>
@@ -207,47 +197,60 @@ const EditProducts = () => {
 
         <Tab eventKey='profile' title='Fotos'>
           <div className='form-group' style={{ backgroundColor: '#eee' }}>
-            <div className='form-input' style={{ padding: '20px' }}>
-              <UploadButton
-                uploader={uploader}
-                options={options}
-                onComplete={(files) =>
-                  onSubmitFotos(files.map((file) => file.originalFile.file))
-                }
-              >
-                {({ onClick }) => (
-                  <button onClick={onClick}>Adicione fotos...</button>
-                )}
-              </UploadButton>
+            <div
+              className='form-input'
+              style={{
+                padding: '20px',
+                position: 'relative',
+                textAlign: 'center',
+              }}
+            >
+              <input
+                multiple
+                name='fotos'
+                type='file'
+                accept='image/jpeg'
+                onChange={(files) => {
+                  const fotoFiles = [...files.target.files].map((file) => file);
+                  onSubmitFotos(fotoFiles);
+                }}
+                className='hand-pointer'
+                style={{ opacity: 0, position: 'absolute', width: '100%' }}
+              />
+              <span>Carregue as suas fotos...</span>
             </div>
           </div>
-
-          <div className='form-group' style={{ backgroundColor: '#eee' }}>
-            <p className='col-12'>
-              Selecione a foto a ser destacada no banner.
-            </p>
-            {fotos?.map((foto, i) => (
-              <div
-                key={i}
-                className={`foto col-12 col-md-4 ${
-                  banner == foto.id ? 'selected' : ''
-                }`}
-              >
-                <FontAwesomeIcon
-                  className='hand-pointer delete-icon'
-                  icon='fa-solid fa-trash'
-                  onClick={() => setShowModal(foto.id)}
-                />
+          {fotos.length ? (
+            <div className='form-group' style={{ backgroundColor: '#000' }}>
+              <p className='col-12'>
+                Selecione a foto a ser destacada no banner.
+              </p>
+              {fotos?.map((foto, i) => (
                 <div
-                  style={{
-                    backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
-                  }}
-                  onClick={() => handleSelectFoto(foto.id)}
-                ></div>
-              </div>
-            ))}
-          </div>
-          <div className='form-buttons gap-2'>
+                  key={i}
+                  className={`foto col-12 col-md-4 ${
+                    banner == foto.id ? 'selected' : ''
+                  }`}
+                >
+                  <FontAwesomeIcon
+                    className='hand-pointer delete-icon'
+                    icon='fa-solid fa-trash'
+                    onClick={() => setShowModal(foto.id)}
+                  />
+                  <div
+                    style={{
+                      backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
+                    }}
+                    onClick={() => handleSelectFoto(foto.id)}
+                  ></div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+          <div
+            className='form-buttons gap-2'
+            style={{ border: 'solid 20px #eee' }}
+          >
             <button
               type='button'
               className='btn btn-danger'
@@ -293,7 +296,7 @@ const EditProducts = () => {
       </Modal>
 
       {saving && (
-        <div className='cover'>
+        <div className='cover-blur'>
           <Loader />
         </div>
       )}

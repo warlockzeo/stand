@@ -43,7 +43,7 @@ export const Wrap = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 999;
+    z-index: 99;
     :hover {
       background-color: rgba(0, 0, 0, 0.3);
     }

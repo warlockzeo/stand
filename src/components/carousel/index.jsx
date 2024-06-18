@@ -4,8 +4,9 @@ import Carousel from 'react-bootstrap/Carousel';
 import { SERVER_URL } from '../../utils/constants';
 import { BannerCarousel } from './styles';
 
-const Banner = ({ images, expandeble = false }) => {
+const Banner = ({ images = [], expandeble = false }) => {
   const [expand, setExpand] = useState(expandeble);
+  //const banners = [{ fullName: '/standlogo.jpg' }, ...images];
 
   return (
     <>
@@ -26,7 +27,11 @@ const Banner = ({ images, expandeble = false }) => {
                   ></div>
 
                   <Carousel.Caption>
-                    <h3>{car.marca}</h3>
+                    {car.marca && car.modelo ? (
+                      <h3>
+                        {car.marca} {car.modelo}
+                      </h3>
+                    ) : null}
                   </Carousel.Caption>
                 </Carousel.Item>
               );

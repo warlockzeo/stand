@@ -10,14 +10,15 @@ export const CarDetailsStyled = styled.div`
 
 export const Destaq = styled.section`
   position: sticky;
-  top: 64px;
-  background-color: #ffffff;
+  top: 58px;
+  background-color: #000;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
   box-shadow: rgba(20, 35, 85, 0.15) 0px 2px 6px 0px;
+  z-index: 99;
 
   h1,
   h2,
@@ -38,17 +39,20 @@ export const Destaq = styled.section`
       font-weight: normal;
     }
   }
-
-  p {
-    background-color: #ffffff;
-  }
 `;
 
 export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
   padding: 20px;
+
+  @media screen and (min-width: 426px) {
+    flex-direction: row;
+    margin-bottom: 85px;
+  }
 
   p {
     margin: 0;
@@ -65,5 +69,34 @@ export const Container = styled.div`
 
   p:nth-child(even) {
     background-color: #eee;
+  }
+
+  .field {
+    display: flex;
+    color: #fff;
+    font-weight: bold;
+    align-items: center;
+
+    svg {
+      font-size: 33px;
+      margin-right: 10px;
+    }
+
+    img {
+      filter: invert(1);
+      width: 33px;
+      height: 33px;
+      margin-right: 10px;
+    }
+
+    div {
+      margin-bottom: 0;
+    }
+
+    span {
+      font-weight: normal;
+      display: block;
+      color: #ccc;
+    }
   }
 `;

@@ -3,28 +3,42 @@ import styled from 'styled-components';
 export const Wrap = styled.div`
   position: relative;
   padding: 0;
-  background-color: #fff;
+  background-color: #222;
   display: flex;
   flex-direction: column;
-  border: solid thin #ccc;
+  border: solid thin #444;
+  border-radius: 0 0 15px 15px;
   margin: 5px;
   text-decoration: none;
-  color: #000;
+  color: #fff;
   overflow: hidden;
 
   .foto {
     width: 100%;
-    height: 200px;
+    height: 300px;
     background-position: center center;
     background-size: cover;
   }
 
   span {
-    padding: 2px 10px;
-  }
+    padding: 0 10px;
+    &.marca {
+      font-size: 28px;
+      font-weight: bold;
+      color: red;
+    }
 
-  span:nth-child(even) {
-    background-color: #eee;
+    &.details {
+      margin: 0;
+
+      .icon {
+        margin: 0 5px 0 10px;
+
+        :first-child {
+          margin: 0 5px 0 0;
+        }
+      }
+    }
   }
 
   .preco {
@@ -35,7 +49,10 @@ export const Wrap = styled.div`
       rgba(255, 255, 255, 0) 100%
     );
     color: #fff;
+    font-size: 26px;
     font-weight: bold;
+    text-align: right;
+    padding: 10px;
   }
 
   .cover {
@@ -43,7 +60,7 @@ export const Wrap = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 999;
+    z-index: 99;
     :hover {
       background-color: rgba(0, 0, 0, 0.3);
     }

@@ -14,9 +14,6 @@ import {
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Uploader } from 'uploader'; // Installed by "react-uploader".
-import { UploadButton } from 'react-uploader';
-
 import { Loader } from '../../../components';
 import {
   addCar,
@@ -31,113 +28,10 @@ import {
 } from '../../../features/fotos/fotosSlice';
 
 import { SERVER_URL } from '../../../utils/constants';
-//import resizeImage from '../../../utils/resizeImge';
 import Field from '../Field';
 import { Wrap } from './styles';
 
 const EditViatura = () => {
-  // Initialize once (at the start of your app).
-  const uploader = Uploader({
-    apiKey: 'free', // Get production API keys from Bytescale
-  });
-  // Configuration options: https://www.bytescale.com/docs/upload-widget/frameworks/react#customize
-  const options = {
-    // //    apiKey: 'public_A623uY2RvnNq1vZ80fYgGyhKN0U7',
-    // editor: {
-    //   images: {
-    //     allowResizeOnMove: true,
-    //     crop: true,
-    //     // cropFilePath: Function,
-    //     cropRatio: 1,
-    //     //cropShape: 'circ',
-    //     preview: true,
-    //   },
-    // },
-    // //    layout: 'modal',
-    // locale: {
-    //   //addAnotherFileBtn: 'Add another file...',
-    //   addAnotherImageBtn: 'Inserir outra imagem...',
-    //   cancelBtn: 'Cancelar',
-    //   cancelBtnClicked: 'Cancelado',
-    //   cancelPreviewBtn: 'Cancelar',
-    //   continueBtn: 'Continuar',
-    //   cropBtn: 'Recortar',
-    //   customValidationFailed: 'Falha ao validar ficheiro.',
-    //   doneBtn: 'Feito',
-    //   fileSizeLimitPrefix: 'Imagem grande demais:',
-    //   finishBtn: 'Concluir',
-    //   finishBtnIcon: true,
-    //   imageCropNumberPrefix: 'Imagem',
-    //   //maxFilesReachedPrefix: 'Maximum number of files:',
-    //   //maxImagesReachedPrefix: 'Maximum number of images:',
-    //   orDragDropFile: '...ou arraste uma imagem.',
-    //   orDragDropFileMulti: '...ou arraste uma ou mais imagens.',
-    //   orDragDropImage: '...ou arraste uma imagem.',
-    //   orDragDropImageMulti: '...ou arraste uma ou mais imagens.',
-    //   processingFile: 'Processando ficheiro...',
-    //   removeBtn: 'remover',
-    //   removeBtnClicked: 'removido',
-    //   submitBtnError: 'Erro!',
-    //   submitBtnLoading: 'Por favor espere...',
-    //   unsupportedFileType: 'Ficheiro não permitido.',
-    //   uploadFileBtn: 'Carregar uma imagem',
-    //   uploadFileMultiBtn: 'Carregar imagens',
-    //   uploadImageBtn: 'Carregar uma imagem',
-    //   uploadImageMultiBtn: 'Carregar imagens',
-    //   xOfY: 'de',
-    // },
-    // //    maxFileCount: 1,
-    // maxFileSizeBytes: 1024000,
-    // metadata: {
-    //   // myCustomField1: true,
-    //   // myCustomField2: {
-    //   //   hello: 'world',
-    //   // },
-    //   // anotherCustomField: 42,
-    // },
-    mimeTypes: ['image/jpeg'],
-    multi: true,
-    // // onInit: Function,
-    // // onPreUpload: Function,
-    // // onUpdate: Function,
-    // path: {
-    //   // fileName: 'image.jpg',
-    //   // fileNameFallback: 'image.jpg',
-    //   // fileNameVariablesEnabled: true,
-    //   // folderPath: '/uploads',
-    //   // folderPathVariablesEnabled: true,
-    // },
-    // // showFinishButton: true,
-    // // showRemoveButton: true,
-    // styles: {
-    //   // breakpoints: {
-    //   //   fullScreenHeight: 420,
-    //   //   fullScreenWidth: 750,
-    //   // },
-    //   // colors: {
-    //   //   active: '#528fff',
-    //   //   error: '#d23f4d',
-    //   //   primary: '#377dff',
-    //   //   shade100: '#333',
-    //   //   shade200: '#7a7a7a',
-    //   //   shade300: '#999',
-    //   //   shade400: '#a5a6a8',
-    //   //   shade500: '#d3d3d3',
-    //   //   shade600: '#dddddd',
-    //   //   shade700: '#f0f0f0',
-    //   //   shade800: '#f8f8f8',
-    //   //   shade900: '#fff',
-    //   // },
-    //   // fontFamilies: {
-    //   //   base: '-apple-system, blinkmacsystemfont, Segoe UI, helvetica, arial, sans-serif',
-    //   // },
-    //   // fontSizes: {
-    //   //   base: 16,
-    //   // },
-    // },
-    // //  tags: ['example_tag'],
-  };
-
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -150,7 +44,7 @@ const EditViatura = () => {
   const [car, setCar] = useState(null);
   const [fotos, setFotos] = useState(carFotos || []);
   const [banner, setBanner] = useState(null);
-
+  const [fileError, setFileError] = useState(false);
   const {
     register,
     handleSubmit,
@@ -159,104 +53,84 @@ const EditViatura = () => {
 
   const fields = [
     {
-      label: 'Ano',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'ano',
-      placeholder: 'Ano',
-      value: car?.ano,
+      label: 'Registo',
+      nameId: 'registo',
+      placeholder: 'Registo',
+      value: car?.registo,
       type: 'text',
     },
     {
-      label: 'KMS',
-      icon: 'fa-solid fa-road',
-      nameId: 'kms',
-      placeholder: 'KMS',
-      value: car?.kms,
+      label: 'Quilometros',
+      nameId: 'quilometros',
+      placeholder: 'Quilometros',
+      value: car?.quilometros,
       type: 'number',
-    },
-    {
-      label: 'Motor',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'motor',
-      placeholder: 'Motor',
-      value: car?.motor,
-      type: 'text',
-    },
-    {
-      label: 'CO2',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'co2',
-      placeholder: 'CO2',
-      value: car?.co2,
-      type: 'number',
-    },
-    {
-      label: 'Caixa',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'caixa',
-      placeholder: 'Caixa',
-      value: car?.caixa,
-      type: 'text',
-    },
-    {
-      label: 'Combustível',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'combustivel',
-      placeholder: 'Combustível',
-      value: car?.combustivel,
-      type: 'text',
-    },
-    {
-      label: 'Tipo',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'tipo',
-      placeholder: 'Tipo',
-      value: car?.tipo,
-      type: 'text',
     },
     {
       label: 'Lugares',
-      icon: 'fa-solid fa-calendar-days',
       nameId: 'lugares',
       placeholder: 'Lugares',
       value: car?.lugares,
       type: 'number',
     },
     {
-      label: 'Portas',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'portas',
-      placeholder: 'Portas',
-      value: car?.portas,
+      label: 'Segmento',
+      nameId: 'segmento',
+      placeholder: 'Segmento',
+      value: car?.segmento,
+      type: 'text',
+    },
+    {
+      label: 'Combustível',
+      nameId: 'combustivel',
+      placeholder: 'Combustível',
+      value: car?.combustivel,
+      type: 'text',
+    },
+    {
+      label: 'Potencia',
+      nameId: 'potencia',
+      placeholder: 'Potencia',
+      value: car?.potencia,
       type: 'number',
     },
     {
+      label: 'Cilindrada',
+      nameId: 'cilindrada',
+      placeholder: 'Cilindrada',
+      value: car?.cilindrada,
+      type: 'number',
+    },
+    {
+      label: 'Transmissao',
+      nameId: 'transmissao',
+      placeholder: 'Transmissao',
+      value: car?.transmissao,
+      type: 'text',
+    },
+    {
       label: 'Cor',
-      icon: 'fa-solid fa-calendar-days',
       nameId: 'cor',
       placeholder: 'Cor',
       value: car?.cor,
       type: 'text',
     },
     {
+      label: 'Portas',
+      nameId: 'portas',
+      placeholder: 'Portas',
+      value: car?.portas,
+      type: 'number',
+    },
+    {
       label: 'Estado',
-      icon: 'fa-solid fa-calendar-days',
       nameId: 'estado',
       placeholder: 'Estado',
       value: car?.estado,
       type: 'text',
     },
     {
-      label: 'Origem',
-      icon: 'fa-solid fa-calendar-days',
-      nameId: 'origem',
-      placeholder: 'Origem',
-      value: car?.origem,
-      type: 'text',
-    },
-    {
       label: 'Garantia',
-      icon: 'fa-solid fa-calendar-days',
       nameId: 'garantia',
       placeholder: 'Garantia',
       value: car?.garantia,
@@ -264,15 +138,22 @@ const EditViatura = () => {
     },
     {
       label: 'Preço',
-      icon: 'fa-solid fa-calendar-days',
       nameId: 'preco',
       placeholder: 'Preço',
       value: car?.preco,
       type: 'text',
     },
+    {
+      label: 'Observacoes',
+      nameId: 'observacoes',
+      placeholder: 'Observacoes',
+      value: car?.observacoes,
+      type: 'multitext',
+    },
   ];
 
   const onSubmit = handleSubmit(async (car) => {
+    delete car.fileName;
     if (id) {
       dispatch(updateCar({ id: id, car: car }))
         .then(() => navigate('/admin'))
@@ -285,18 +166,33 @@ const EditViatura = () => {
   });
 
   const onSubmitFotos = (photos) => {
-    setSaving(true);
-    if (id) {
-      dispatch(
-        addFoto({
-          id: id,
-          fotos: photos,
-        })
-      )
-        .then(() => navigate('/admin'))
-        .catch((error) => console.error(error));
+    if (Array.isArray(photos)) {
+      const fotosToSend = photos?.filter((file) => file.size <= 2097152);
+      setSaving(true);
+      if (id) {
+        dispatch(
+          addFoto({
+            id: id,
+            fotos: fotosToSend,
+          })
+        )
+          .then(() => {
+            if (
+              photos.length !== fotosToSend.length ||
+              fotosToSend.length === 0
+            ) {
+              setFileError(true);
+            } else {
+              setFileError(false);
+              navigate('/admin');
+            }
+          })
+          .catch((error) => console.error(error));
+      } else {
+        dispatch(addCar(fotos));
+        navigate('/admin');
+      }
     } else {
-      dispatch(addCar(fotos));
       navigate('/admin');
     }
   };
@@ -398,62 +294,62 @@ const EditViatura = () => {
 
         <Tab eventKey='profile' title='Fotos'>
           <div className='form-group' style={{ backgroundColor: '#eee' }}>
-            <div className='form-input' style={{ padding: '20px' }}>
-              <UploadButton
-                uploader={uploader}
-                options={options}
-                onComplete={(files) =>
-                  onSubmitFotos(
-                    files.map((file) => {
-                      return file.originalFile.file;
-                      // const config = {
-                      //   file: file.originalFile.file,
-                      //   maxSize: 1024,
-                      // };
-                      // const resizedImage = await resizeImage(config);
-                      // console.log(
-                      //   'upload resized image - ',
-                      //   file.originalFile.file,
-                      //   resizedImage
-                      // );
-                      // return resizedImage;
-                    })
-                  )
-                }
-              >
-                {({ onClick }) => (
-                  <button onClick={onClick}>Adicione fotos...</button>
-                )}
-              </UploadButton>
+            <div
+              className='form-input'
+              style={{
+                padding: '20px',
+                position: 'relative',
+                textAlign: 'center',
+              }}
+            >
+              <input
+                multiple
+                name='fotos'
+                type='file'
+                accept='image/jpeg'
+                onChange={(files) => {
+                  const fotoFiles = [...files.target.files].map((file) => file);
+                  onSubmitFotos(fotoFiles);
+                }}
+                className='hand-pointer'
+                style={{ opacity: 0, position: 'absolute', width: '100%' }}
+              />
+              <span>Carregue as suas fotos...</span>
             </div>
           </div>
 
-          <div className='form-group' style={{ backgroundColor: '#eee' }}>
-            <p className='col-12'>
-              Selecione a foto a ser destacada no banner.
-            </p>
-            {fotos?.map((foto, i) => (
-              <div
-                key={i}
-                className={`foto col-12 col-md-4 ${
-                  banner == foto.id ? 'selected' : ''
-                }`}
-              >
-                <FontAwesomeIcon
-                  className='hand-pointer delete-icon'
-                  icon='fa-solid fa-trash'
-                  onClick={() => setShowModal(foto.id)}
-                />
+          {fotos.length > 0 && (
+            <div className='form-group' style={{ backgroundColor: '#000' }}>
+              <p className='col-12'>
+                Selecione a foto a ser destacada no banner.
+              </p>
+
+              {fotos?.map((foto, i) => (
                 <div
-                  style={{
-                    backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
-                  }}
-                  onClick={() => handleSelectFoto(foto.id)}
-                ></div>
-              </div>
-            ))}
-          </div>
-          <div className='form-buttons gap-2'>
+                  key={i}
+                  className={`foto col-12 col-md-4 ${
+                    banner == foto.id ? 'selected' : ''
+                  }`}
+                >
+                  <FontAwesomeIcon
+                    className='hand-pointer delete-icon'
+                    icon='fa-solid fa-trash'
+                    onClick={() => setShowModal(foto.id)}
+                  />
+                  <div
+                    style={{
+                      backgroundImage: `url("${SERVER_URL}/imagens/${foto.fileName}")`,
+                    }}
+                    onClick={() => handleSelectFoto(foto.id)}
+                  ></div>
+                </div>
+              ))}
+            </div>
+          )}
+          <div
+            className='form-buttons gap-2'
+            style={{ border: 'solid 20px #eee' }}
+          >
             <button
               type='button'
               className='btn btn-danger'
@@ -486,6 +382,24 @@ const EditViatura = () => {
         </Toast>
       </ToastContainer>
 
+      <ToastContainer position='bottom-center'>
+        <Toast
+          onClose={() => {
+            setFileError(false);
+            navigate('/admin');
+          }}
+          show={fileError}
+          delay={5000}
+          autohide
+          bg='danger'
+        >
+          <Toast.Body>
+            Desculpe! Uma ou mais fotos excede o limite de 2Mb por ficheiro e
+            não será carregada.
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
+
       <Modal show={!!showModal} onHide={() => setShowModal(0)}>
         <Modal.Body>Quer mesmo remover esta foto?</Modal.Body>
         <Modal.Footer>
@@ -499,7 +413,7 @@ const EditViatura = () => {
       </Modal>
 
       {saving && (
-        <div className='cover'>
+        <div className='cover-blur'>
           <Loader />
         </div>
       )}

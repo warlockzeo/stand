@@ -56,18 +56,19 @@ const CarDetails = () => {
     <CarDetailsStyled>
       {car ? (
         <>
-          <Destaq>
-            <div>
-              <h1>
-                {car.marca} {car.modelo}
-              </h1>
-              <p>{car.combustivel}</p>
-            </div>
-            <h2>{formatCurrency(car.preco)}</h2>
-          </Destaq>
           <Container>
             <Col xs={12} md={6}>
               <Row>
+                <Destaq>
+                  <div>
+                    <h1>
+                      {car.marca} {car.modelo}
+                    </h1>
+                    <p>{car.combustivel}</p>
+                  </div>
+                  <h2>{formatCurrency(car.preco)}</h2>
+                </Destaq>
+
                 <Field label='Registo' data={car.registo} icon='fa-calendar' />
                 <Field
                   label='Quilómetros'

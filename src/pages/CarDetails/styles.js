@@ -9,21 +9,16 @@ export const CarDetailsStyled = styled.div`
 `;
 
 export const Destaq = styled.section`
-  position: sticky;
-  top: 58px;
-  background-color: #000;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  box-shadow: rgba(20, 35, 85, 0.15) 0px 2px 6px 0px;
-  z-index: 99;
+  align-items: start;
+  padding: 10px 30px 10px 10px;
 
   h1,
   h2,
   p {
-    margin-bottom: 0;
+    margin: 0;
   }
 
   h1 {
@@ -33,11 +28,6 @@ export const Destaq = styled.section`
   h2 {
     color: red;
     font-weight: bold;
-
-    span {
-      font-size: 18px;
-      font-weight: normal;
-    }
   }
 `;
 
@@ -54,21 +44,8 @@ export const Container = styled.div`
     margin-bottom: 85px;
   }
 
-  p {
-    margin: 0;
-    padding: 5px 10px;
-  }
-
   div {
     margin-bottom: 10px;
-  }
-
-  span {
-    font-weight: bold;
-  }
-
-  p:nth-child(even) {
-    background-color: #eee;
   }
 
   .field {

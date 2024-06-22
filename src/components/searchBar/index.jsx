@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
+import { DualRange } from '../index';
 import { SearchBarStyled } from './styles';
 import { formatCurrency } from '../../utils/formatCurrency';
 
@@ -10,12 +11,6 @@ const SearchBar = ({ list, onChange }) => {
   const [modeloSelected, setModeloSelected] = useState('');
   const [marcas, setMarcas] = useState([]);
   const [modelos, setModelos] = useState([]);
-
-  const onDropRange = (e) => {
-    const val = e.currentTarget.value;
-    setPrice(val);
-    onChange('preco', val);
-  };
 
   useEffect(() => {
     onChange('modelo', '');
@@ -86,7 +81,7 @@ const SearchBar = ({ list, onChange }) => {
           style={{ flexDirection: 'row', display: 'flex', gap: 5 }}
         >
           Preço:
-          <input
+          {/* <input
             type='range'
             className='multi-range form-control'
             name='price'
@@ -98,6 +93,21 @@ const SearchBar = ({ list, onChange }) => {
             onChange={onDropRange}
             defaultValue={price}
             style={{ padding: '6px 2px' }}
+          /> */}
+          <DualRange
+            defaultFrom={0}
+            defaultTo={200000}
+            min={0}
+            max={200000}
+            step={500}
+            onChangeFrom={(e) => {
+              setPrice(e);
+              onChange('preco', e);
+            }}
+            onChangeTo={(e) => {
+              setPrice(e);
+              onChange('preco', e);
+            }}
           />
         </Col>
         <Col xs={12} sm={3}>

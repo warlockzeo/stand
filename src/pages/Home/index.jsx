@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Loader, Banner, SearchBar, Footer, DualRange } from '../../components';
+import { Loader, Banner, SearchBar, Footer } from '../../components';
 import LastReleases from '../../containers/lastReleases';
 import { getAllCars } from '../../features/cars/carsSlice';
 
@@ -60,7 +60,6 @@ const Home = () => {
           bannerImages.length ? bannerImages : [{ fullName: './logocar.png' }]
         }
       />
-      <DualRange />
       <SearchBar list={cars} onChange={handleChangeFilter} />
       {isLoading ? <Loader /> : <LastReleases data={carsFiltered} />}
       <Footer />

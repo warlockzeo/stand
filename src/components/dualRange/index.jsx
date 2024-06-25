@@ -1,65 +1,94 @@
-import React, { useState, useEffect } from 'react';
-import { DualRangeStyle } from './styles.js';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { formatCurrency } from '../../utils/formatCurrency';
 
-const DualRange = ({
-  defaultFrom,
-  defaultTo,
-  min,
-  max,
-  step,
-  onChangeFrom,
-  onChangeTo,
-}) => {
-  const [from, setFrom] = useState(0);
-  const [to, setTo] = useState(100);
+import { DualRangeStyle } from './styles';
 
+const MultiRangeSlider = ({ min, max, step, onChange }) => {
+  const [minVal, setMinVal] = useState(min);
+  const [maxVal, setMaxVal] = useState(max);
+  const minValRef = useRef(min);
+  const maxValRef = useRef(max);
+  const range = useRef(null);
+
+  // Convert to percentage
+  const getPercent = useCallback(
+    (value) => Math.round(((value - min) / (max - min)) * 100),
+    [min, max]
+  );
+
+  // Set width of the range to decrease from the left side
   useEffect(() => {
-    let newFrom = from;
-    if (from > to) {
-      newFrom = to - 1;
-      setFrom(newFrom);
+    const minPercent = getPercent(minVal);
+    const maxPercent = getPercent(maxValRef.current);
+
+    if (range.current) {
+      range.current.style.left = `${minPercent}%`;
+      range.current.style.width = `${maxPercent - minPercent}%`;
     }
-    onChangeFrom(newFrom);
-  }, [from]);
+  }, [minVal, getPercent]);
 
+  // Set width of the range to decrease from the right side
   useEffect(() => {
-    let newTo = to;
-    if (to < from) {
-      newTo = +from + 1;
-      setTo(newTo);
+    const minPercent = getPercent(minValRef.current);
+    const maxPercent = getPercent(maxVal);
+
+    if (range.current) {
+      range.current.style.width = `${maxPercent - minPercent}%`;
     }
-    onChangeTo(newTo);
-  }, [to]);
+  }, [maxVal, getPercent]);
 
-  useEffect(() => {
-    setFrom(defaultFrom);
-    setTo(defaultTo);
-  }, []);
+  // Get min and max values when their state changes
+  // useEffect(() => {
+  //   onChange({ min: minVal, max: maxVal });
+  // }, [minVal, maxVal, onChange]);
 
   return (
     <DualRangeStyle>
-      <div className='sliders_control'>
-        <input
-          id='fromSlider'
-          type='range'
-          value={from}
-          min={min}
-          max={max}
-          step={step}
-          onChange={(e) => setFrom(e.target.value)}
-        />
-        <input
-          id='toSlider'
-          type='range'
-          value={to}
-          min={min}
-          max={max}
-          step={step}
-          onChange={(e) => setTo(e.target.value)}
-        />
+      <input
+        type='range'
+        min={min}
+        max={max}
+        step={step}
+        value={minVal}
+        onChange={(event) => {
+          const value = Math.min(Number(event.target.value), maxVal - 1);
+          setMinVal(value);
+          minValRef.current = value;
+          onChange({ min: value, max: maxVal });
+        }}
+        className='thumb thumb--left'
+        style={{ zIndex: minVal > max - 100 && '5' }}
+      />
+      <input
+        type='range'
+        min={min}
+        max={max}
+        step={step}
+        value={maxVal}
+        onChange={(event) => {
+          const value = Math.max(Number(event.target.value), minVal + 1);
+          setMaxVal(value);
+          maxValRef.current = value;
+          onChange({ min: minVal, max: value });
+        }}
+        className='thumb thumb--right'
+      />
+
+      <div className='slider'>
+        <div className='slider__track' />
+        <div ref={range} className='slider__range' />
+        <div className='slider__left-value'>{formatCurrency(minVal)}</div>
+        <div className='slider__right-value'>{formatCurrency(maxVal)}</div>
       </div>
     </DualRangeStyle>
   );
 };
 
-export default DualRange;
+MultiRangeSlider.propTypes = {
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default MultiRangeSlider;

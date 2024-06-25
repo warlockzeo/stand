@@ -3,10 +3,8 @@ import { Col, Row } from 'react-bootstrap';
 
 import { DualRange } from '../index';
 import { SearchBarStyled } from './styles';
-import { formatCurrency } from '../../utils/formatCurrency';
 
 const SearchBar = ({ list, onChange }) => {
-  const [price, setPrice] = useState(0);
   const [marcaSelected, setMarcaSelected] = useState('');
   const [modeloSelected, setModeloSelected] = useState('');
   const [marcas, setMarcas] = useState([]);
@@ -37,7 +35,7 @@ const SearchBar = ({ list, onChange }) => {
   return (
     <SearchBarStyled>
       <Row>
-        <Col xs={12} sm={3}>
+        <Col xs={12} sm={2}>
           <select
             className='form-control'
             name='brand'
@@ -56,7 +54,7 @@ const SearchBar = ({ list, onChange }) => {
             ))}
           </select>
         </Col>
-        <Col xs={12} sm={3}>
+        <Col xs={12} sm={2}>
           <select
             value={modeloSelected}
             className='form-control'
@@ -77,47 +75,15 @@ const SearchBar = ({ list, onChange }) => {
         </Col>
         <Col
           xs={12}
-          sm={3}
+          sm={4}
           style={{ flexDirection: 'row', display: 'flex', gap: 5 }}
         >
           Preço:
-          {/* <input
-            type='range'
-            className='multi-range form-control'
-            name='price'
-            id='price'
-            aria-describedby='helpId'
-            min='0'
-            max='200000'
-            step='500'
-            onChange={onDropRange}
-            defaultValue={price}
-            style={{ padding: '6px 2px' }}
-          /> */}
           <DualRange
-            defaultFrom={0}
-            defaultTo={200000}
             min={0}
-            max={200000}
+            max={20000}
             step={500}
-            onChangeFrom={(e) => {
-              setPrice(e);
-              onChange('preco', e);
-            }}
-            onChangeTo={(e) => {
-              setPrice(e);
-              onChange('preco', e);
-            }}
-          />
-        </Col>
-        <Col xs={12} sm={3}>
-          <input
-            type='text'
-            className='form-control'
-            name='showPrice'
-            id='showPrice'
-            value={formatCurrency(price)}
-            disabled
+            onChange={(e) => onChange('preco', e)}
           />
         </Col>
       </Row>

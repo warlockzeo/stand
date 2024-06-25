@@ -15,6 +15,7 @@ const Home = () => {
   const [filters, setFilters] = useState([]);
 
   const handleChangeFilter = (field, value) => {
+    console.log('change:', field, value);
     if (value) {
       setFilters([
         ...filters.filter((filter) => filter.field !== field),
@@ -29,10 +30,14 @@ const Home = () => {
     if (cars.length) {
       let newCars = cars;
       filters.forEach((filt) => {
-        if (filt.field == 'preco') {
-          newCars = newCars.filter(
-            (car) => Number(car[filt.field]) >= Number(filt.value)
-          );
+        if (filt.field === 'preco') {
+          newCars = newCars.filter((car) => {
+            console.log('preco:', car[filt.field], filt.value, carsFiltered);
+            return (
+              Number(car[filt.field]) >= Number(filt.value.min) &&
+              Number(car[filt.field]) <= Number(filt.value.max)
+            );
+          });
         } else {
           newCars = newCars.filter((car) => car[filt.field] == filt.value);
         }

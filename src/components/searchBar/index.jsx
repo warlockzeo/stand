@@ -9,6 +9,7 @@ const SearchBar = ({ list, onChange }) => {
   const [modeloSelected, setModeloSelected] = useState('');
   const [marcas, setMarcas] = useState([]);
   const [modelos, setModelos] = useState([]);
+  const [precoMaximo, setPrecoMaximo] = useState(100000);
 
   useEffect(() => {
     onChange('modelo', '');
@@ -28,6 +29,7 @@ const SearchBar = ({ list, onChange }) => {
   }, [marcaSelected]);
 
   useEffect(() => {
+    setPrecoMaximo(Math.max(...list.map((car) => Number(car.preco))));
     setMarcas([...new Set(list.map((car) => car.marca))].sort());
     setModelos([...new Set(list.map((car) => car.modelo))].sort());
   }, [list]);
@@ -81,7 +83,7 @@ const SearchBar = ({ list, onChange }) => {
           Preço:
           <DualRange
             min={0}
-            max={20000}
+            max={precoMaximo}
             step={500}
             onChange={(e) => onChange('preco', e)}
           />

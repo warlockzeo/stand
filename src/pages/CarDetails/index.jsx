@@ -109,10 +109,10 @@ const CarDetails = () => {
               </Row>
             </Col>
             <Col xs={12} md={6}>
-              <Carousel2
+              {/* <Carousel2
                 data={data}
                 time={3000}
-                width='650px'
+                width='100%'
                 height='500px'
                 captionStyle={captionStyle}
                 radius='10px'
@@ -133,7 +133,7 @@ const CarDetails = () => {
                   maxHeight: '500px',
                   margin: '0  auto 40px auto',
                 }}
-              />
+              /> */}
             </Col>
           </Container>
         </>

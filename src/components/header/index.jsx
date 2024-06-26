@@ -44,7 +44,6 @@ const Header = () => {
       <Navbar
         expand='lg'
         variant='dark'
-        fixed='top'
         onToggle={(x) => setExpanded(x)}
         expanded={expanded}
       >

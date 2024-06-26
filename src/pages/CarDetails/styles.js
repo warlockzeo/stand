@@ -9,10 +9,12 @@ export const CarDetailsStyled = styled.div`
 `;
 
 export const Destaq = styled.section`
+  max-width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: start;
+  flex-wrap: wrap;
   padding: 10px 30px 10px 10px;
 
   h1,

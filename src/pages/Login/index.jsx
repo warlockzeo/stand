@@ -10,11 +10,13 @@ import { login as submitLogin, isLogged } from '../../utils/JWTAuth.js';
 import { Loader } from '../../components/index.jsx';
 
 const Wrap = Styled.div`
+flex: 1;
   width: 80%;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+
 
   input {
     margin-bottom: 10px;

@@ -9,13 +9,12 @@ export const CarDetailsStyled = styled.div`
 `;
 
 export const Destaq = styled.section`
-  max-width: 80%;
+  flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: start;
   flex-wrap: wrap;
-  padding: 10px 30px 10px 10px;
 
   h1,
   h2,
@@ -25,11 +24,15 @@ export const Destaq = styled.section`
 
   h1 {
     font-weight: bold;
+    font-size: 24px;
   }
 
   h2 {
     color: red;
     font-weight: bold;
+    font-size: 24px;
+    text-align: right;
+    padding-right: 20px;
   }
 `;
 

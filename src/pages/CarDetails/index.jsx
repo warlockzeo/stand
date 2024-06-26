@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { Carousel } from 'react-carousel-minimal';
 import { Footer, Carousel2 } from '../../components';
 
 import { CarDetailsStyled, Container, Destaq } from './styles';
@@ -13,7 +12,7 @@ import { formatCurrency } from '../../utils/formatCurrency';
 import { SERVER_URL } from '../../utils/constants';
 
 const Field = ({ label, data, icon, icon2 }) => (
-  <Col lg={4} sm={6} xs={12} className='field'>
+  <Col xl={4} xs={6} className='field'>
     {icon ? (
       <FontAwesomeIcon icon={`fa-solid ${icon}`} />
     ) : (
@@ -57,18 +56,20 @@ const CarDetails = () => {
       {car ? (
         <>
           <Container>
-            <Col xs={12} md={6}>
-              <Row>
-                <Destaq>
-                  <div>
-                    <h1>
-                      {car.marca} {car.modelo}
-                    </h1>
-                    <p>{car.combustivel}</p>
-                  </div>
+            <Col lg={4} sm={6} xs={12}>
+              <Destaq>
+                <Col lg={8} xs={12}>
+                  <h1>
+                    {car.marca} {car.modelo}
+                  </h1>
+                  <p>{car.combustivel}</p>
+                </Col>
+                <Col xs={12}>
                   <h2>{formatCurrency(car.preco)}</h2>
-                </Destaq>
+                </Col>
+              </Destaq>
 
+              <Row>
                 <Field label='Registo' data={car.registo} icon='fa-calendar' />
                 <Field
                   label='Quilómetros'
@@ -102,18 +103,19 @@ const CarDetails = () => {
                 <Field label='Estado' data={car.estado} icon='fa-star' />
                 <Field label='Garantia' data={car.garantia} icon2='medal.png' />
               </Row>
-
-              <Row>
-                <h2>Observações</h2>
-                <Col>{car.observacoes}</Col>
-              </Row>
+              {car.observacoes ? (
+                <Row>
+                  <h2>Observações</h2>
+                  <Col>{car.observacoes}</Col>
+                </Row>
+              ) : null}
             </Col>
-            <Col xs={12} md={6}>
-              {/* <Carousel2
+            <Col xs={12} md={8}>
+              <Carousel2
                 data={data}
                 time={3000}
                 width='100%'
-                height='500px'
+                height='400px'
                 captionStyle={captionStyle}
                 radius='10px'
                 slideNumber={false}
@@ -127,13 +129,7 @@ const CarDetails = () => {
                 thumbnails={true}
                 thumbnailWidth='100px'
                 showNavBtn={true}
-                style={{
-                  textAlign: 'center',
-                  maxWidth: '850px',
-                  maxHeight: '500px',
-                  margin: '0  auto 40px auto',
-                }}
-              /> */}
+              />
             </Col>
           </Container>
         </>

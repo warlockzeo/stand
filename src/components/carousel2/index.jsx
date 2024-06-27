@@ -105,7 +105,7 @@ const Carousel2 = ({
   }, [slide, isPaused]);
 
   useEffect(() => {
-    if (photos.length === 0 && data.length > 0) {
+    if (!!data.length) {
       setPhotos(data);
     }
   }, [data]);

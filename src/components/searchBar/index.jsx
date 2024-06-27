@@ -9,7 +9,7 @@ const SearchBar = ({ list, onChange }) => {
   const [modeloSelected, setModeloSelected] = useState('');
   const [marcas, setMarcas] = useState([]);
   const [modelos, setModelos] = useState([]);
-  const [precoMaximo, setPrecoMaximo] = useState(100000);
+  const [precoMaximo, setPrecoMaximo] = useState(0);
 
   useEffect(() => {
     onChange('modelo', '');
@@ -33,6 +33,10 @@ const SearchBar = ({ list, onChange }) => {
     setMarcas([...new Set(list.map((car) => car.marca))].sort());
     setModelos([...new Set(list.map((car) => car.modelo))].sort());
   }, [list]);
+
+  useEffect(() => {
+    setPrecoMaximo(Math.max(...list.map((car) => Number(car.preco))));
+  }, []);
 
   return (
     <SearchBarStyled>

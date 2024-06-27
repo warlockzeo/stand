@@ -37,7 +37,6 @@ const CarDetails = () => {
 
   useEffect(() => {
     dispatch(getAllCars());
-    dispatch(getAllFotos(id));
   }, [dispatch]);
 
   useEffect(() => {
@@ -45,6 +44,10 @@ const CarDetails = () => {
       setCar(cars.filter((car) => car.id == id)[0]);
     }
   }, [cars, id]);
+
+  useEffect(() => {
+    dispatch(getAllFotos(id));
+  }, [id]);
 
   const captionStyle = {
     fontSize: '2em',

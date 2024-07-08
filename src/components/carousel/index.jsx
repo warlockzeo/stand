@@ -13,7 +13,7 @@ const Banner = ({ images = [], expandeble = false }) => {
       {Array.isArray(images) ? (
         <BannerCarousel expandeble={expandeble ? expand : false}>
           <Carousel fade>
-            {images?.map((car, index) => {
+            {images?.slice(0, 5).map((car, index) => {
               const img =
                 car.fullName ?? `${SERVER_URL}/imagens/${car.fileName}`;
 

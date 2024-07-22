@@ -71,7 +71,7 @@ export const usersSlice = createSlice({
         state.isLoading = false;
         state.users = [
           ...state.users.map((user) => {
-            return user.id == payload.id ? payload : user;
+            return user.id === payload.id ? payload : user;
           }),
           payload,
         ];

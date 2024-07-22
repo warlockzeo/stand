@@ -20,10 +20,10 @@
 //   const [theme, setTheme] = useState<Theme>(firstTheme);
 
 //   const toggleTheme = useCallback(() => {
-//     if (theme.name == 'first') {
+//     if (theme.name === 'first') {
 //       setTheme(secondTheme);
 //     }
-//     else if (theme.name == 'second') {
+//     else if (theme.name === 'second') {
 //       setTheme(firstTheme);
 //     }
 //   }, [theme]);

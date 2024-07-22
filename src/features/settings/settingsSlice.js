@@ -22,6 +22,13 @@ export const updateSettings = createAsyncThunk(
   }
 );
 
+export const addSettingsFotos = createAsyncThunk(
+  `${SERVER_URL}/addSettingsFotos`,
+  async (payload) => {
+    return await apiClient.addSettingsFotos(payload);
+  }
+);
+
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState,

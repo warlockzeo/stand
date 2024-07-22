@@ -96,13 +96,13 @@ const EditProducts = () => {
 
   useEffect(() => {
     if (products.length) {
-      setProduct(products.filter((product) => product.id == id)[0]);
+      setProduct(products.filter((product) => product.id === id)[0]);
     }
   }, [products, id, dispatch]);
 
   useEffect(() => {
     if (id) {
-      setBanner(productFotos.filter((foto) => foto.banner == '1')?.[0]?.id);
+      setBanner(productFotos.filter((foto) => foto.banner === '1')?.[0]?.id);
     }
   }, [productFotos]);
 
@@ -211,7 +211,7 @@ const EditProducts = () => {
                 type='file'
                 accept='image/jpeg'
                 onChange={(files) => {
-                  const fotoFiles = [...files.target.files].map((file) => file);
+                  const fotoFiles = [...files.target.files];
                   onSubmitFotos(fotoFiles);
                 }}
                 className='hand-pointer'
@@ -229,7 +229,7 @@ const EditProducts = () => {
                 <div
                   key={i}
                   className={`foto col-12 col-md-4 ${
-                    banner == foto.id ? 'selected' : ''
+                    banner === foto.id ? 'selected' : ''
                   }`}
                 >
                   <FontAwesomeIcon

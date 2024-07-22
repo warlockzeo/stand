@@ -5,7 +5,7 @@
 //   let contentType;
 //   let raw;
 
-//   if (dataURL.indexOf(BASE64_MARKER) == -1) {
+//   if (dataURL.indexOf(BASE64_MARKER) === -1) {
 //     parts = dataURL.split(',');
 //     contentType = parts[0].split(':')[1];
 //     raw = parts[1];

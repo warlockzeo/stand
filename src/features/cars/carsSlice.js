@@ -45,7 +45,7 @@ export const carsSlice = createSlice({
       const { id } = payload;
       return {
         ...state,
-        car: { ...state.cars.filter((xcar) => xcar.id == id) },
+        car: { ...state.cars.filter((xcar) => xcar.id === id) },
       };
     },
   },

@@ -11,4 +11,7 @@ export const Wrap = styled.div`
   div {
     padding: 10px;
   }
+  div.carousel {
+    background-color: transparent;
+  }
 `;

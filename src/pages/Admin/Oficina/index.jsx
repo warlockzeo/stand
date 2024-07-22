@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Row, Form, Toast, ToastContainer } from 'react-bootstrap';
-
+import noImage from '../../../features/no-image.png';
 import {
   updateSettings,
   getAllSettings,
+  addSettingsFotos,
 } from '../../../features/settings/settingsSlice';
 import { Loader, Input } from '../../../components';
 import { Wrap } from './styles';
@@ -14,7 +15,10 @@ const Oficina = () => {
   const { settings, isLoading } = useSelector((state) => state.settings);
   const [setting, setSetting] = useState(null);
   const [showToast, setShowToast] = useState(false);
+  const [photo1, setPhoto1] = useState([]);
+  const [photo2, setPhoto2] = useState([]);
 
+  console.log(photo1);
   const handleChange = (e) => {
     const value = e.target.value;
     setSetting({
@@ -24,16 +28,58 @@ const Oficina = () => {
   };
 
   const onSubmit = () => {
-    delete setting.option;
-    dispatch(updateSettings({ ...setting, id: setting.id })).then(() =>
-      setShowToast(true)
-    );
+    const newSettings = {
+      ...setting,
+      id: setting.id,
+    };
+    const foto1 = photo1;
+    const foto2 = photo2;
+    delete newSettings.option;
+    dispatch(updateSettings(newSettings)).then(() => setShowToast(true));
+    dispatch(
+      addSettingsFotos({
+        id: setting.id,
+        fotos: [...foto1, ...foto2],
+      })
+    ).then(() => setShowToast(true));
   };
+
+  // const onSubmitFotos = (photos) => {
+  //   if (Array.isArray(photos)) {
+  //     const fotosToSend = photos?.filter((file) => file.size <= 2097152);
+  //     setSaving(true);
+  //     if (id) {
+  //       dispatch(
+  //         addFoto({
+  //           id: id,
+  //           fotos: fotosToSend,
+  //         })
+  //       )
+  //         .then(() => {
+  //           if (
+  //             photos.length !== fotosToSend.length ||
+  //             fotosToSend.length === 0
+  //           ) {
+  //             setFileError(true);
+  //           } else {
+  //             setFileError(false);
+  //             navigate('/admin');
+  //           }
+  //         })
+  //         .catch((error) => console.error(error));
+  //     } else {
+  //       dispatch(addCar(fotos));
+  //       navigate('/admin');
+  //     }
+  //   } else {
+  //     navigate('/admin');
+  //   }
+  // };
 
   useEffect(() => {
     if (!setting && settings.length > 0) {
       const setting = settings.filter(
-        (setting) => setting.option == 'oficina'
+        (setting) => setting.option === 'oficina'
       )[0];
       setSetting(setting);
       dispatch(getAllSettings());
@@ -93,6 +139,62 @@ const Oficina = () => {
               defaultValue={setting?.horario1}
             />
 
+            <div
+              className='col-12 col-md-6'
+              style={{
+                padding: '20px',
+                position: 'relative',
+              }}
+            >
+              <input
+                name='foto1'
+                type='file'
+                accept='image/jpeg'
+                onChange={(files) => setPhoto1([...files.target.files])}
+                className='hand-pointer'
+                style={{
+                  opacity: 0,
+                  position: 'absolute',
+                  width: '90%',
+                  height: '90%',
+                }}
+              />
+              <img
+                src={photo1[0] ? URL.createObjectURL(photo1[0]) : noImage}
+                alt=''
+                style={{ width: '100%' }}
+              />
+              <br />
+              <span>Foto 1 ...</span>
+            </div>
+            <div
+              className='col-12 col-md-6'
+              style={{
+                padding: '20px',
+                position: 'relative',
+              }}
+            >
+              <input
+                name='foto2'
+                type='file'
+                accept='image/jpeg'
+                onChange={(files) => setPhoto2([...files.target.files])}
+                className='hand-pointer'
+                style={{
+                  opacity: 0,
+                  position: 'absolute',
+                  width: '90%',
+                  height: '90%',
+                }}
+              />
+              <img
+                src={photo2[0] ? URL.createObjectURL(photo2[0]) : noImage}
+                alt=''
+                style={{ width: '100%' }}
+              />
+              <br />
+              <span>Foto 2 ...</span>
+            </div>
             <div className='form-buttons'>
               <button
                 type='submit'

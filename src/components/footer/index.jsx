@@ -9,7 +9,7 @@ const Footer = () => {
   const [setting, setSetting] = useState({});
 
   useEffect(() => {
-    setSetting(settings.filter((setting) => setting.option == 'footer')[0]);
+    setSetting(settings.filter((setting) => setting.option === 'footer')[0]);
   }, [settings]);
 
   return (

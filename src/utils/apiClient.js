@@ -163,9 +163,24 @@ export const updateSettings = async (data) => {
     method: 'patch',
     responseType: 'json',
     url: `${SERVER_URL}/settings/`,
+    headers: { 'Content-Type': 'multipart/form-data' },
     data: JSON.stringify({
       body: data,
     }),
+  })
+    .then((response) => response.data)
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+export const addSettingsFotos = async (data) => {
+  return await axios({
+    method: 'post',
+    responseType: 'json',
+    url: `${SERVER_URL}/settings/`,
+    headers: { 'Content-Type': 'multipart/form-data' },
+    data: data,
   })
     .then((response) => response.data)
     .catch((err) => {

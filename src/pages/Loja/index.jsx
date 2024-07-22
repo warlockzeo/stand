@@ -29,13 +29,13 @@ const Loja = () => {
     if (products.length) {
       let newProducts = products;
       filters.forEach((filt) => {
-        if (filt.field == 'preco') {
+        if (filt.field === 'preco') {
           newProducts = newProducts.filter(
             (car) => Number(car[filt.field]) >= Number(filt.value)
           );
         } else {
           newProducts = newProducts.filter(
-            (car) => car[filt.field] == filt.value
+            (car) => car[filt.field] === filt.value
           );
         }
       });
@@ -48,7 +48,7 @@ const Loja = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (productsFiltered.length < 1 && filters.length == 0) {
+    if (productsFiltered.length < 1 && filters.length === 0) {
       setProductsFiltered(products);
     }
   }, [products, productsFiltered, filters]);

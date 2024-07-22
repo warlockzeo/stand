@@ -11,7 +11,7 @@ const ProductThumb = ({ product }) => {
   return (
     <Wrap onClick={() => navigate(`/product/${id}`)}>
       <div className='cover hand-pointer'></div>
-      {vendido == 1 && <div className='vendido'>Vendido</div>}
+      {vendido === 1 && <div className='vendido'>Vendido</div>}
       <div
         className='foto'
         style={{

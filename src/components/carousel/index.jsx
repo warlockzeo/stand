@@ -6,7 +6,6 @@ import { BannerCarousel } from './styles';
 
 const Banner = ({ images = [], expandeble = false }) => {
   const [expand, setExpand] = useState(expandeble);
-  //const banners = [{ fullName: '/standlogo.jpg' }, ...images];
 
   return (
     <>

@@ -61,6 +61,9 @@ if ($tabela === 'cars') {
         case "GET":
             $settings->get();
             break;
+        case "POST":
+            $settings->addFotos();
+            break;
         case "PATCH":
             $settings->update();
             break;

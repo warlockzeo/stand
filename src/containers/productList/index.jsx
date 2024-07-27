@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 
-import { ProductThumb } from '../../components';
+import { formatCurrency } from '../../utils/formatCurrency';
+import { SERVER_URL } from '../../utils/constants';
+import noImage from '../../features/no-image.png';
+
+import { DetailsThumb } from '../../components';
 import { ProductListStyles } from './styles';
 
 const ProductList = ({ data }) => {
@@ -41,7 +45,29 @@ const ProductList = ({ data }) => {
         <ProductListStyles>
           {ProductsList.map((product) => (
             <Col xs={12} sm={6} md={4} key={product.id}>
-              <ProductThumb product={product} />
+              <DetailsThumb
+                url='/product'
+                id={product.id}
+                vendido={product.vendido}
+              >
+                <div
+                  className='foto'
+                  style={{
+                    backgroundImage: `url(${
+                      product.fileName
+                        ? `${SERVER_URL}/imagens/${product.fileName}`
+                        : noImage
+                    })`,
+                  }}
+                ></div>
+                <p>
+                  <span className='marca'>{product.name}</span>
+                  <span>{product.descr}</span>
+                </p>
+                <span className='preco'>
+                  Preço: {formatCurrency(product.preco)}
+                </span>
+              </DetailsThumb>
             </Col>
           ))}
           <div className='paginacao'>

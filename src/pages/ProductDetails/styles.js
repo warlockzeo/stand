@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CarDetailsStyled = styled.div`
+export const ProductDetailsStyled = styled.div`
   width: 100%;
   min-height: calc(100vh - 65px);
   position: relative;

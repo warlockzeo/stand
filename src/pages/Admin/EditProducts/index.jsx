@@ -45,7 +45,7 @@ const EditProducts = () => {
   const [product, setProduct] = useState(null);
   const [fotos, setFotos] = useState(productFotos || []);
   const [banner, setBanner] = useState(null);
-  console.log(productFotos);
+
   const {
     register,
     handleSubmit,

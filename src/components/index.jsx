@@ -3,9 +3,9 @@ import Banner from './carousel';
 import SocialBar from './socialBar';
 import About from './about';
 import Footer from './footer';
-import CarDetailsThumb from './carDetailsThumb';
-import ProductThumb from './productThumb';
+import DetailsThumb from './detailsThumb';
 import SearchBar from './searchBar';
+import SearchBarProducts from './searchBarProducts';
 import Loader from './loader';
 import Logo from './logo';
 import Image from './Image';
@@ -19,9 +19,9 @@ export {
   About,
   Banner,
   SocialBar,
-  CarDetailsThumb,
-  ProductThumb,
+  DetailsThumb,
   SearchBar,
+  SearchBarProducts,
   Loader,
   Logo,
   Image,

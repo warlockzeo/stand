@@ -8,6 +8,7 @@ import Login from '../pages/Login';
 import Loja from '../pages/Loja';
 import Oficina from '../pages/Oficina';
 import CarDetails from '../pages/CarDetails';
+import ProductDetails from '../pages/ProductDetails';
 import Admin from '../pages/Admin';
 import EditViaturas from '../pages/Admin/EditViatura';
 import Settings from '../pages/Admin/Settings';
@@ -23,6 +24,7 @@ const Routes = () => (
     <Route path='/' element={<Home />} />
     <Route path='/home' element={<Home />} />
     <Route path='/car/:id' element={<CarDetails />} />
+    <Route path='/product/:id' element={<ProductDetails />} />
     <Route path='/login' element={<Login />} />
     <Route path='/loja' element={<Loja />} />
     <Route path='/oficina' element={<Oficina />} />

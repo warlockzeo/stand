@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Col } from 'react-bootstrap';
 
-import { CarDetailsThumb } from '../../components';
+import { formatCurrency } from '../../utils/formatCurrency';
+import { SERVER_URL } from '../../utils/constants';
+import noImage from '../../features/no-image.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { DetailsThumb } from '../../components';
 import { LastReleasesStyles } from './styles';
 
 const LastReleases = ({ data }) => {
@@ -41,7 +46,38 @@ const LastReleases = ({ data }) => {
         <LastReleasesStyles>
           {CarsList.map((car) => (
             <Col xs={12} sm={6} md={4} key={car.id}>
-              <CarDetailsThumb car={car} />
+              <DetailsThumb url='/car' id={car.id} vendido={car.vendido}>
+                <div
+                  className='foto'
+                  style={{
+                    backgroundImage: `url(${
+                      car.fileName
+                        ? `${SERVER_URL}/imagens/${car.fileName}`
+                        : noImage
+                    })`,
+                  }}
+                ></div>
+
+                <p>
+                  <span className='marca'>{car.marca}</span>
+                  <span>{car.modelo}</span>
+                </p>
+                <span className='details'>
+                  <FontAwesomeIcon
+                    icon='fa-solid fa-calendar-days'
+                    className='icon'
+                  />
+                  {car.registo}
+                  <FontAwesomeIcon icon='fa-solid fa-road' className='icon' />
+                  {car.quilometros}
+                  <FontAwesomeIcon
+                    icon='fa-solid fa-gas-pump'
+                    className='icon'
+                  />
+                  {car.combustivel}
+                </span>
+                <span className='preco'>{formatCurrency(car.preco)}</span>
+              </DetailsThumb>
             </Col>
           ))}
           <div className='paginacao'>

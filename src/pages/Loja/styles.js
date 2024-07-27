@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const LojaStyled = styled.div`
+  flex: 1;
   width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
 `;
 
 export const Container = styled.div`

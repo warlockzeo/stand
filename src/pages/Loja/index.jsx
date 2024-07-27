@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Loader, SearchBar, Footer } from '../../components';
+import { Loader, SearchBarProducts, Footer } from '../../components';
 import ProductList from '../../containers/productList';
 import { getAllProducts } from '../../features/products/productsSlice';
 
@@ -30,12 +30,15 @@ const Loja = () => {
       let newProducts = products;
       filters.forEach((filt) => {
         if (filt.field === 'preco') {
-          newProducts = newProducts.filter(
-            (car) => Number(car[filt.field]) >= Number(filt.value)
-          );
+          newProducts = newProducts.filter((product) => {
+            return (
+              Number(product[filt.field]) >= Number(filt.value.min) &&
+              Number(product[filt.field]) <= Number(filt.value.max)
+            );
+          });
         } else {
           newProducts = newProducts.filter(
-            (car) => car[filt.field] === filt.value
+            (product) => product[filt.field] === filt.value
           );
         }
       });
@@ -55,7 +58,7 @@ const Loja = () => {
 
   return (
     <LojaStyled>
-      <SearchBar list={products} onChange={handleChangeFilter} />
+      <SearchBarProducts list={products} onChange={handleChangeFilter} />
       {isLoading ? <Loader /> : <ProductList data={productsFiltered} />}
       <Footer />
     </LojaStyled>

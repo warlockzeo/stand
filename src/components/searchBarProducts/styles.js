@@ -6,6 +6,10 @@ export const SearchBarStyled = styled.div`
   color: #fff;
   padding: 15px 15px 10px;
 
+  .row {
+    justify-content: center;
+  }
+
   select,
   input {
     padding: 2px 12px;

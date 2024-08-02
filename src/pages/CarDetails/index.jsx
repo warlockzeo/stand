@@ -36,12 +36,12 @@ const CarDetails = () => {
   }));
 
   useEffect(() => {
-    dispatch(getAllCars());
+    //   dispatch(getAllCars());
   }, [dispatch]);
 
   useEffect(() => {
     if (cars) {
-      setCar(cars.filter((car) => car.id === id)[0]);
+      setCar(cars.filter((car) => car.id == id)[0]);
     }
   }, [cars, id]);
 

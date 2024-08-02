@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+
 import { Logo } from '../';
 import { Wrap } from './styles';
 import { logout, isLogged } from '../../utils/JWTAuth';
+
+import ShopCart from '../shopCart';
 
 const useDeviceDetect = () => {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -93,6 +96,7 @@ const Header = () => {
                     <FontAwesomeIcon icon='fa fa-cog' className='icon' />{' '}
                     Oficina
                   </LinkAutoColapse>
+                  <ShopCart />
                   <LinkAutoColapse to='/login/'>
                     <FontAwesomeIcon icon='fa fa-sign-in' className='icon' />{' '}
                     Login

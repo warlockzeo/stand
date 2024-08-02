@@ -212,7 +212,7 @@ const EditViatura = () => {
 
   useEffect(() => {
     if (cars.length) {
-      setCar(cars.filter((car) => car.id === id)[0]);
+      setCar(cars.filter((car) => car.id == id)[0]);
     }
   }, [cars, id, dispatch]);
 

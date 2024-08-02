@@ -27,7 +27,7 @@ const Admin = () => {
   const handleClick = (carId) => navigate(`/admin/viaturas/${carId}`);
 
   const onChangeVendido = (id) => {
-    const car = Object.assign({}, cars.filter((car) => car.id === id)[0]);
+    const car = Object.assign({}, cars.filter((car) => car.id == id)[0]);
     delete car.fileName;
 
     const vendido = car.vendido === 1 ? 0 : 1;

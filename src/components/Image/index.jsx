@@ -1,5 +1,5 @@
 import React from 'react';
-import noImage from '../../features/no-image.png';
+import noImage from '../../assets/no-image.png';
 import { SERVER_URL } from '../../utils/constants';
 
 const Image = ({ src, alt, ...rest }) => (

@@ -16,6 +16,7 @@ export const Destaq = styled.section`
   justify-content: space-between;
   align-items: start;
   flex-wrap: wrap;
+  padding: 0 10px;
 
   h1,
   h2,
@@ -41,13 +42,17 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  flex-direction: column-reverse;
   flex-wrap: wrap;
   padding: 20px;
 
   @media screen and (min-width: 426px) {
     flex-direction: row;
     margin-bottom: 85px;
+  }
+
+  img {
+    border-radius: 15px;
+    padding: 5px;
   }
 
   div {

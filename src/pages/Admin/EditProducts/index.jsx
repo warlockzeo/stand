@@ -96,7 +96,7 @@ const EditProducts = () => {
 
   useEffect(() => {
     if (products.length) {
-      setProduct(products.filter((product) => product.id === id)[0]);
+      setProduct(products.filter((product) => product.id == id)[0]);
     }
   }, [products, id, dispatch]);
 

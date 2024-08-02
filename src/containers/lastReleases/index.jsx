@@ -3,7 +3,7 @@ import { Col } from 'react-bootstrap';
 
 import { formatCurrency } from '../../utils/formatCurrency';
 import { SERVER_URL } from '../../utils/constants';
-import noImage from '../../features/no-image.png';
+import noImage from '../../assets/no-image.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { DetailsThumb } from '../../components';

@@ -19,13 +19,6 @@ export const addShopcartItem = createAsyncThunk(
   }
 );
 
-// export const updateShopcartItem = createAsyncThunk(
-//   `${SERVER_URL}/updateShopcart`,
-//   async (payload) => {
-//     return await apiClient.updateShopcart(payload);
-//   }
-// );
-
 export const removeShopcartItem = createAsyncThunk(
   `${SERVER_URL}/removeShopcart`,
   async (payload) => {

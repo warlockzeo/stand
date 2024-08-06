@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   getShopcart,
+  cleanShopcart,
   removeShopcartItem,
 } from '../../features/shopcart/shopcartSlice';
 import { ShopcartStyle } from './styles';
@@ -10,15 +11,19 @@ import { ShopcartStyle } from './styles';
 const ShopCart = () => {
   const dispatch = useDispatch();
   const shopcart = useSelector((state) => state.shopcart.shopcart);
+  const settings = useSelector((state) => state.settings.settings);
   const [showDetails, setShowDetails] = useState(false);
 
   const handleEnviarPedido = () => {
-    const phoneNumber = '351934290403';
+    const phoneNumber = settings?.whatsapp || '351934290403';
     let text = 'Tenho+interesse+em+comprar+:%0D';
     shopcart.forEach((item) => {
       text += encodeURI(`${item.quant} ${item.name}`) + '%0D';
     });
     const link = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${text}&type=phone_number&app_absent=0`;
+
+    dispatch(cleanShopcart());
+
     window.open(link);
   };
 
@@ -65,7 +70,7 @@ const ShopCart = () => {
                 className='btn btn-success form-control'
                 onClick={handleEnviarPedido}
               >
-                Enviar pedido
+                Finalizar pedido
               </button>
             </div>
           </div>

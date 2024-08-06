@@ -26,6 +26,13 @@ export const removeShopcartItem = createAsyncThunk(
   }
 );
 
+export const cleanShopcart = createAsyncThunk(
+  `${SERVER_URL}/cleanShopcart`,
+  async (payload) => {
+    return payload;
+  }
+);
+
 export const shopcartSlice = createSlice({
   name: 'shopcart',
   initialState,
@@ -71,6 +78,17 @@ export const shopcartSlice = createSlice({
         state.shopcart = state.shopcart.filter((item) => item.id !== payload);
       })
       .addCase(removeShopcartItem.rejected, (state, { error }) => {
+        state.isLoading = true;
+        state.error = error.message;
+      })
+      .addCase(cleanShopcart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(cleanShopcart.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.shopcart = [];
+      })
+      .addCase(cleanShopcart.rejected, (state, { error }) => {
         state.isLoading = true;
         state.error = error.message;
       });

@@ -169,6 +169,13 @@ const Settings = () => {
               name='tiktok'
               defaultValue={setting?.tiktok}
             />
+            <Input
+              className='col-md-6 col-lg-3'
+              label='Whatsapp'
+              onChange={handleChange}
+              name='whatsapp'
+              defaultValue={setting?.whatsapp}
+            />
             <div className='form-buttons'>
               <button
                 type='submit'

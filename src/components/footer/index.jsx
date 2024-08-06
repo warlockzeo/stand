@@ -79,6 +79,17 @@ const Footer = () => {
               </a>
             </p>
           ) : null}
+          {setting.whatsapp ? (
+            <p>
+              <a
+                href={`https://api.whatsapp.com/send/?phone=${setting.whatsapp}`}
+                target='_blank'
+                rel='noreferrer'
+              >
+                <i className='bi bi-whatsapp' /> Whatsapp
+              </a>
+            </p>
+          ) : null}
         </Col>
       ) : (
         ''

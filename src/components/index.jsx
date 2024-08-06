@@ -7,7 +7,7 @@ import SearchBar from './searchBar';
 import SearchBarProducts from './searchBarProducts';
 import Loader from './loader';
 import Logo from './logo';
-import Image from './image';
+import Image from './imagem';
 import Input from './input';
 import Carousel2 from './carousel2';
 import DualRange from './dualRange';

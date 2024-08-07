@@ -31,6 +31,7 @@ const ShopCart = () => {
     if (!shopcart?.length) {
       dispatch(getShopcart());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

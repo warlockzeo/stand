@@ -1,20 +1,24 @@
 <?php
+require_once realpath("../" . "/vendor/autoload.php");
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable("../");
+$dotenv->load();
 
 abstract class ClassConexao
 {
-    #conexão com o banco de dados
     protected function conectDB()
     {
-        $user = "warlock";
-        $pass = "smtqsgjh";
+        $dbname = $_ENV['DB_NAME'];
+        $user = $_ENV['DB_USER'];
+        $pass = $_ENV['DB_PASS'];
 
         try {
-            $Conn = new PDO("mysql:host=localhost;dbname=stand", $user, $pass);
+            $Conn = new PDO("mysql:host=localhost;dbname=$dbname", $user, $pass);
             return $Conn;
         } catch (PDOException $Error) {
             return $Error->getMessage();
         }
     }
 }
-
-?>

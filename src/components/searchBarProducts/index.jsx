@@ -13,6 +13,7 @@ const SearchBarProducts = ({ list, onChange }) => {
 
   useEffect(() => {
     setPrecoMaximo(Math.max(...list.map((car) => Number(car.preco))));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

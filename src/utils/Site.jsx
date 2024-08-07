@@ -11,6 +11,7 @@ const Site = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllSettings());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

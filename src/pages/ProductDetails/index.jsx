@@ -3,17 +3,14 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Col } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Footer, Carousel2 } from '../../components';
 
-import { ProductDetailsStyled, Container, Destaq } from './styles';
-import { getAllProducts } from '../../features/products/productsSlice';
-import {
-  addShopcartItem,
-  getShopcart,
-} from '../../features/shopcart/shopcartSlice';
+import { Footer, Carousel2 } from '../../components';
+import { addShopcartItem } from '../../features/shopcart/shopcartSlice';
 import { getAllProductFotos } from '../../features/productFotos/productFotosSlice';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { SERVER_URL } from '../../utils/constants';
+
+import { ProductDetailsStyled, Container, Destaq } from './styles';
 
 const Field = ({ label, data, icon, icon2 }) => (
   <Col xl={4} xs={6} className='field'>
@@ -37,17 +34,14 @@ const ProductDetails = () => {
   }));
 
   useEffect(() => {
-    // dispatch(getAllProducts());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (products) {
-      setproduct(products.filter((product) => product.id == id)[0]);
+      setproduct(products.filter((product) => product.id.toString() === id)[0]);
     }
   }, [products, id]);
 
   useEffect(() => {
     dispatch(getAllProductFotos(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const captionStyle = {

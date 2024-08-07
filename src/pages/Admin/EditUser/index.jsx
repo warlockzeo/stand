@@ -54,7 +54,7 @@ const EditUser = () => {
 
   useEffect(() => {
     if (users) {
-      setUser(users.filter((user) => user.id == id)[0]);
+      setUser(users.filter((user) => user.id.toString() === id)[0]);
     }
   }, [users, id, dispatch]);
 

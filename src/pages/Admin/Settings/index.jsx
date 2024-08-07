@@ -38,6 +38,7 @@ const Settings = () => {
       setSetting(setting);
       dispatch(getAllSettings());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings, dispatch]);
 
   return (

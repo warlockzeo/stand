@@ -55,10 +55,12 @@ export const shopcartSlice = createSlice({
       })
       .addCase(addShopcartItem.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        const x = state.shopcart.filter((item) => item.id == payload.id);
+        const x = state.shopcart.filter(
+          (item) => item.id.toString() === payload.id.toString()
+        );
         if (x.length) {
           state.shopcart = state.shopcart.map((item) =>
-            item.id == payload.id
+            item.id.toString() === payload.id.toString()
               ? { ...item, quant: item.quant + payload.quant }
               : item
           );

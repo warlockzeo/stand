@@ -45,7 +45,11 @@ export const productsSlice = createSlice({
       const { id } = payload;
       return {
         ...state,
-        product: { ...state.products.filter((product) => product.id == id) },
+        product: {
+          ...state.products.filter(
+            (product) => product.id.toString() === id.toString()
+          ),
+        },
       };
     },
   },

@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Footer, Carousel2 } from '../../components';
 
-import { CarDetailsStyled, Container, Destaq } from './styles';
-import { getAllCars } from '../../features/cars/carsSlice';
+import { Footer, Carousel2 } from '../../components';
 import { getAllFotos } from '../../features/fotos/fotosSlice';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { SERVER_URL } from '../../utils/constants';
+
+import { CarDetailsStyled, Container, Destaq } from './styles';
 
 const Field = ({ label, data, icon, icon2 }) => (
   <Col xl={4} xs={6} className='field'>
@@ -36,17 +36,14 @@ const CarDetails = () => {
   }));
 
   useEffect(() => {
-    //   dispatch(getAllCars());
-  }, [dispatch]);
-
-  useEffect(() => {
     if (cars) {
-      setCar(cars.filter((car) => car.id == id)[0]);
+      setCar(cars.filter((car) => car.id.toString() === id)[0]);
     }
   }, [cars, id]);
 
   useEffect(() => {
     dispatch(getAllFotos(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const captionStyle = {

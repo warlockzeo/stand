@@ -234,6 +234,14 @@ const EditViatura = () => {
     }
   }, []);
 
+  if (saving) {
+    return (
+      <div className='cover-blur'>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <Wrap className='container'>
       <Tabs
@@ -412,12 +420,6 @@ const EditViatura = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      {saving && (
-        <div className='cover-blur'>
-          <Loader />
-        </div>
-      )}
     </Wrap>
   );
 };

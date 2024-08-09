@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import Swipe from 'react-easy-swipe';
-import './styles.css';
+import { Wrap } from './styles.js';
 
 const Carousel2 = ({
   data,
@@ -112,7 +112,7 @@ const Carousel2 = ({
   }, [data]);
 
   return (
-    <>
+    <Wrap>
       {photos.length > 0 && (
         <div style={style} className='box'>
           <div
@@ -263,7 +263,7 @@ const Carousel2 = ({
           )}
         </div>
       )}
-    </>
+    </Wrap>
   );
 };
 

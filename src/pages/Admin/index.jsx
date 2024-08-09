@@ -26,7 +26,7 @@ const Admin = () => {
 
   const handleClick = (carId) => navigate(`/admin/viaturas/${carId}`);
 
-  const onChangeVendido = (id) => {
+  const handleChangeVendido = (id) => {
     const car = Object.assign(
       {},
       cars.filter((car) => car.id.toString() === id)[0]
@@ -44,97 +44,86 @@ const Admin = () => {
     dispatch(getAllCars());
   }, [dispatch]);
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!cars?.length) {
+    return (
+      <EmptyArray>
+        <h1>Nenhuma viatura encontrada.</h1>
+        <Link to={`/admin/viaturas/new`}>
+          <button className='btn btn-primary'>
+            Registrar sua primeira viatura
+          </button>
+        </Link>
+      </EmptyArray>
+    );
+  }
+
   return (
     <Wrap className='container'>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          {cars?.length ? (
-            <>
-              <h1>Minhas viaturas</h1>
-              <button
-                type='button'
-                className='btn btn-success'
-                style={{ position: 'absolute', top: 0, right: 10 }}
-                onClick={() => navigate(`/admin/viaturas/new`)}
+      <h1>Minhas viaturas</h1>
+      <button
+        type='button'
+        className='btn btn-success'
+        style={{ position: 'absolute', top: 0, right: 10 }}
+        onClick={() => navigate(`/admin/viaturas/new`)}
+      >
+        <FontAwesomeIcon icon='fa-solid fa-plus' />
+      </button>
+      <table>
+        <thead>
+          <tr>
+            <th>Banner</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Ano</th>
+            <th>Vendido</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cars?.map((car, index) => (
+            <tr key={index}>
+              <td
+                className='hand-pointer text-center'
+                onClick={() => handleClick(car.id)}
               >
-                <FontAwesomeIcon icon='fa-solid fa-plus' />
-              </button>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Banner</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Ano</th>
-                    <th>Vendido</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cars?.map((car, index) => (
-                    <tr key={index}>
-                      <td
-                        className='hand-pointer text-center'
-                        onClick={() => handleClick(car.id)}
-                      >
-                        <Image
-                          src={car?.fileName}
-                          alt=''
-                          style={{ with: '50px', height: '50px' }}
-                        />
-                      </td>
-                      <td
-                        className='hand-pointer'
-                        onClick={() => handleClick(car.id)}
-                      >
-                        {car.marca}
-                      </td>
-                      <td
-                        className='hand-pointer'
-                        onClick={() => handleClick(car.id)}
-                      >
-                        {car.modelo}
-                      </td>
-                      <td
-                        className='hand-pointer'
-                        onClick={() => handleClick(car.id)}
-                      >
-                        {car.ano}
-                      </td>
-                      <td className='hand-pointer'>
-                        <Form.Check
-                          type='switch'
-                          name='vendido'
-                          label={car.vendido === 1 ? 'Sim' : 'Não'}
-                          checked={car.vendido === 1 ? true : false}
-                          onChange={() => onChangeVendido(car.id)}
-                        />
-                      </td>
-                      <td>
-                        <FontAwesomeIcon
-                          icon='fa-solid fa-trash'
-                          onClick={() => setShowModal(car.id)}
-                          className='delete-icon hand-pointer'
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          ) : (
-            <EmptyArray>
-              <h1>Nenhuma viatura encontrada.</h1>
-              <Link to={`/admin/viaturas/new`}>
-                <button className='btn btn-primary'>
-                  Registrar sua primeira viatura
-                </button>
-              </Link>
-            </EmptyArray>
-          )}
-        </>
-      )}
+                <Image
+                  src={car?.fileName}
+                  alt=''
+                  style={{ with: '50px', height: '50px' }}
+                />
+              </td>
+              <td className='hand-pointer' onClick={() => handleClick(car.id)}>
+                {car.marca}
+              </td>
+              <td className='hand-pointer' onClick={() => handleClick(car.id)}>
+                {car.modelo}
+              </td>
+              <td className='hand-pointer' onClick={() => handleClick(car.id)}>
+                {car.ano}
+              </td>
+              <td className='hand-pointer'>
+                <Form.Check
+                  type='switch'
+                  name='vendido'
+                  label={car.vendido === 1 ? 'Sim' : 'Não'}
+                  checked={car.vendido === 1 ? true : false}
+                  onChange={() => handleChangeVendido(car.id)}
+                />
+              </td>
+              <td>
+                <FontAwesomeIcon
+                  icon='fa-solid fa-trash'
+                  onClick={() => setShowModal(car.id)}
+                  className='delete-icon hand-pointer'
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <ToastContainer position='bottom-center'>
         <Toast

@@ -30,7 +30,7 @@ const Admin = () => {
     const car = Object.assign({}, cars.filter((car) => car.id == id)[0]);
     delete car.fileName;
 
-    const vendido = car.vendido === 1 ? 0 : 1;
+    const vendido = car.vendido == 1 ? 0 : 1;
 
     dispatch(updateCar({ id: id, car: { ...car, vendido: vendido } }))
       .then(() => dispatch(getAllCars()))
@@ -103,8 +103,8 @@ const Admin = () => {
                         <Form.Check
                           type='switch'
                           name='vendido'
-                          label={car.vendido === 1 ? 'Sim' : 'Não'}
-                          checked={car.vendido === 1 ? true : false}
+                          label={car.vendido == 1 ? 'Sim' : 'Não'}
+                          checked={car.vendido == 1 ? true : false}
                           onChange={() => onChangeVendido(car.id)}
                         />
                       </td>

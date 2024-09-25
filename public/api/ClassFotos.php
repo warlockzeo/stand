@@ -3,14 +3,14 @@ header("Access-Control-Allow-Origin:*");
 header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
-include ("ClassConexao.php");
-include ("resizeImage.php");
+include("ClassConexao.php");
+include("resizeImage.php");
 
 function diverse_array($vector)
 {
     $result = array();
     foreach ($vector as $key1 => $value1) foreach ($value1 as $key2 => $value2)
-            $result[$key2][$key1] = $value2;
+        $result[$key2][$key1] = $value2;
     return $result;
 }
 
@@ -45,13 +45,17 @@ class ClassFotos extends ClassConexao
         $BFetch->execute();
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
         $carId = $Fetch[0]['carId'];
+        $isSelected = $Fetch[0]['banner'];
 
         $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 0 WHERE carId = $carId");
         $BFetch->execute();
 
-        $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 1 WHERE id = $id");
-        if ($BFetch->execute()) {
-            echo '{"id": ' . $id . '}';
+        if ($isSelected == 0) {
+            $BFetch = $this->conectDB()->prepare("UPDATE fotos SET banner = 1 WHERE id = $id");
+            if ($BFetch->execute()) {
+                echo '{"id": ' . $id . '}';
+            }
+        } else {
         }
     }
 

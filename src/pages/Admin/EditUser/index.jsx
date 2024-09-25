@@ -19,7 +19,7 @@ const EditUser = () => {
     changePassword || !id
       ? password?.password &&
         password?.repassword &&
-        password?.password === password?.repassword
+        password?.password == password?.repassword
       : true;
 
   const notEmpty = user?.name && user?.login && user?.password;
@@ -54,7 +54,7 @@ const EditUser = () => {
 
   useEffect(() => {
     if (users) {
-      setUser(users.filter((user) => user.id.toString() === id)[0]);
+      setUser(users.filter((user) => user.id.toString() == id)[0]);
     }
   }, [users, id, dispatch]);
 

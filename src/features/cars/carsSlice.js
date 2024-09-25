@@ -46,7 +46,7 @@ export const carsSlice = createSlice({
       return {
         ...state,
         car: {
-          ...state.cars.filter((xcar) => xcar.id.toString() === id.toString()),
+          ...state.cars.filter((xcar) => xcar.id.toString() == id.toString()),
         },
       };
     },

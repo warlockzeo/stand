@@ -16,7 +16,7 @@ const Field = ({
     <Wrap type={type}>
       {icon && <FontAwesomeIcon icon={icon} />}
       <span>{label}</span>
-      {type === 'multitext' ? (
+      {type == 'multitext' ? (
         <textarea
           defaultValue={value}
           className='form-control'

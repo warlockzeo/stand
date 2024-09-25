@@ -37,7 +37,7 @@ const CarDetails = () => {
 
   useEffect(() => {
     if (cars) {
-      setCar(cars.filter((car) => car.id.toString() === id)[0]);
+      setCar(cars.filter((car) => car.id.toString() == id)[0]);
     }
   }, [cars, id]);
 

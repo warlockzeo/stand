@@ -19,7 +19,7 @@ const SearchBar = ({ list, onChange }) => {
         [
           ...new Set(
             list
-              .filter((car) => car.marca === marcaSelected)
+              .filter((car) => car.marca == marcaSelected)
               .map((car) => car.modelo)
           ),
         ].sort()

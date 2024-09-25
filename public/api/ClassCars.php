@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin:*");
 header("Content-type: application/json");
 header("Access-Control-Allow-Methods: POST, PATCH, GET, DELETE, OPTIONS");
 
-include ("ClassConexao.php");
+include("ClassConexao.php");
 
 class ClassCars extends ClassConexao
 {
@@ -16,11 +16,35 @@ class ClassCars extends ClassConexao
 
         $Fetch = $BFetch->fetchall(PDO::FETCH_ASSOC);
 
-        if ($id) {
-            echo json_encode($Fetch ?? "");
-        } else {
-            echo json_encode($Fetch ?? []);
+        if ($Fetch) {
+
+            if ($id && $Fetch['fileName'] == null) {
+                $BFotoFetch = $this->conectDB()->prepare("SELECT * FROM fotos WHERE carId = $id LIMIT 1");
+                $BFotoFetch->execute();
+                $FotoFetch = $BFotoFetch->fetch(PDO::FETCH_ASSOC);
+                echo "entrou no primeiro";
+                print_r($FotoFetch);
+                return;
+                $Fetch['fileName'] = $FotoFetch;
+            }
+
+            if (!$id) {
+                for ($i = 0; $i <  count($Fetch); $i++) {
+                    $currId = $Fetch[$i]['id'];
+                    if ($Fetch[$i]['fileName'] == null) {
+                        $BFotoFetch = $this->conectDB()->prepare("SELECT * FROM fotos WHERE carId = $currId LIMIT 1");
+                        $BFotoFetch->execute();
+                        $FotoFetch = $BFotoFetch->fetch(PDO::FETCH_ASSOC);
+                        $Fetch[$i]['fileName'] = $FotoFetch['fileName'];
+                    }
+                }
+            }
+
+            echo json_encode($Fetch);
+            return;
         }
+
+        echo json_encode($id ? "" : []);
     }
 
     public function delete($id)

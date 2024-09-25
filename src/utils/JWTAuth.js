@@ -12,7 +12,7 @@ const login = async (data) => {
       data: JSON.stringify(data),
     });
 
-    if (response.status === 200) {
+    if (response.status == 200) {
       sessionStorage.setItem('access_token', 'OK');
     }
   } catch (e) {

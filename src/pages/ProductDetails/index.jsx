@@ -35,7 +35,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     if (products) {
-      setproduct(products.filter((product) => product.id.toString() === id)[0]);
+      setproduct(products.filter((product) => product.id.toString() == id)[0]);
     }
   }, [products, id]);
 

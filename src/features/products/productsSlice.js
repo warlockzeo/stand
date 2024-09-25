@@ -47,7 +47,7 @@ export const productsSlice = createSlice({
         ...state,
         product: {
           ...state.products.filter(
-            (product) => product.id.toString() === id.toString()
+            (product) => product.id.toString() == id.toString()
           ),
         },
       };

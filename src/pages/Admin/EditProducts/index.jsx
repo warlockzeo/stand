@@ -102,7 +102,7 @@ const EditProducts = () => {
 
   useEffect(() => {
     if (id) {
-      setBanner(productFotos.filter((foto) => foto.banner === '1')?.[0]?.id);
+      setBanner(productFotos.filter((foto) => foto.banner == '1')?.[0]?.id);
     }
   }, [productFotos]);
 
@@ -229,7 +229,7 @@ const EditProducts = () => {
                 <div
                   key={i}
                   className={`foto col-12 col-md-4 ${
-                    banner === foto.id ? 'selected' : ''
+                    banner == foto.id ? 'selected' : ''
                   }`}
                 >
                   <FontAwesomeIcon

@@ -9,7 +9,7 @@ const DetailsThumb = ({ id, vendido, url, children }) => {
   return (
     <Wrap onClick={() => navigate(`${url}/${id}`)}>
       <div className='cover hand-pointer'></div>
-      {vendido === 1 && <div className='vendido'>Vendido</div>}
+      {vendido == 1 && <div className='vendido'>Vendido</div>}
       {children}
     </Wrap>
   );

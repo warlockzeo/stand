@@ -29,7 +29,7 @@ const Loja = () => {
     if (products.length) {
       let newProducts = products;
       filters.forEach((filt) => {
-        if (filt.field === 'preco') {
+        if (filt.field == 'preco') {
           newProducts = newProducts.filter((product) => {
             return (
               Number(product[filt.field]) >= Number(filt.value.min) &&
@@ -38,7 +38,7 @@ const Loja = () => {
           });
         } else {
           newProducts = newProducts.filter(
-            (product) => product[filt.field] === filt.value
+            (product) => product[filt.field] == filt.value
           );
         }
       });
@@ -51,7 +51,7 @@ const Loja = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (productsFiltered.length < 1 && filters.length === 0) {
+    if (productsFiltered.length < 1 && filters.length == 0) {
       setProductsFiltered(products);
     }
   }, [products, productsFiltered, filters]);

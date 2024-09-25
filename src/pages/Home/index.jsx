@@ -29,7 +29,7 @@ const Home = () => {
     if (cars.length) {
       let newCars = cars;
       filters.forEach((filt) => {
-        if (filt.field === 'preco') {
+        if (filt.field == 'preco') {
           newCars = newCars.filter((car) => {
             return (
               Number(car[filt.field]) >= Number(filt.value.min) &&
@@ -37,7 +37,7 @@ const Home = () => {
             );
           });
         } else {
-          newCars = newCars.filter((car) => car[filt.field] === filt.value);
+          newCars = newCars.filter((car) => car[filt.field] == filt.value);
         }
       });
       setCarsFiltered(newCars);
@@ -51,7 +51,7 @@ const Home = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (carsFiltered.length < 1 && filters.length === 0) {
+    if (carsFiltered.length < 1 && filters.length == 0) {
       setCarsFiltered(cars);
     }
   }, [cars, carsFiltered, filters]);

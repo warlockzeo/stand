@@ -14,7 +14,7 @@ const Oficina = () => {
   ].filter((foto) => !!foto !== false);
 
   useEffect(() => {
-    setSetting(settings.filter((setting) => setting.option === 'oficina')[0]);
+    setSetting(settings.filter((setting) => setting.option == 'oficina')[0]);
   }, [settings]);
 
   return (

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
-  flex: ${(props) => (props.type === 'multitext' ? '1 1 100%' : '1 1 33%')};
+  flex: ${(props) => (props.type == 'multitext' ? '1 1 100%' : '1 1 33%')};
   display: flex;
   flex-direction: row;
   align-items: center;

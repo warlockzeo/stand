@@ -33,7 +33,7 @@ const Settings = () => {
   useEffect(() => {
     if (!setting && settings.length > 0) {
       const setting = settings.filter(
-        (setting) => setting.option === 'footer'
+        (setting) => setting.option == 'footer'
       )[0];
       setSetting(setting);
       dispatch(getAllSettings());

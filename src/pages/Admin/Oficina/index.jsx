@@ -58,7 +58,7 @@ const Oficina = () => {
   //         .then(() => {
   //           if (
   //             photos.length !== fotosToSend.length ||
-  //             fotosToSend.length === 0
+  //             fotosToSend.length == 0
   //           ) {
   //             setFileError(true);
   //           } else {
@@ -79,7 +79,7 @@ const Oficina = () => {
   useEffect(() => {
     if (!setting && settings.length > 0) {
       const setting = settings.filter(
-        (setting) => setting.option === 'oficina'
+        (setting) => setting.option == 'oficina'
       )[0];
       setSetting(setting);
       dispatch(getAllSettings());

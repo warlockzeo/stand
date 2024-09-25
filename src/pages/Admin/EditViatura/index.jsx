@@ -180,7 +180,7 @@ const EditViatura = () => {
           .then(() => {
             if (
               photos.length !== fotosToSend.length ||
-              fotosToSend.length === 0
+              fotosToSend.length == 0
             ) {
               setFileError(true);
             } else {
@@ -206,7 +206,7 @@ const EditViatura = () => {
   };
 
   const handleSelectFoto = (id) => {
-    setBanner(id);
+    setBanner((currentBanner) => (currentBanner == id ? null : id));
     dispatch(selectFoto({ id }));
   };
 
@@ -218,7 +218,7 @@ const EditViatura = () => {
 
   useEffect(() => {
     if (id) {
-      setBanner(fotos.filter((foto) => foto.banner === '1')?.[0]?.id);
+      setBanner(fotos.filter((foto) => foto.banner == '1')?.[0]?.id);
     }
   }, [fotos]);
 
@@ -337,7 +337,7 @@ const EditViatura = () => {
                 <div
                   key={i}
                   className={`foto col-12 col-md-4 ${
-                    banner === foto.id ? 'selected' : ''
+                    banner == foto.id ? 'selected' : ''
                   }`}
                 >
                   <FontAwesomeIcon

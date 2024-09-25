@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 // /* Utility function to convert a canvas to a BLOB */
 // const dataURLToBlob = function (dataURL) {
 //   const BASE64_MARKER = ';base64,';

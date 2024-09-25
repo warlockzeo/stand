@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 // import React, { createContext, useCallback, useContext, useState } from 'react';
 // import { ThemeProvider } from 'styled-components';
 // import { firstTheme, secondTheme } from '../styles/themes';

@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as apiClient from '../../utils/apiClient';
 import { SERVER_URL } from '../../utils/constants';

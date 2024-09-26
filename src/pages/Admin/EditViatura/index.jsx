@@ -166,11 +166,10 @@ const EditViatura = () => {
   });
 
   const onSubmitFotos = (photos) => {
-    console.log(photos);
     if (Array.isArray(photos)) {
       const fotosToSend = photos?.filter((file) => file.size <= 2097152);
       setSaving(true);
-      if (id) {
+      if (id && fotosToSend.length) {
         dispatch(
           addFoto({
             id: id,
@@ -190,8 +189,8 @@ const EditViatura = () => {
           })
           .catch((error) => console.error(error));
       } else {
-        dispatch(addCar(fotos));
-        navigate('/admin');
+        setFileError(true);
+        setSaving(false);
       }
     } else {
       navigate('/admin');
@@ -395,7 +394,6 @@ const EditViatura = () => {
         <Toast
           onClose={() => {
             setFileError(false);
-            navigate('/admin');
           }}
           show={fileError}
           delay={5000}

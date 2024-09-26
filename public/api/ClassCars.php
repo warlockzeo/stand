@@ -29,13 +29,15 @@ class ClassCars extends ClassConexao
             }
 
             if (!$id) {
-                for ($i = 0; $i <  count($Fetch); $i++) {
+                for ($i = 0; $i < count($Fetch); $i++) {
                     $currId = $Fetch[$i]['id'];
                     if ($Fetch[$i]['fileName'] == null) {
                         $BFotoFetch = $this->conectDB()->prepare("SELECT * FROM fotos WHERE carId = $currId LIMIT 1");
                         $BFotoFetch->execute();
                         $FotoFetch = $BFotoFetch->fetch(PDO::FETCH_ASSOC);
-                        $Fetch[$i]['fileName'] = $FotoFetch['fileName'];
+                        if (isset($FotoFetch['fileName'])) {
+                            $Fetch[$i]['fileName'] = $FotoFetch['fileName'];
+                        }
                     }
                 }
             }

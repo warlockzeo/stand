@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -33,6 +33,7 @@ import { SERVER_URL } from '../../../utils/constants';
 import { Wrap } from './styles';
 
 const EditProducts = () => {
+  const inputFileRef = useRef();
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -79,6 +80,25 @@ const EditProducts = () => {
     } else {
       dispatch(addProduct(fotos));
       navigate('/admin/loja-produtos');
+    }
+  };
+
+  const preventDefaults = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleUpdateClick = (e) => {
+    preventDefaults(e);
+    if (!inputFileRef || !inputFileRef.current) return;
+    inputFileRef.current.click();
+  };
+
+  const handleUpload = (files) => {
+    const fotoFiles = [...files].map((file) => file);
+
+    if (fotoFiles.length) {
+      onSubmitFotos(fotoFiles);
     }
   };
 
@@ -204,20 +224,32 @@ const EditProducts = () => {
                 position: 'relative',
                 textAlign: 'center',
               }}
+              onDragEnd={preventDefaults}
+              onDragOver={preventDefaults}
+              onDrop={(e) => {
+                preventDefaults(e);
+                handleUpload(e.dataTransfer.files);
+              }}
             >
               <input
+                hidden
                 multiple
                 name='fotos'
                 type='file'
                 accept='image/jpeg'
-                onChange={(files) => {
-                  const fotoFiles = [...files.target.files];
-                  onSubmitFotos(fotoFiles);
+                ref={inputFileRef}
+                onChange={(e) => {
+                  preventDefaults(e);
+                  handleUpload(e.target.files);
                 }}
-                className='hand-pointer'
-                style={{ opacity: 0, position: 'absolute', width: '100%' }}
+                // onChange={(files) => {
+                //   const fotoFiles = [...files.target.files];
+                //   onSubmitFotos(fotoFiles);
+                // }}
               />
-              <span>Carregue as suas fotos...</span>
+              <span className='hand-pointer' onClick={handleUpdateClick}>
+                Arraste as suas fotos ou clique aqui
+              </span>
             </div>
           </div>
           {fotos.length ? (

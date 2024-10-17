@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable eqeqeq */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
@@ -32,6 +32,7 @@ import Field from '../Field';
 import { Wrap } from './styles';
 
 const EditViatura = () => {
+  const inputFileRef = useRef();
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -169,6 +170,7 @@ const EditViatura = () => {
     if (Array.isArray(photos)) {
       const fotosToSend = photos?.filter((file) => file.size <= 2097152);
       setSaving(true);
+
       if (id && fotosToSend.length) {
         dispatch(
           addFoto({
@@ -194,6 +196,25 @@ const EditViatura = () => {
       }
     } else {
       navigate('/admin');
+    }
+  };
+
+  const preventDefaults = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleUpdateClick = (e) => {
+    preventDefaults(e);
+    if (!inputFileRef || !inputFileRef.current) return;
+    inputFileRef.current.click();
+  };
+
+  const handleUpload = (files) => {
+    const fotoFiles = [...files].map((file) => file);
+
+    if (fotoFiles.length) {
+      onSubmitFotos(fotoFiles);
     }
   };
 
@@ -301,29 +322,37 @@ const EditViatura = () => {
         </Tab>
 
         <Tab eventKey='profile' title='Fotos'>
-          <div className='form-group' style={{ backgroundColor: '#eee' }}>
-            <div
-              className='form-input'
-              style={{
-                padding: '20px',
-                position: 'relative',
-                textAlign: 'center',
+          <div
+            className='form-group'
+            style={{
+              backgroundColor: '#000',
+              borderWidth: 10,
+              borderStyle: 'solid',
+              borderColor: '#eee',
+              padding: '20px',
+            }}
+            onDragEnd={preventDefaults}
+            onDragOver={preventDefaults}
+            onDrop={(e) => {
+              preventDefaults(e);
+              handleUpload(e.dataTransfer.files);
+            }}
+          >
+            <input
+              hidden
+              multiple
+              name='fotos'
+              type='file'
+              accept='image/jpeg'
+              ref={inputFileRef}
+              onChange={(e) => {
+                preventDefaults(e);
+                handleUpload(e.target.files);
               }}
-            >
-              <input
-                multiple
-                name='fotos'
-                type='file'
-                accept='image/jpeg'
-                onChange={(files) => {
-                  const fotoFiles = [...files.target.files].map((file) => file);
-                  onSubmitFotos(fotoFiles);
-                }}
-                className='hand-pointer'
-                style={{ opacity: 0, position: 'absolute', width: '100%' }}
-              />
-              <span>Carregue as suas fotos...</span>
-            </div>
+            />
+            <span className='hand-pointer' onClick={handleUpdateClick}>
+              Arraste as suas fotos ou clique aqui
+            </span>
           </div>
 
           {fotos.length > 0 && (

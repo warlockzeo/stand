@@ -15,6 +15,9 @@ const login = async (data) => {
 
     if (response.status == 200) {
       sessionStorage.setItem('access_token', 'OK');
+      const timestampAtual = Date.now();
+      const timestampMais6Horas = timestampAtual + 6 * 60 * 60 * 1000;
+      sessionStorage.setItem('expire_at', timestampMais6Horas);
     }
   } catch (e) {
     return { error: 'Usuario ou senha inválidos' };
@@ -30,7 +33,16 @@ const logout = () => {
 
 const userAuth = sessionStorage.getItem('access_token');
 
-const isAuthenticated = () => !!userAuth;
+const isAuthenticated = () => {
+  const userExpiration = sessionStorage.getItem('expire_at');
+
+  if (!userExpiration || userExpiration <= Date.now()) {
+    logout();
+    return false;
+  } else {
+    return !!userAuth;
+  }
+};
 
 const isLogged = !!sessionStorage.getItem('access_token');
 

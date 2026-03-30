@@ -83,7 +83,6 @@ final class ServerConstAdapter implements AdapterInterface
     public function delete(string $name)
     {
         unset($_SERVER[$name]);
-
         return true;
     }
 }

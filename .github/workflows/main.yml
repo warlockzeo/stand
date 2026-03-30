@@ -31,7 +31,7 @@ jobs:
     - name: List output files
       run: find build/ -print
 
-    - name: 📂 Sync files - ${{ secrets.SERVER }}
+    - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
         server: ${{ secrets.SERVER }}
